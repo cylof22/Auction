@@ -1,0 +1,28 @@
+<form name="上传图作">
+    <div>
+        <h2>上传图作</h2>
+        <input type="file" name="files" accept="image/png,image/jpg,image/jpeg" ng-change="OnContentChange($files)" ng-model="picFile">
+    </div>
+    <img  ng-src="picFile" class="thumb" width="320" height="150">
+</form>
+
+<form name="我想要的风格">
+    <div>
+        <h2>我想要的风格</h2>
+        <input type="file" name="files" multiple accept="image/png,image/jpg,image/jpeg">
+    </div>
+    <img ng-src="style" class="thumb" width="320" height="150">
+</form>
+
+<form name="最终效果">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-9">
+
+            </div>
+    </div>
+    </div> 
+</form>
