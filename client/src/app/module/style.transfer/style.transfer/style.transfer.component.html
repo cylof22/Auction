@@ -1,34 +1,33 @@
-<form name="upload-content">
+<div class="container">
     <div>
         <label>上传图作</label>
         <label class="btn btn-default">
-                选择原图<input type="file" accept="image/*" style="display:none" (change)="OnContentChange($event)">
+            选择原图<input type="file" accept="image/*" style="display:none" (change)="OnContentChange($event)">
         </label>
         <div id="content-preview">
-
+        
         </div>
     </div>
-</form>
-
-<div class="panel panel-default panel-primary">
-    <div class="panel-heading">试试人工智能为你创作？</div>
-    <div class="panel-body">
-        <input type="button" class="btn btn-primary btn-sm" value="不，谢谢!">
-        <input type="button" class="btn btn-default btn-sm" value="试试">
+        
+    <div class="panel panel-default panel-primary text-center">
+        <div class="panel-heading">试试人工智能为你创作</div>
+        <div class="panel-body">
+            <input type="button" class="btn btn-default btn-sm active" value="不，谢谢!">
+            <input type="button" class="btn btn-default btn-sm" value="试试">
+        </div>
     </div>
-</div>
-
-<form name="my-style">
+            
     <div>
         <label class="center">我想要的风格</label>
         <label class="btn btn-default">
-                选择样式<input type="file" multiple accept="image/*" style="display:none" (change)="OnStyleChange($event)">
+            选择样式<input type="file" multiple accept="image/*" style="display:none" (change)="OnStyleChange($event)">
         </label>
         <div id="style-preview">
-
+                
         </div>
     </div>
-</form>
+</div>
+
 
 <form name="最终效果">
     <div class="container">
@@ -39,6 +38,6 @@
             <div class="col-md-9">
 
             </div>
+        </div>
     </div>
-    </div> 
 </form>
