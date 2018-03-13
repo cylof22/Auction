@@ -14,7 +14,33 @@ export class StyleTransferComponent {
         
     }
 
-    OnContentChange($file) {
-        
+    OnContentChange(event) {
+        this.contentFile = event.target.files[0];
+        this.handleFiles(event.target.files, "content-preview");
+    }
+
+    OnStyleChange(event) {
+        this.contentFile = event.target.files[0];
+        this.handleFiles(event.target.files, "style-preview");
+    }
+
+    handleFiles(files, previewID) {
+        var preview = document.getElementById(previewID);
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            
+            if (!file.type.startsWith('image/')){ continue }
+            
+            var img = document.createElement("img");
+            img.classList.add("obj");
+            img.src = file;
+            img.className = "img-responsive";
+            preview.appendChild(img); // Assuming that "preview" is the div output where the content will be displayed.
+            
+            var reader = new FileReader();
+            reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+            reader.readAsDataURL(file);
+        }
     }
 }

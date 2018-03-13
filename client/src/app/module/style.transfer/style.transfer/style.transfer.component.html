@@ -1,17 +1,33 @@
-<form name="上传图作">
+<form name="upload-content">
     <div>
-        <h2>上传图作</h2>
-        <input type="file" name="files" accept="image/png,image/jpg,image/jpeg" ng-change="OnContentChange($files)" ng-model="picFile">
+        <label>上传图作</label>
+        <label class="btn btn-default">
+                选择原图<input type="file" accept="image/*" style="display:none" (change)="OnContentChange($event)">
+        </label>
+        <div id="content-preview">
+
+        </div>
     </div>
-    <img  ng-src="picFile" class="thumb" width="320" height="150">
 </form>
 
-<form name="我想要的风格">
-    <div>
-        <h2>我想要的风格</h2>
-        <input type="file" name="files" multiple accept="image/png,image/jpg,image/jpeg">
+<div class="panel panel-default panel-primary">
+    <div class="panel-heading">试试人工智能为你创作？</div>
+    <div class="panel-body">
+        <input type="button" class="btn btn-primary btn-sm" value="不，谢谢!">
+        <input type="button" class="btn btn-default btn-sm" value="试试">
     </div>
-    <img ng-src="style" class="thumb" width="320" height="150">
+</div>
+
+<form name="my-style">
+    <div>
+        <label class="center">我想要的风格</label>
+        <label class="btn btn-default">
+                选择样式<input type="file" multiple accept="image/*" style="display:none" (change)="OnStyleChange($event)">
+        </label>
+        <div id="style-preview">
+
+        </div>
+    </div>
 </form>
 
 <form name="最终效果">
