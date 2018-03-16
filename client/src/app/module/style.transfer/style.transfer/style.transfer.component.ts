@@ -33,8 +33,6 @@ export class StyleTransferComponent {
             if (!file.type.startsWith('image/')){ continue }
             
             var img = document.createElement("img");
-            img.classList.add("obj");
-            img.src = file;
             img.className = "img-responsive";
             preview.appendChild(img); // Assuming that "preview" is the div output where the content will be displayed.
             
@@ -42,5 +40,16 @@ export class StyleTransferComponent {
             reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
             reader.readAsDataURL(file);
         }
+    }
+
+    Transfer() {
+        // Upload the content file
+        var uploadedContentFile = this.svc.uploadContent(this.contentFile, this.contentFile);
+
+        // Upload the style file
+        var uploadStyleFile = this.svc.uploadStyle(this.styleFile, this.styleFile);
+
+        // transfer the content image by the style image
+        this.outputFile = this.svc.transfer(uploadedContentFile, uploadStyleFile);
     }
 }
