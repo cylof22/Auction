@@ -5,24 +5,18 @@ export const STYLE_TRANSFER_SERVICE_URL = new OpaqueToken("style-transfer-url");
 
 @Injectable()
 export class StyleTransferService {
-    constructor(private http: Http, 
+    constructor(private http: Http,
         @Inject(STYLE_TRANSFER_SERVICE_URL) private url : string) {
-    }
+        }
 
-    transfer(content : string, style : string) : string {
+    transfer(content : string, style : string) : Observable<string> {
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
        
         var outputFile : string;
 
-        this.http.get(this.url + "?" + contentQueryParams + "&" + styleQueryParams + 
-            "&" + "iterations=100").map(response => {
-                let jsonbody = response.json();
-                outputFile = jsonbody["output"]
-
-            });
-        
-        return "";
+        return this.http.get(this.url + "?" + contentQueryParams + "&" + styleQueryParams + 
+            "&" + "iterations=10").map(response => response.json());
     }
 
     preview(content : string, style : string): string {
