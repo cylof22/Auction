@@ -1,6 +1,6 @@
 import { Injectable, Inject, OpaqueToken } from "@angular/core";
 import { Http } from "@angular/http";
-
+import { Observable } from "rxjs/Observable";
 export const STYLE_TRANSFER_SERVICE_URL = new OpaqueToken("style-transfer-url");
 
 @Injectable()
@@ -10,11 +10,17 @@ export class StyleTransferService {
     }
 
     transfer(content : string, style : string) : string {
-        let contentQueryParams = "content=" + content;
-        let styleQueryParams = "style=" + style;
-        let outputQueryParams = "output=" + "";
-        this.http.get(this.url + "?" + contentQueryParams + "&" + styleQueryParams + "&" + 
-            outputQueryParams + "&" + "iterations=100").map(response => response.json());
+        let contentQueryParams = "content=" + btoa(content);
+        let styleQueryParams = "style=" + btoa(style);
+       
+        var outputFile : string;
+
+        this.http.get(this.url + "?" + contentQueryParams + "&" + styleQueryParams + 
+            "&" + "iterations=100").map(response => {
+                let jsonbody = response.json();
+                outputFile = jsonbody["output"]
+
+            });
         
         return "";
     }
@@ -23,9 +29,13 @@ export class StyleTransferService {
         let previewURL = this.url + "/preview"
         let contentQueryParams = "content=" + content;
         let styleQueryParams = "style=" + style;
-        let outputQueryParams = "output=" + "";
-        this.http.get(previewURL + "?" + contentQueryParams + "&" + styleQueryParams + "&" + 
-            outputQueryParams).map(response => response.json());
+        
+        var outputFile : string;
+
+        this.http.get(previewURL + "?" + contentQueryParams + "&" + styleQueryParams).map(response => {
+                let jsonbody = response.json();
+                outputFile = jsonbody["output"];
+            });
         
         return "";
     }
@@ -38,7 +48,7 @@ export class StyleTransferService {
         return this.uploadFile(this.url + "/style", styleName, file);
     }
 
-    private uploadFile(url : string, name : string, file : any) : string {
+    private uploadFile(url : string, name : string, file : any) : Observable<string> {
         var uploadedName : string;
         var imgBody : any;
         var reader = new FileReader();
@@ -48,16 +58,10 @@ export class StyleTransferService {
         reader.readAsBinaryString(file);
 
         const requestData = {
-            name : name,
             image: imgBody,
         };
 
-        this.http.post(url, requestData).subscribe(
-            res => {
-                uploadedName = res.json()["name"];
-            }
-        );
-
-        return uploadedName;
+        return this.http.post(url + "/" + name, requestData)
+            .map(res => res.json()).map(output => output["name"]);
     }
 }

@@ -44,12 +44,18 @@ export class StyleTransferComponent {
 
     Transfer() {
         // Upload the content file
-        var uploadedContentFile = this.svc.uploadContent(this.contentFile, this.contentFile);
+        var uploadedContentFile : string;
+        this.svc.uploadContent(this.contentFile, this.contentFile).subscribe(res => {
+            uploadedContentFile = res;
+        });
 
         // Upload the style file
-        var uploadStyleFile = this.svc.uploadStyle(this.styleFile, this.styleFile);
+        var uploadStyleFile : string;
+        this.svc.uploadStyle(this.styleFile, this.styleFile).subscribe(res => {
+            uploadStyleFile = res;
+        });
 
         // transfer the content image by the style image
-        this.outputFile = this.svc.transfer(uploadedContentFile, uploadStyleFile);
+        this.outputFile = this.svc.transfer("./data/output/1-content.jpg", "./data/styles/1-style.jpg");
     }
 }
