@@ -1,4 +1,5 @@
 <div class="container">
+<<<<<<< HEAD
     <form enctype="multipart/form-data">
         <div>
             <label>上传图作</label>
@@ -6,6 +7,32 @@
                 选择原图<input type="file" name="content" class="form-control" accept="image/*" style="display:none" id="contentUpload" ng2FileSelect [uploader]="contentUploader" (change)="OnContentChange($event)">
             </label>
             <div id="content-preview">
+=======
+    <div>
+        <label>上传图作</label>
+        <label class="btn btn-default">
+            选择原图<input type="file" accept="image/*" style="display:none" (change)="OnContentChange($event)">
+        </label>
+        <div id="content-preview">
+        
+        </div>
+    </div>
+        
+    <div class="panel panel-default panel-primary text-center">
+        <div class="panel-heading">试试人工智能为你创作</div>
+        <div class="panel-body">
+            <input type="button" class="btn btn-default btn-sm active" value="不，谢谢!">
+            <input type="button" class="btn btn-default btn-sm" value="试试" (click)="Transfer($event)">
+        </div>
+    </div>
+            
+    <div>
+        <label class="center">我想要的风格</label>
+        <label class="btn btn-default">
+            选择样式<input type="file" multiple accept="image/*" style="display:none" (change)="OnStyleChange($event)">
+        </label>
+        <div id="style-preview">
+>>>>>>> 02246a3... asynchronize the style, content and style transfer service
                 
             </div>
         </div>
