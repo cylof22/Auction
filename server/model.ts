@@ -47,14 +47,14 @@ export function getReviewsByProductId(productId: number): Review[] {
 }
 
 var products = [
-  new Product(0, 'First Product', 24.99, 4.3, 'This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', "http://localhost:9090/outputs/16-output.jpg" ,['electronics', 'hardware']),
+  new Product(0, 'First Product', 24.99, 4.3, 'This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', "http://localhost:8000/outputs/16-output.jpg" ,['electronics', 'hardware']),
   {
     "id": 1,
     "title": "Second Product",
     "price": 64.99,
     "rating": 3.5,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:9090/outputs/11-output.jpg",
+    "url":"http://localhost:8000/outputs/11-output.jpg",
     "categories": ["books"]
   },
   {
@@ -63,7 +63,7 @@ var products = [
     "price": 74.99,
     "rating": 4.2,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:9090/outputs/12-output.jpg",
+    "url":"http://localhost:8000/outputs/12-output.jpg",
     "categories": ["electronics"]
   },
   {
@@ -72,7 +72,7 @@ var products = [
     "price": 84.99,
     "rating": 3.9,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:9090/outputs/13-output.jpg",
+    "url":"http://localhost:8000/outputs/13-output.jpg",
     "categories": ["hardware"]
   },
   {
@@ -81,7 +81,7 @@ var products = [
     "price": 94.99,
     "rating": 5,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:9090/outputs/14-output.jpg",
+    "url":"http://localhost:8000/outputs/14-output.jpg",
     "categories": ["electronics", "hardware"]
   },
   {
@@ -90,7 +90,7 @@ var products = [
     "price": 54.99,
     "rating": 4.6,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:9090/outputs/15-output.jpg",
+    "url":"http://localhost:8000/outputs/15-output.jpg",
     "categories": ["books"]
   }
 ];
