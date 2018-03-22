@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { StyleTransferComponent } from './style.transfer/style.transfer.component';
+import { FileUploadModule, FileSelectDirective } from 'ng2-file-upload';
 import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL } from './services/style.service';
 
 @NgModule({
@@ -12,6 +13,7 @@ import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL } from './services/sty
     ],
     imports: [
         CommonModule,
+        FileUploadModule,
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
