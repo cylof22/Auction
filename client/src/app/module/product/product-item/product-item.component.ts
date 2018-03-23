@@ -12,4 +12,8 @@ export class ProductItemComponent {
 
   constructor(private sanitizer: DomSanitizer) {
   }
+
+  showProduct() {
+    location.href = "/#/products/" + this.product.id;
+  }
 }

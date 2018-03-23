@@ -1,5 +1,7 @@
 .caption {
-  height: 130px;
+  position:relative;
+  padding-top: 10px;
+  height: 40px;
   overflow: hidden;
 }
 
@@ -8,7 +10,7 @@
 }
 
 .thumbnail {
-  padding: 0;
+  padding: 1;
 }
 
 .thumbnail img {
@@ -17,11 +19,24 @@
 
 .thumbnail .caption-full {
   padding: 9px;
-  color: #333;
 }
 
 .ratings {
   color: #d17581;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.label-left {
+	position: absolute;
+	left: 10px;
+}
+
+.label-right {
+	position: absolute;
+	right: 10px;
+}
+
+.image {
+  height: 90%;
 }
