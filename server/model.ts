@@ -50,7 +50,7 @@ export function getReviewsByProductId(productId: number): Review[] {
 }
 
 var products = [
-  new Product(0, 'First Product', '张三', '李四', 24.99, 4.3, 'This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', "http://via.placeholder.com/350x200", "http://via.placeholder.com/350x150", ['electronics', 'hardware']),
+  new Product(0, 'First Product', '张三', '李四', 24.99, 4.3, 'This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', "http://localhost:8000/outputs/16-output.jpg", "http://via.placeholder.com/350x150", ['electronics', 'hardware']),
   {
     "id": 1,
     "title": "Second Product",
@@ -58,9 +58,9 @@ var products = [
     "creator": "王五",
     "price": 64.99,
     "rating": 3.5,
-    "description": "This is a short desription. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://via.placeholder.com/350x200",
-    "styleImgUrl": "http://via.placeholder.com/350x150",
+    "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url":"http://localhost:8000/outputs/11-output.jpg",
+    "styleImgUrl":"http://via.placeholder.com/350x150",
     "categories": ["books"]
   },
   {
@@ -71,8 +71,8 @@ var products = [
     "price": 74.99,
     "rating": 4.2,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://via.placeholder.com/350x150",
-    "styleImgUrl": "http://via.placeholder.com/350x150",
+    "url":"http://localhost:8000/outputs/12-output.jpg",
+    "styleImgUrl":"http://via.placeholder.com/350x150",
     "categories": ["electronics"]
   },
   {
@@ -83,8 +83,8 @@ var products = [
     "price": 84.99,
     "rating": 3.9,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://via.placeholder.com/350x250",
-    "styleImgUrl": "http://via.placeholder.com/350x150",
+    "url":"http://localhost:8000/outputs/13-output.jpg",
+    "styleImgUrl":"http://via.placeholder.com/350x150",
     "categories": ["hardware"]
   },
   {
@@ -95,8 +95,8 @@ var products = [
     "price": 94.99,
     "rating": 5,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://via.placeholder.com/350x350",
-    "styleImgUrl": "http://via.placeholder.com/350x150",
+    "url":"http://localhost:8000/outputs/14-output.jpg",
+    "styleImgUrl":"http://via.placeholder.com/350x150",
     "categories": ["electronics", "hardware"]
   },
   {
@@ -107,8 +107,8 @@ var products = [
     "price": 54.99,
     "rating": 4.6,
     "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://via.placeholder.com/350x200",
-    "styleImgUrl": "http://via.placeholder.com/350x150",
+    "url":"http://localhost:8000/outputs/15-output.jpg",
+    "styleImgUrl":"http://via.placeholder.com/350x150",
     "categories": ["books"]
   }
 ];
