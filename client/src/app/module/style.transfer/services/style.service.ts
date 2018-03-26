@@ -1,4 +1,5 @@
 import { Injectable, Inject, OpaqueToken } from "@angular/core";
+import { FileUploadModule } from 'ng2-file-upload';
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 export const STYLE_TRANSFER_SERVICE_URL = new OpaqueToken("style-transfer-url");
@@ -12,7 +13,7 @@ export class StyleTransferService {
     transfer(content : string, style : string) : Observable<string> {
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
-       
+        
         var outputFile : string;
 
         return this.http.get(this.url + "?" + contentQueryParams + "&" + styleQueryParams + 
@@ -21,8 +22,8 @@ export class StyleTransferService {
 
     preview(content : string, style : string): string {
         let previewURL = this.url + "/preview"
-        let contentQueryParams = "content=" + content;
-        let styleQueryParams = "style=" + style;
+        let contentQueryParams = "content=" + btoa(content);
+        let styleQueryParams = "style=" + btoa(style);
         
         var outputFile : string;
 
@@ -34,28 +35,41 @@ export class StyleTransferService {
         return "";
     }
 
-    uploadContent(contentName : string, file : any) {
-        return this.uploadFile(this.url + "/content", contentName, file);
+    contentUploadURL() : string {
+        return this.url + "/content";
     }
 
-    uploadStyle(styleName : any, file : any) {
-        return this.uploadFile(this.url + "/style", styleName, file);
+    styleUploadURL() : string {
+        return this.url + "/style";
     }
 
-    private uploadFile(url : string, name : string, file : any) : Observable<string> {
-        var uploadedName : string;
-        var imgBody : any;
-        var reader = new FileReader();
-        reader.onload = function(evt : any) {
-            imgBody = evt.target.result;
-        };
-        reader.readAsBinaryString(file);
+    uploadContent(files : Array<File>) {
+        return this.uploadFile(this.url + "/content", files);
+    }
 
-        const requestData = {
-            image: imgBody,
-        };
+    uploadStyle(files : Array<File>) {
+        return this.uploadFile(this.url + "/style", files);
+    }
 
-        return this.http.post(url + "/" + name, requestData)
-            .map(res => res.json()).map(output => output["name"]);
+    private uploadFile(url : string, files: Array<File>) {
+        return new Promise((resolve, reject) => {
+            var formData: any = new FormData();
+            formData.set("enctype", "multipart/form-data");
+            var xhr = new XMLHttpRequest();
+            for(var i = 0; i < files.length; i++) {
+                formData.append("files", files[i], files[i].name);
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        resolve(JSON.parse(xhr.response));
+                    } else {
+                        reject(xhr.response);
+                    }
+                }
+            }
+            xhr.open("POST", url, true);
+            xhr.send(formData);
+        });
     }
 }

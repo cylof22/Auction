@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FileUploader, FileItem, ParsedResponseHeaders } from "ng2-file-upload";
 import { StyleTransferService } from '../services/style.service';
 
 @Component({
@@ -6,25 +7,54 @@ import { StyleTransferService } from '../services/style.service';
     templateUrl: './style.transfer.component.html',
 })
 export class StyleTransferComponent {
-    contentFile : string;
-    styleFile : string;
+    contentFile : Array<File>;
+    contentData : any;
+    contentUploader : FileUploader;
+
+    styleFile : Array<File>;
+    styleData : any;
+    styleUploader : FileUploader;
+
     outputFile : string;
 
     constructor(private svc : StyleTransferService) {
-        
+
+        let contentURL = this.svc.contentUploadURL();
+        this.contentUploader = new FileUploader({
+            url: contentURL,
+            method: "POST",
+            itemAlias: "uploadContentfile"
+        });
+        this.contentUploader.onSuccessItem = (item, response, status, headers) => this.OnContentUploadSucess;
+
+        let styleURL = this.svc.styleUploadURL();
+        this.styleUploader = new FileUploader({
+            url : styleURL,
+            method: "POST",
+            itemAlias: "uploadStyleFile"
+        });
+        this.styleUploader.onSuccessItem = (item, response, status, headers) => this.OnStyleUploadSucess;
+    }
+
+    OnContentUploadSucess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) {
+
+    }
+
+    OnStyleUploadSucess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) { 
+
     }
 
     OnContentChange(event) {
-        this.contentFile = event.target.files[0];
+        this.contentFile = event.target.files;
         this.handleFiles(event.target.files, "content-preview");
     }
 
     OnStyleChange(event) {
-        this.contentFile = event.target.files[0];
+        this.styleFile = event.target.files;
         this.handleFiles(event.target.files, "style-preview");
     }
 
-    handleFiles(files, previewID) {
+    private handleFiles(files, previewID) {
         var preview = document.getElementById(previewID);
 
         for (var i = 0; i < files.length; i++) {
@@ -42,22 +72,52 @@ export class StyleTransferComponent {
         }
     }
 
+    uploadContent() {
+        this.contentUploader.options.url += "/" + this.contentFile;
+        this.contentUploader.queue[0].onSuccess = function (response, status, headers) {
+            if (status == 200) {
+                let contentRes = JSON.parse(response);
+            } else {
+
+                alert("");
+            }
+        };
+        this.contentUploader.queue[0].upload();
+    }
+
+    uploadStyle() {
+        this.styleUploader.options.url += "/" + this.styleFile;
+        this.styleUploader.queue[0].onSuccess = function( response, status, headers) {
+            if (status == 200) {
+                let styleRes = JSON.parse(response);
+
+            } else {
+                alert("");
+            }
+        };
+        this.styleUploader.queue[0].upload();
+    }
+    
     Transfer(event) {
         // Upload the content file
         var uploadedContentFile : string;
-        this.svc.uploadContent(this.contentFile, this.contentFile).subscribe(res => {
-            uploadedContentFile = res;
+        this.contentUploader.uploadAll();
+        this.contentUploader.onSuccessItem = (item, response, status, headers) => {
+            let contentRes = JSON.parse(response)
+            uploadedContentFile = contentRes["output"]
 
-            // Upload the style file
             var uploadStyleFile : string;
-            this.svc.uploadStyle(this.styleFile, this.styleFile).subscribe(res => {
-                uploadStyleFile = res;
+            this.styleUploader.uploadAll();
+            this.styleUploader.onSuccessItem = (item, response, status, headers) => {
+                let styleRes = JSON.parse(response)
+                uploadStyleFile = styleRes["output"]
 
                 // transfer the content image by the style image
                 this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
-                    this.outputFile = output;
+                    let transferRes = JSON.parse(output)
+                    this.outputFile = transferRes["output"];
                 });
-            });
-        });
+            };
+        };
     }
 }
