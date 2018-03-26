@@ -103,13 +103,19 @@ export class StyleTransferComponent {
         var uploadedContentFile : string;
         this.contentUploader.uploadAll();
         this.contentUploader.onSuccessItem = (item, response, status, headers) => {
+            let contentRes = JSON.parse(response)
+            uploadedContentFile = contentRes["output"]
 
             var uploadStyleFile : string;
             this.styleUploader.uploadAll();
             this.styleUploader.onSuccessItem = (item, response, status, headers) => {
+                let styleRes = JSON.parse(response)
+                uploadStyleFile = styleRes["output"]
+
                 // transfer the content image by the style image
                 this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
-                    this.outputFile = output;
+                    let transferRes = JSON.parse(output)
+                    this.outputFile = transferRes["output"];
                 });
             };
         };

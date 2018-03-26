@@ -13,7 +13,7 @@ export class StyleTransferService {
     transfer(content : string, style : string) : Observable<string> {
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
-       
+        
         var outputFile : string;
 
         return this.http.get(this.url + "?" + contentQueryParams + "&" + styleQueryParams + 
@@ -22,8 +22,8 @@ export class StyleTransferService {
 
     preview(content : string, style : string): string {
         let previewURL = this.url + "/preview"
-        let contentQueryParams = "content=" + content;
-        let styleQueryParams = "style=" + style;
+        let contentQueryParams = "content=" + btoa(content);
+        let styleQueryParams = "style=" + btoa(style);
         
         var outputFile : string;
 
