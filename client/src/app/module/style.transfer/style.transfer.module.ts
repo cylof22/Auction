@@ -25,7 +25,7 @@ import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL } from './services/sty
     ],
     providers: [
         StyleTransferService,
-        {provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://localhost:9090/styletransfer"},
+        {provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://localhost:9090/styleTransfer"},
     ]
 })
 
