@@ -11,6 +11,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { ProductModule } from './module/product/product.module';
 import { StyleTransferModule } from './module/style.transfer/style.transfer.module';
 import { WalletModule } from './module/wallet/wallet.module';
+import { StyleUploadModule } from './module/style.upload/style.upload.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { WalletModule } from './module/wallet/wallet.module';
   imports: [
     ProductModule,
     StyleTransferModule,
+    StyleUploadModule,
     WalletModule,
     BrowserModule,
     FormsModule,

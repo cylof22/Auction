@@ -1,11 +1,12 @@
 <div class="thumbnail">
-  <img [src] = "product.url" width="320" height="150">
+  <img [src] = "product.url" (click)="showProduct()" width="90%">
   <div class="caption">
-    <h4 class="pull-right">{{ product.price | currency }}</h4>
-    <h4><a [routerLink]="['/products', product.id]">{{ product.title }}</a></h4>
-    <p>{{ product.description }}</p>
+    <label class="label-left">{{ product.owner }}</label>
+    <label class="label-right">{{ product.price | currency }}</label>
   </div>
-  <div class="ratings">
+    <!-- <h4><a [routerLink]="['/products', product.id]">{{ product.title }}</a></h4>
+    <p>{{ product.description }}</p> -->
+  <!-- <div class="ratings">
     <auction-stars [rating]="product.rating"></auction-stars>
-  </div>
+  </div>-->
 </div>

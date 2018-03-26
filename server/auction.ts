@@ -12,6 +12,7 @@ const app = express();
 app.use(compression());
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use("/outputs", express.static(path.join(__dirname, 'data/outputs')))
+app.use("/styles", express.static(path.join(__dirname, 'data/styles')))
 
 app.get('/api/products', (req, res) => {
   res.json(getProducts(req.query));

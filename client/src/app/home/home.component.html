@@ -1,15 +1,22 @@
-<div class="row carousel-holder">
-  <div class="col-md-3">
-      <auction-search></auction-search>
-  </div>
-  <div class="col-md-9">
-      <auction-carousel></auction-carousel>
-  </div>
-</div>
 <div class="row">
-  <div class="alert alert-warning" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
-
-  <div *ngFor="let product of products | async" class="col-sm-4 col-lg-4 col-md-4">
-    <auction-product-item [product]="product"></auction-product-item>
+  <div>
+    <auction-search></auction-search>
   </div>
 </div>
+
+<ng-masonry-grid class="grid-style"
+                 [masonryOptions]="{ transitionDuration: '0.8s'}" 
+                 [useAnimation]="true"
+                 [useImagesLoaded]="true"
+                 [scrollAnimationOptions]="{ animationEffect: 'effect-4', minDuration : 0.4, maxDuration : 0.7 }">
+  
+  <div class="alert alert-warning" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+  
+  <ng-masonry-grid-item id="{{'masonry-item-'+i}}" *ngFor="let product of products | async" class="col-sm-4 col-lg-4 col-md-4"> 
+    <auction-product-item [product]="product"></auction-product-item>
+  </ng-masonry-grid-item>
+</ng-masonry-grid>
+
+<!-- <div class="row" style="margin-top: 30px;background-color:grey">
+  <foot-scrollbar></foot-scrollbar>
+</div> -->
