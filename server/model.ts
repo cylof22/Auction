@@ -63,7 +63,7 @@ function createImageFile(imageData: string, imageName: string): string {
   let imageUrl: string = "";
   let pos = imageData.indexOf(",");
   let base64d = imageData.substring(pos+1);
-  let path = "build/data/styles/" + imageName + ".png";
+  let path = "../data/styles/" + imageName + ".png";
   let fs = require('fs');
   fs.writeFile(path, base64d, 'base64', function(err)  {
       if(err) {
@@ -73,7 +73,7 @@ function createImageFile(imageData: string, imageName: string): string {
     });
 
   console.log("The image file is saved!");
-  imageUrl = "http://127.0.0.1:8000/styles/" + imageName + ".png";
+  imageUrl = "http://127.0.0.1:9090/styles/" + imageName + ".png";
 
   return imageUrl;
 }
@@ -115,7 +115,7 @@ export function addProduct(productData = <any>{}): Product {
 
 function readProducts() : any {
   let fs = require('fs');
-  let file = "build/data/info/images.json";
+  let file = "../data/info/images.json";
   return JSON.parse(fs.readFileSync( file)); 
 }
 
