@@ -73,7 +73,7 @@ function createImageFile(imageData: string, imageName: string): string {
     });
 
   console.log("The image file is saved!");
-  imageUrl = "http://localhost:8000/styles/" + imageName + ".png";
+  imageUrl = "http://127.0.0.1:8000/styles/" + imageName + ".png";
 
   return imageUrl;
 }
