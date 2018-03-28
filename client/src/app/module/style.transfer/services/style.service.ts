@@ -13,9 +13,8 @@ export class StyleTransferService {
         }
 
     transfer(content : string, style : string) : Observable<string> {
-        let contentQueryParams = "content=" + content;
-        let styleQueryParams = "style=" + style;
-        let outputQueryParams = "output=" + "";
+        let contentQueryParams = "content=" + btoa(content);
+        let styleQueryParams = "style=" + btoa(style);
 
         return this.http.get(this.transferurl + "?" + contentQueryParams + "&" + styleQueryParams + 
             "&" + "iterations=10").map(response => response.json());
