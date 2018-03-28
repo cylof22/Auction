@@ -1,0 +1,14 @@
+.container {
+    margin-top: 20px;
+    position:relative;
+    float: left;
+    height: 315px;
+}
+
+.text-area {
+    height:130px;
+}
+
+.submit-btn {
+    width: 100%;
+}

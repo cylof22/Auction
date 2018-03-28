@@ -8,6 +8,8 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { ONLINE_AUCTION_SERVICES } from './service/services';
 import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
+import { FootScrollBarComponent } from './scrollBar/scrollBar.component'
+import { NgMasonryGridModule } from 'ng-masonry-grid';
 
 @NgModule({
     declarations: [
@@ -15,12 +17,15 @@ import { SearchComponent } from './search/search.component';
         ProductItemComponent,
         StarsComponent,
         SearchComponent,
+        FootScrollBarComponent,
     ],
     exports: [
         ProductDetailComponent,
         ProductItemComponent,
         StarsComponent,
         SearchComponent,
+        FootScrollBarComponent,
+        NgMasonryGridModule,
     ],
     imports: [
         CommonModule,

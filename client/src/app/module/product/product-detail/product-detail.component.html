@@ -1,16 +1,32 @@
-<div class="thumbnail">
-  <img [src] = "product.url" width="320" height="100">
+<div class="row">
   <div>
-    <h4 class="pull-right">{{ product?.price | currency }}</h4>
-    <h4>{{ product?.title }}</h4>
-    <p>{{ product?.description }}</p>
+    <img [src]="product.url" class="col-sm-8 col-lg-8 col-md-8" height="450px">
   </div>
+  <div>
+    <div class="div-style">
+      <strong>详细信息</strong>
+    </div>
+    <div>
+      <p>名称：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.title }}</p>
+      <p>价格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.price | currency }}</p>
+      <p>拥有者：&nbsp;&nbsp;&nbsp;{{ product.owner }}</p>
+      <p>作者：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.creator }}</p>
+    <div class="div-style">
+      <p>{{ product?.description }}</p>
+    </div>
+
+    <div>
+      <p>样式：</p>
+      <img [src]="product.styleImgUrl" class="col-sm-4 col-lg-4 col-md-4 style-image">
+    </div>
+  </div>
+  <!--
   <div class="ratings">
     <p class="pull-right">{{ reviews?.length }} 评论</p>
     <p><auction-stars [rating]="product?.rating"></auction-stars></p>
-  </div>
+  </div>-->
 </div>
-<div class="thumbnail">
+<!--<div class="thumbnail">
   <button class="btn btn-default btn-lg"
           [ngClass]="{active: isWatching}"
           (click)="toggleWatchProduct()"
@@ -44,4 +60,4 @@
       <p>{{ review.comment }}</p>
     </div>
   </div>
-</div>
+</div> -->
