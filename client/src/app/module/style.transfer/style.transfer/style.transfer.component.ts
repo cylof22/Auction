@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable'
 import { StyleTransferService } from '../services/style.service';
+import { Product } from '../../product/product.model/product'
+import { ProductService } from '../../product/service/product.service'
 
 @Component({
     selector: 'style-transfer',
@@ -9,9 +12,13 @@ export class StyleTransferComponent {
     contentFile : string;
     styleFile : string;
     outputFile : string;
+    products: Product[];
 
-    constructor(private svc : StyleTransferService) {
-        
+    constructor(private svc : StyleTransferService,
+        private productService: ProductService) {
+            this.productService.getProducts().subscribe(
+                paras => this.products = paras,
+            );
     }
 
     OnContentChange(event) {
@@ -59,5 +66,10 @@ export class StyleTransferComponent {
                 });
             });
         });
+    }
+
+    updateSelecedImage(url: string) {
+        let img = document.getElementById("selectedStyle");
+        img.setAttribute("src", url);
     }
 }

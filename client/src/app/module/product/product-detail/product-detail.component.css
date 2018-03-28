@@ -4,12 +4,34 @@
     padding-right: 10px;
 }
 
+.box {
+    height:600px;
+    text-align: center;
+    display:table-cell;
+    vertical-align: middle;
+}
+.box-img {
+    max-height:100%;
+    max-width:100%;
+}
+
+.image-background {
+    background-color:rgb(235, 232, 232);
+    text-align: center;
+  }
+
 .div-style {
     padding-bottom: 10px;
 }
 
 .style-image {
     height: 210px;
+}
+
+.style-image2 {
+    margin: 0 auto;
+    max-height:100%;
+    max-width:100%;
 }
 
 .caption {

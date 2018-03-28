@@ -3,8 +3,7 @@ import * as compression from 'compression';
 import * as path from 'path';
 import {Server as HttpServer} from 'http';
 import {Server as WsServer} from 'ws';
-import {Product, Review, getProducts, getProductById, getReviewsByProductId} from './model';
-
+import {Product, Review, getProducts, getProductById, getReviewsByProductId, addProduct} from './model';
 // HTTP API
 
 const app = express();
@@ -19,11 +18,23 @@ app.get('/api/products', (req, res) => {
 });
 
 app.get('/api/products/:id', (req, res) => {
-  res.json(getProductById(parseInt(req.params.id)));
+  res.json(getProductById(req.params.id));
 });
 
 app.get('/api/products/:id/reviews', (req, res) => {
-  res.json(getReviewsByProductId(parseInt(req.params.id)));
+  res.json(getReviewsByProductId(req.params.id));
+});
+
+app.get('/api/upload', (req, res) => {
+  res.json([{'owner': 'Jason'}]);
+});
+
+var bodyParser = require('body-parser');
+app.use(express.json({limit:'50mb'}));
+var jsonParser = bodyParser.json() 
+var urlencodedParser = bodyParser.urlencoded({ extended: false }) 
+app.post('/api/upload', jsonParser, (req, res) => {
+  res.json(addProduct(req.body));
 });
 
 const httpServer: HttpServer = app.listen(8000, 'localhost', () => {
@@ -50,16 +61,16 @@ setInterval(() => {
 // Helper functions
 
 // The map key is a reference to WebSocket connection that represents a user.
-const subscriptions = new Map<any, number[]>();
+const subscriptions = new Map<any, string[]>();
 
-function subscribeToProductBids(client, productId: number): void {
+function subscribeToProductBids(client, productId: string): void {
   let products = subscriptions.get(client) || [];
   subscriptions.set(client, [...products, productId]);
 }
 
 // Bid generator
 
-const currentBids = new Map<number, number>();
+const currentBids = new Map<string, number>();
 
 function generateNewBids() {
   getProducts().forEach(p => {
@@ -71,7 +82,7 @@ function generateNewBids() {
 
 function broadcastNewBidsToSubscribers() {
 
-  subscriptions.forEach((products: number[], ws: WebSocket) => {
+  subscriptions.forEach((products: string[], ws: WebSocket) => {
     if (ws.readyState === 1) { // 1 - READY_STATE_OPEN
       let newBids = products.map(pid => ({
         productId: pid,

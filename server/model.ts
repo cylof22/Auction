@@ -1,6 +1,6 @@
 export class Product {
   constructor(
-    public id: number,
+    public id: string,
     public title: string,
     public owner: string,
     public creator: string,
@@ -15,7 +15,7 @@ export class Product {
 export class Review {
   constructor(
     public id: number,
-    public productId: number,
+    public productId: string,
     public timestamp: string,
     public user: string,
     public rating: number,
@@ -41,82 +41,102 @@ export function getProducts(params = <any>{}): Product[] {
   return result;
 }
 
-export function getProductById(productId: number): Product {
+export function getProductById(productId: string): Product {
   return products.find(p => p.id === productId);
 }
 
-export function getReviewsByProductId(productId: number): Review[] {
+export function getReviewsByProductId(productId: string): Review[] {
   return reviews.filter(r => r.productId === productId);
 }
 
-var products = [
-  new Product(0, 'First Product', '张三', '李四', 24.99, 4.3, 'This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', "http://localhost:8000/outputs/16-output.jpg", "http://localhost:8000/styles/6-style.jpg", ['electronics', 'hardware']),
-  {
-    "id": 1,
-    "title": "Second Product",
-    "owner": "李四",
-    "creator": "王五",
-    "price": 64.99,
-    "rating": 3.5,
-    "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:8000/outputs/11-output.jpg",
-    "styleImgUrl":"http://localhost:8000/styles/1-style.jpg",
-    "categories": ["books"]
-  },
-  {
-    "id": 2,
-    "title": "Third Product",
-    "owner": "张胜",
-    "creator": "王五",
-    "price": 74.99,
-    "rating": 4.2,
-    "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:8000/outputs/34-output.jpg",
-    "styleImgUrl":"http://localhost:8000/styles/2-style.jpg",
-    "categories": ["electronics"]
-  },
-  {
-    "id": 3,
-    "title": "Fourth Product",
-    "owner": "李非",
-    "creator": "王天",
-    "price": 84.99,
-    "rating": 3.9,
-    "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:8000/outputs/21-output.jpg",
-    "styleImgUrl":"http://localhost:8000/styles/3-style.jpg",
-    "categories": ["hardware"]
-  },
-  {
-    "id": 4,
-    "title": "Fifth Product",
-    "owner": "谭龙",
-    "creator": "王非",
-    "price": 94.99,
-    "rating": 5,
-    "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:8000/outputs/44-output.jpg",
-    "styleImgUrl":"http://localhost:8000/styles/4-style.jpg",
-    "categories": ["electronics", "hardware"]
-  },
-  {
-    "id": 5,
-    "title": "Sixth Product",
-    "owner": "谢龙",
-    "creator": "王五",
-    "price": 54.99,
-    "rating": 4.6,
-    "description": "This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "url":"http://localhost:8000/outputs/52-output.jpg",
-    "styleImgUrl":"http://localhost:8000/styles/5-style.jpg",
-    "categories": ["books"]
+function generateUUID(): string {
+  let d = new Date().getTime();
+  let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    let r = (d + Math.random()*16)%16 | 0;
+    d = Math.floor(d/16);
+    return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+  return uuid;
+};
+
+function createImageFile(imageData: string, imageName: string): string {
+  let imageUrl: string = "";
+  let pos = imageData.indexOf(",");
+  let base64d = imageData.substring(pos+1);
+  let path = "build/data/styles/" + imageName + ".png";
+  let fs = require('fs');
+  fs.writeFile(path, base64d, 'base64', function(err)  {
+      if(err) {
+        console.log(err);
+        return imageUrl;
+      }
+    });
+
+  console.log("The image file is saved!");
+  imageUrl = "http://localhost:8000/styles/" + imageName + ".png";
+
+  return imageUrl;
+}
+
+var products = readProducts();
+
+export function addProduct(productData = <any>{}): Product {
+  // create an unique id
+  let imageId = generateUUID();
+
+  // save image
+  let newImageUrl: string = "";
+  if ("undefined" != typeof productData.url
+       && productData.url != "") {
+    console.log("has image data");
+    newImageUrl = createImageFile(productData.url, imageId);
+    } else {
+    console.log("no image data");
   }
-];
+
+  // save new image data
+  let newProduct = new Product("", "", "", "", 0, 0, "", "", "", []);
+  newProduct.id = imageId;
+  newProduct.owner = productData.owner;
+  newProduct.creator = productData.creator;
+  newProduct.title = productData.title;
+  newProduct.description = productData.description;
+  newProduct.price = productData.price;
+  newProduct.categories = productData.categories;
+  newProduct.url = newImageUrl;
+
+  products.splice(0, 0, newProduct);
+
+  // update data file
+  updateProducts();
+
+  return newProduct;
+}
+
+function readProducts() : any {
+  let fs = require('fs');
+  let file = "build/data/info/images.json";
+  return JSON.parse(fs.readFileSync( file)); 
+}
+
+function updateProducts(): void {
+  let fs = require('fs');
+  let path = "build/data/info/images.json";
+  let newData = JSON.stringify(products);
+  console.log(newData);
+  fs.writeFile(path, newData, function(err)  {
+    if(err) {
+      console.log(err);
+    }
+
+    console.log("Products are updated!");
+  });
+}
 
 var reviews = [
   {
     "id": 0,
-    "productId": 0,
+    "productId": "0",
     "timestamp": "2014-05-20T02:17:00+00:00",
     "user": "User 1",
     "rating": 5,
@@ -124,7 +144,7 @@ var reviews = [
   },
   {
     "id": 1,
-    "productId": 0,
+    "productId": "0",
     "timestamp": "2014-05-20T02:53:00+00:00",
     "user": "User 2",
     "rating": 3,
@@ -132,7 +152,7 @@ var reviews = [
   },
   {
     "id": 2,
-    "productId": 0,
+    "productId": "0",
     "timestamp": "2014-05-20T05:26:00+00:00",
     "user": "User 3",
     "rating": 4,
@@ -140,7 +160,7 @@ var reviews = [
   },
   {
     "id": 3,
-    "productId": 0,
+    "productId": "0",
     "timestamp": "2014-05-20T07:20:00+00:00",
     "user": "User 4",
     "rating": 4,
@@ -148,7 +168,7 @@ var reviews = [
   },
   {
     "id": 4,
-    "productId": 0,
+    "productId": "0",
     "timestamp": "2014-05-20T11:35:00+00:00",
     "user": "User 5",
     "rating": 5,
@@ -156,7 +176,7 @@ var reviews = [
   },
   {
     "id": 5,
-    "productId": 0,
+    "productId": "0",
     "timestamp": "2014-05-20T11:42:00+00:00",
     "user": "User 6",
     "rating": 5,

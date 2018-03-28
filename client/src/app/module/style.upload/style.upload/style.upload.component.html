@@ -1,9 +1,10 @@
-<form name="图片上传">
+<form [formGroup]="formModel"
+      (ngSubmit)="submit()">
     <div class="row">
         <div class="form-group col-sm-8 col-lg-8 col-md-8">
             <div>
                 <input type="file" name="imagePath" id="imagePath" style="display: none;"
-                    (change)="showImage(input)" accept="image/png,image/jpg,image/jpeg" #input/>
+                    (change)="showImage(input)" accept="image/png,image/jpg,image/jpeg" #input required/>
                 <input type="button" value="上传照片" (click)="selectFile()">
                 <label id="pathText" >未选择任何文件</label>
             </div>
@@ -12,15 +13,15 @@
         <div class="col-sm-4 col-lg-4 col-md-4 container">
             <div class="form-group">
                 <label>用户名：</label>
-                <input class="form-control" type="text" placeholder="请输入用户名" required> 
+                <input formControlName="owner" id="owner" class="form-control" type="text" placeholder="请输入用户名" required> 
             </div>
             <div class="form-group">
                 <label>描述：</label>
-                <textarea class="form-control text-area" placeholder="请输入图片描述" required ></textarea>
+                <textarea formControlName="description" id="description" class="form-control text-area" placeholder="请输入图片描述" required ></textarea>
             </div>
             <div class="form-group">
                 <label>类型：</label>
-                <select class="form-control">
+                <select formControlName="categories" id="categories" class="form-control" required>
                     <option value="">All categories</option>
                     <option *ngFor="let c of categories"
                             [value]="c">{{c}}</option>
@@ -29,6 +30,6 @@
         </div>
     </div>  
     <div>
-        <button type="submit" class="btn btn-default submit-btn" (click)="submit()" >提交</button>
+        <button type="submit" class="btn btn-default submit-btn" >提交</button>
     </div>
 </form>

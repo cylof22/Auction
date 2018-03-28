@@ -36,7 +36,7 @@ export class ProductDetailComponent implements OnDestroy {
     this.imgHtml = sanitizer.bypassSecurityTrustHtml(`
       <img src="http://placehold.it/820x320">`);
 
-    const productId = parseInt(router.snapshot.params['productId']);
+    const productId = router.snapshot.params['productId'];
 
     this.productService
       .getProductById(productId)

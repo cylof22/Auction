@@ -1,7 +1,7 @@
 export class Review {
   constructor(
     public id: number,
-    public productId: number,
+    public productId: string,
     public timestamp: Date,
     public user: string,
     public rating: number,
