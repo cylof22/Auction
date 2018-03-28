@@ -4,7 +4,8 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { StyleTransferComponent } from './style.transfer/style.transfer.component';
-import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL } from './services/style.service';
+import { FileUploadModule, FileSelectDirective } from 'ng2-file-upload';
+import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL, STYLE_TRANSFER_UPLOAD_SERVICE_URL } from './services/style.service';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL } from './services/sty
     ],
     providers: [
         StyleTransferService,
-        {provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://localhost:9090/styletransfer"},
+        {provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://localhost:5000/styleTransfer"},
+        {provide: STYLE_TRANSFER_UPLOAD_SERVICE_URL, useValue: "http://localhost:9090/styleTransfer"},
     ]
 })
 
