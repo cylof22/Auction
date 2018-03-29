@@ -5,6 +5,7 @@ import { StyleUploadService } from '../services/style.upload.service'
 import { Product } from '../../product/product.model/product'
 import { Review } from '../../product/product.model/review'
 import { Observable } from 'rxjs/Observable'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'style-upload',
@@ -15,21 +16,41 @@ import { Observable } from 'rxjs/Observable'
 export class StyleUploadComponent {
     formModel: FormGroup;
     categories: string[];
+    uploadedImgUrl: string;
+    uploadedStyleUrl: string;
     uploadedData: Product;
-    test: Product;
 
     constructor(private productService: ProductService,
-                private uploadService: StyleUploadService) {
+                private uploadService: StyleUploadService,
+                router: ActivatedRoute) {
         const fb = new FormBuilder();
         this.formModel = fb.group({
-        'owner': '',
+        'owner': '图链',
+        'price': '',
         'description': '',
         'categories': ['']
         })
+
+        if (router.snapshot.params.hasOwnProperty("url") &&
+            router.snapshot.params.hasOwnProperty("basedUrl")) {
+
+            this.uploadedImgUrl = router.snapshot.params['url'];
+            this.uploadedStyleUrl = router.snapshot.params['basedUrl'];
+        }
     }
 
     ngOnInit() {
         this.categories = this.productService.getAllCategories();
+        if (this.uploadedImgUrl != undefined && this.uploadedImgUrl != "") {
+            // hide select controls
+            var selectGroup = document.getElementById("fileSelGroup")
+            selectGroup.style.visibility = "hidden";
+
+            // show image
+            let img = document.getElementById("imagePreview");
+            img.style.height = "100%";
+            img.setAttribute("src", this.uploadedImgUrl);
+        }
     }
 
     selectFile() {
@@ -48,19 +69,25 @@ export class StyleUploadComponent {
         reader.readAsDataURL(file);
         reader.onload = function(e) {
             let img = document.getElementById("imagePreview");
+            img.style.height = "100%";
             img.setAttribute("src", this.result);
         }
     }
 
     submit() {
         this.uploadedData = this.formModel.value;
+        if (this.uploadedImgUrl != undefined && this.uploadedImgUrl != "") {
+            this.uploadedData.styleImgUrl = this.uploadedImgUrl;
+        }
 
         // get image data
         let img = document.getElementById("imagePreview");
         this.uploadedData.url = img.getAttribute("src");
         
         this.uploadService.uploadData(this.uploadedData).subscribe(
-            product => this.test = product,
             error => console.error(error));
+
+        // switch to main page
+        location.href = "/#/";
     }
 }

@@ -3,24 +3,26 @@ import { FileUploader, FileItem, ParsedResponseHeaders } from "ng2-file-upload";
 import { StyleTransferService } from '../services/style.service';
 import { Product } from '../../product/product.model/product'
 import { ProductService } from '../../product/service/product.service'
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'style-transfer',
     templateUrl: './style.transfer.component.html',
+    styleUrls: ['./style.transfer.component.css']
 })
 export class StyleTransferComponent {
     contentFile : Array<File>;
     contentData : any;
     contentUploader : FileUploader;
 
-    styleFile : Array<File>;
-    styleData : any;
-    styleUploader : FileUploader;
-
     outputFile : string;
-    products: Product[];
+    styles: Product[];
+    selectedStyle: Product;
+    modelVisible = false;
 
-    constructor(private svc : StyleTransferService) {
+    constructor(private svc : StyleTransferService,
+        private productService: ProductService,
+        public route:Router) {
 
         let contentURL = this.svc.contentUploadURL();
         this.contentUploader = new FileUploader({
@@ -30,13 +32,11 @@ export class StyleTransferComponent {
         });
         this.contentUploader.onSuccessItem = (item, response, status, headers) => this.OnContentUploadSucess;
 
-        let styleURL = this.svc.styleUploadURL();
-        this.styleUploader = new FileUploader({
-            url : styleURL,
-            method: "POST",
-            itemAlias: "uploadStyleFile"
-        });
-        this.styleUploader.onSuccessItem = (item, response, status, headers) => this.OnStyleUploadSucess;
+        this.productService.getProducts()
+        .subscribe(
+            params => this.styles = params,
+            error => console.error(error)
+      );
     }
 
     OnContentUploadSucess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) {
@@ -47,31 +47,31 @@ export class StyleTransferComponent {
 
     }
 
-    OnContentChange(event) {
-        this.contentFile = event.target.files;
-        this.handleFiles(event.target.files, "content-preview");
+    OnContentChange(input) {
+        this.contentFile = input.files;
+
+        // update image path
+        let imgPathText = document.getElementById("imagePath");
+        imgPathText.innerText = input.value;
+
+        this.showImage(input, "imagePreview");
     }
 
-    OnStyleChange(event) {
-        this.styleFile = event.target.files;
-        this.handleFiles(event.target.files, "style-preview");
+    OnStyleChange(style: Product) {
+        this.selectedStyle = style;
+
+        let img = document.getElementById("selectedStyle");
+        img.setAttribute("src", style.url);
     }
 
-    private handleFiles(files, previewID) {
-        var preview = document.getElementById(previewID);
-
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            
-            if (!file.type.startsWith('image/')){ continue }
-            
-            var img = document.createElement("img");
-            img.className = "img-responsive";
-            preview.appendChild(img); // Assuming that "preview" is the div output where the content will be displayed.
-            
-            var reader = new FileReader();
-            reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-            reader.readAsDataURL(file);
+    private showImage(input, previewID) {
+        let reader = new FileReader();
+        let file = input.files[0];
+        reader.readAsDataURL(file);
+        reader.onload = function(e) {
+            let img = document.getElementById(previewID);
+            img.style.height = "100%";
+            img.setAttribute("src", this.result);
         }
     }
 
@@ -87,21 +87,8 @@ export class StyleTransferComponent {
         };
         this.contentUploader.queue[0].upload();
     }
-
-    uploadStyle() {
-        this.styleUploader.options.url += "/" + this.styleFile;
-        this.styleUploader.queue[0].onSuccess = function( response, status, headers) {
-            if (status == 200) {
-                let styleRes = JSON.parse(response);
-
-            } else {
-                alert("");
-            }
-        };
-        this.styleUploader.queue[0].upload();
-    }
     
-    Transfer(event) {
+    Transfer(event) { 
         // Upload the content file
         var uploadedContentFile : string;
         this.contentUploader.uploadAll();
@@ -109,23 +96,45 @@ export class StyleTransferComponent {
             let contentRes = JSON.parse(response)
             uploadedContentFile = contentRes["output"]
 
-            var uploadStyleFile : string;
-            this.styleUploader.uploadAll();
-            this.styleUploader.onSuccessItem = (item, response, status, headers) => {
-                let styleRes = JSON.parse(response)
-                uploadStyleFile = styleRes["output"]
+            // get absolut path for compute
+            var uploadStyleFile = "Server\\build\\Data\\Styles\\" + this.selectedStyle.id + ".png";
 
-                // transfer the content image by the style image
-                this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
-                    let transferRes = JSON.parse(output)
-                    this.outputFile = transferRes["output"];
-                });
-            };
+            // transfer the content image by the style image
+            this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
+                let transferRes = JSON.parse(output)
+                this.outputFile = transferRes["output"];
+
+                this.showComputeRes(this.outputFile);
+            });
         };
     }
 
-    updateSelecedImage(url: string) {
-        let img = document.getElementById("selectedStyle");
-        img.setAttribute("src", url);
+    showComputeRes(resUrl: string) {
+        let img = document.getElementById("computedRes");
+        img.setAttribute("src", resUrl);
+
+        this.modelVisible = true;
+    }
+
+    hideComputeRes() {
+        let img = document.getElementById("computedRes");
+        img.setAttribute("src", "");
+
+        this.modelVisible = false;
+    }
+
+    prepareToUpload() {
+        // hide dialog
+        this.hideComputeRes();
+
+        // get image urls
+        if (this.selectedStyle == undefined)
+            this.selectedStyle = this.styles[0];
+        let paras = {
+            "url":this.outputFile,
+            "basedUrl": this.selectedStyle.url
+        }
+
+        this.route.navigate(["/style-upload", paras])
     }
 }

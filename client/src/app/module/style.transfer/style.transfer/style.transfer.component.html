@@ -1,35 +1,25 @@
 <div class="container">
     <form enctype="multipart/form-data">
         <div>
-            <label>上传图作</label>
             <label class="btn btn-default">
-                选择原图<input type="file" accept="image/*" style="display:none" (change)="OnContentChange($event)">
+                上传图作<input type="file" accept="image/*" style="display:none" (change)="OnContentChange(input)" #input>
             </label>
-            <div id="content-preview">
-            
-            </div>
+            <label id="imagePath">请选择原图</label>
+            <img id="imagePreview" ng-src='' class="thumbnail" width="100%" height="400">
         </div>
-    </form>
-    <div class="panel panel-default panel-primary text-center">
-        <div class="panel-heading">试试人工智能为你创作</div>
-        <div class="panel-body">
-            <input type="button" class="btn btn-default btn-sm active" value="不，谢谢!">
-            <input type="button" class="btn btn-default btn-sm" value="试试" (click)="Transfer($event)">
-        </div>
-    </div>
-            
+    </form>    
     <div>
         <label class="center">选择想要的风格</label>
         <div class="row">
             <div class="col-sm-5 col-lg-5 col-md-5">
-                <div class="thumbnail" ng-if="products">
-                    <img id="selectedStyle" [src]="products[0].url" width="90%">
+                <div class="thumbnail" ng-if="styles">
+                    <img id="selectedStyle" [src]="styles[0].url" width="90%">
                 </div>
             </div>
             <div class="col-sm-7 col-lg-7 col-md-7 thumbnail">
-                <div *ngFor="let product of products" class="col-sm-3 col-lg-3 col-md-3"> 
+                <div *ngFor="let style of styles" class="col-sm-3 col-lg-3 col-md-3"> 
                     <div class="thumbnail image-selected">
-                        <img [src]="product.url" width="90%" (click)="updateSelecedImage(product.url)">
+                        <img [src]="style.url" width="90%" (click)="OnStyleChange(style)">
                     </div>
                 </div>
             </div>
@@ -42,14 +32,22 @@
             <input type="submit" class="btn btn-default btn-sm" value="试试" (click)="Transfer($event)">
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-    
-            </div>
-            <div class="col-md-9">
-    
+
+    <!-- pop up a model to show computed picture -->
+    <div class="modal fade" id="modelDig" role="dialog" tabindex="-1"
+    [ngStyle]="{'display': modelVisible ? 'block' : 'none', 'opacity': 1}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-body">
+                    <img id="computedRes" ng-src='' class="thumbnail" width="100%">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideComputeRes()">关闭</button>
+                    <button type="button" class="btn btn-primary" (click)="prepareToUpload()">上传</button>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 </div>

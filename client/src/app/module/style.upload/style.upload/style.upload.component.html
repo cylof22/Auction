@@ -2,18 +2,18 @@
       (ngSubmit)="submit()">
     <div class="row">
         <div class="form-group col-sm-8 col-lg-8 col-md-8">
-            <div>
+            <div id="fileSelGroup">
                 <input type="file" name="imagePath" id="imagePath" style="display: none;"
                     (change)="showImage(input)" accept="image/png,image/jpg,image/jpeg" #input required/>
-                <input type="button" value="上传照片" (click)="selectFile()">
+                <input type="button" value="上传图作" (click)="selectFile()">
                 <label id="pathText" >未选择任何文件</label>
             </div>
-            <img id="imagePreview" ng-src='' class="thumbnail" width="100%" height="300">
+            <img id="imagePreview" ng-src='' class="thumbnail" width="100%" height="400">
         </div>
         <div class="col-sm-4 col-lg-4 col-md-4 container">
             <div class="form-group">
-                <label>用户名：</label>
-                <input formControlName="owner" id="owner" class="form-control" type="text" placeholder="请输入用户名" required> 
+                <label>价钱：</label>
+                <input formControlName="price" id="price" class="form-control" type="number" placeholder="请输入价钱" required> 
             </div>
             <div class="form-group">
                 <label>描述：</label>

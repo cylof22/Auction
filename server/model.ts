@@ -63,7 +63,7 @@ function createImageFile(imageData: string, imageName: string): string {
   let imageUrl: string = "";
   let pos = imageData.indexOf(",");
   let base64d = imageData.substring(pos+1);
-  let path = "../data/styles/" + imageName + ".png";
+  let path = "build/data/styles/" + imageName + ".png";
   let fs = require('fs');
   fs.writeFile(path, base64d, 'base64', function(err)  {
       if(err) {
@@ -73,7 +73,7 @@ function createImageFile(imageData: string, imageName: string): string {
     });
 
   console.log("The image file is saved!");
-  imageUrl = "http://127.0.0.1:9090/styles/" + imageName + ".png";
+  imageUrl = "http://h20458g434.imwork.net:41827/styles/" + imageName + ".png";
 
   return imageUrl;
 }
@@ -89,8 +89,12 @@ export function addProduct(productData = <any>{}): Product {
   if ("undefined" != typeof productData.url
        && productData.url != "") {
     console.log("has image data");
-    newImageUrl = createImageFile(productData.url, imageId);
+    // 
+    if (newImageUrl.indexOf("http") != 0) {
+      newImageUrl = productData.url;
     } else {
+      newImageUrl = createImageFile(productData.url, imageId);
+    } } else {
     console.log("no image data");
   }
 
@@ -99,6 +103,9 @@ export function addProduct(productData = <any>{}): Product {
   newProduct.id = imageId;
   newProduct.owner = productData.owner;
   newProduct.creator = productData.creator;
+  if (newProduct.creator == ""){
+    newProduct.creator = productData.owner;
+  }
   newProduct.title = productData.title;
   newProduct.description = productData.description;
   newProduct.price = productData.price;
@@ -115,7 +122,7 @@ export function addProduct(productData = <any>{}): Product {
 
 function readProducts() : any {
   let fs = require('fs');
-  let file = "../data/info/images.json";
+  let file = "build/data/info/images.json";
   return JSON.parse(fs.readFileSync( file)); 
 }
 

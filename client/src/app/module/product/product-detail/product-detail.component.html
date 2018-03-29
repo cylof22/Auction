@@ -1,33 +1,38 @@
 <div class="row">
-  <div class="col-sm-8 col-lg-8 col-md-8 image-background">
-    <div class="box">
-      <img [src]="product.url" class="box-img">
+  <div id="imagePreview" class="col-sm-9 col-lg-9 col-md-9 image-background">
+    <div>
+      <img [src]="product.url" class="image">
     </div>
   </div>
   <div>
+
+  <div id="detailBox" class="col-sm-3 col-lg-3 col-md-3 detail-box">
     <div class="div-style">
       <strong>详细信息</strong>
     </div>
-    <div>
-      <p>名称：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.title }}</p>
-      <p>价格：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.price | currency }}</p>
-      <p>拥有者：&nbsp;&nbsp;&nbsp;{{ product.owner }}</p>
-      <p>作者：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.creator }}</p>
-    <div class="div-style">
+        <p>拥有者：&nbsp;&nbsp;&nbsp;{{ product.owner }}</p>
+        <p>作者：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.creator }}</p>
+        <p>价钱：&nbsp;&nbsp;&nbsp;{{ product.price }}</p>
+        <p>类别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.categories }}</p>
+
+    <div class="description">
       <p>{{ product?.description }}</p>
     </div>
 
     <div>
-      <p>样式：</p>
-      <img [src]="product.styleImgUrl" class="col-sm-4 col-lg-4 col-md-4 style-image">
+        <button class="buy" (click)="onBuy()">购买</button>
     </div>
   </div>
+</div>
+  <!-- <div id = "styleImage" ng-if="product.styleImgUrl">
+    <p>样式：</p>
+    <img [src]="product.styleImgUrl" class="col-sm-4 col-lg-4 col-md-4 style-image">
+  </div> -->
   <!--
   <div class="ratings">
     <p class="pull-right">{{ reviews?.length }} 评论</p>
     <p><auction-stars [rating]="product?.rating"></auction-stars></p>
   </div>-->
-</div>
 <!--<div class="thumbnail">
   <button class="btn btn-default btn-lg"
           [ngClass]="{active: isWatching}"

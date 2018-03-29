@@ -28,7 +28,7 @@ import { StyleUploadService, STYLE_API_UPLOAD_SERVICE_URL } from "./services/sty
 
     providers:[
         StyleUploadService,
-        {provide: STYLE_API_UPLOAD_SERVICE_URL, useValue: "http://127.0.0.1:80000/api/upload"},
+        {provide: STYLE_API_UPLOAD_SERVICE_URL, useValue: "http://h20458g434.imwork.net:41827/api/upload"},
     ],
 })
 

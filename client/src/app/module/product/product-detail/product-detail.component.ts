@@ -44,6 +44,7 @@ export class ProductDetailComponent implements OnDestroy {
         product => {
           this.product = product;
           this.currentBid = product.price;
+
         },
         error => console.error(error));
 
@@ -52,6 +53,12 @@ export class ProductDetailComponent implements OnDestroy {
       .subscribe(
         reviews => this.reviews = reviews,
         error => console.error(error));
+  }
+
+  ngOnInit() {
+    let img = document.getElementById("imagePreview");
+    let detailBox = document.getElementById("detailBox");
+    detailBox.style.height = img.style.height;
   }
 
   toggleWatchProduct() {
@@ -94,5 +101,9 @@ export class ProductDetailComponent implements OnDestroy {
     this.newRating = 0;
     this.newComment = null;
     this.isReviewHidden = true;
+  }
+
+  onBuy() {
+    location.href = "/#/wallet";
   }
 }

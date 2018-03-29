@@ -45,7 +45,7 @@ export class ProductService {
   }
 
   getAllCategories(): string[] {
-    return ['Books', 'Electronics', 'Hardware'];
+    return ['风景', '人物', '油画'];
   }
 }
 

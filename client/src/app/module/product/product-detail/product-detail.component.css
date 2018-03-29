@@ -4,36 +4,37 @@
     padding-right: 10px;
 }
 
-.box {
-    height:600px;
-    text-align: center;
-    display:table-cell;
-    vertical-align: middle;
-}
-.box-img {
-    max-height:100%;
-    max-width:100%;
-}
-
 .image-background {
     background-color:rgb(235, 232, 232);
     text-align: center;
   }
 
+.image {
+    height: 450px;
+}
+
 .div-style {
-    padding-bottom: 10px;
+    padding-bottom: 12px;
+}
+
+.description {
+    padding-top: 20px;
 }
 
 .style-image {
     height: 210px;
 }
 
-.style-image2 {
-    margin: 0 auto;
-    max-height:100%;
-    max-width:100%;
-}
-
-.caption {
+.detail-box {
     position:relative;
+    height:450px;
   }
+
+.detail-box .buy {
+    position: absolute;
+    height: 40px;
+    width: 100%;
+    font-size: 20px;
+    bottom: 10px;
+    background-color: rgb(240, 17, 17);
+}
