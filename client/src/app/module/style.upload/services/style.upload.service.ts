@@ -18,7 +18,5 @@ export class StyleUploadService {
 
         return this.http.post(this.url, body)
         .map(response => response.json());
-
-        //return this.http.post("http://127.0.0.1:8000/upload",body,option).map((res:Response)=>res.json());
     }
 }

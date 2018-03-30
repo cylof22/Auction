@@ -61,7 +61,7 @@ export class StyleUploadComponent {
     showImage(input) {
         // update image path
         let imgPathText = document.getElementById("pathText");
-        imgPathText.innerText = input.value;
+        imgPathText.innerText = "选择其它文件";
 
         // show image
         let reader = new FileReader();
@@ -76,8 +76,8 @@ export class StyleUploadComponent {
 
     submit() {
         this.uploadedData = this.formModel.value;
-        if (this.uploadedImgUrl != undefined && this.uploadedImgUrl != "") {
-            this.uploadedData.styleImgUrl = this.uploadedImgUrl;
+        if (this.uploadedStyleUrl != undefined && this.uploadedStyleUrl != "") {
+            this.uploadedData.styleImgUrl = this.uploadedStyleUrl;
         }
 
         // get image data

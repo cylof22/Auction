@@ -103,7 +103,11 @@ export class ProductDetailComponent implements OnDestroy {
     this.isReviewHidden = true;
   }
 
-  onBuy() {
+  onBuyWithCash() {
+    alert("请静待下个版本");
+  }
+
+  onBuyWithDigitalCash() {
     location.href = "/#/wallet";
   }
 }

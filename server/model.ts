@@ -59,11 +59,32 @@ function generateUUID(): string {
   return uuid;
 };
 
-function createImageFile(imageData: string, imageName: string): string {
+function getNewImageUrl(imageData: string, imageName: string, imageFolder: string): string {
+  let newImageUrl: string = "";
+  if ("undefined" != typeof imageData && imageData != "") {
+    console.log("image data is gotten");
+    
+    // if input is an url
+    if (imageData.indexOf("http") == 0) {
+      newImageUrl = imageData;
+    } else {
+      // if input is image meta data
+      newImageUrl = createImageFile(imageData, imageName, imageFolder);
+    } 
+  } else {
+    // no image datas
+    console.log("no image data");
+  }
+
+  return newImageUrl;
+}
+
+function createImageFile(imageData: string, imageName: string, imageFolder: string): string {
+  // if input is image meta data
   let imageUrl: string = "";
   let pos = imageData.indexOf(",");
   let base64d = imageData.substring(pos+1);
-  let path = "build/data/styles/" + imageName + ".png";
+  let path = "build/data/" + imageFolder + "/" + imageName + ".png";
   let fs = require('fs');
   fs.writeFile(path, base64d, 'base64', function(err)  {
       if(err) {
@@ -73,7 +94,7 @@ function createImageFile(imageData: string, imageName: string): string {
     });
 
   console.log("The image file is saved!");
-  imageUrl = "http://h20458g434.imwork.net:41827/styles/" + imageName + ".png";
+  imageUrl = "http://h20458g434.imwork.net:41827/" + imageFolder + "/" + imageName + ".png";
 
   return imageUrl;
 }
@@ -84,26 +105,14 @@ export function addProduct(productData = <any>{}): Product {
   // create an unique id
   let imageId = generateUUID();
 
-  // save image
-  let newImageUrl: string = "";
-  if ("undefined" != typeof productData.url
-       && productData.url != "") {
-    console.log("has image data");
-    // 
-    if (newImageUrl.indexOf("http") != 0) {
-      newImageUrl = productData.url;
-    } else {
-      newImageUrl = createImageFile(productData.url, imageId);
-    } } else {
-    console.log("no image data");
-  }
+  // get new image url from input image data
+  let newImageUrl = getNewImageUrl(productData.url, imageId, "styles");
 
   // save new image data
-  let newProduct = new Product("", "", "", "", 0, 0, "", "", "", []);
-  newProduct.id = imageId;
+  let newProduct = new Product(imageId, "", "", "", 0, 0, "", "", "", []);
   newProduct.owner = productData.owner;
   newProduct.creator = productData.creator;
-  if (newProduct.creator == ""){
+  if (newProduct.creator == "" || newProduct.creator == undefined){
     newProduct.creator = productData.owner;
   }
   newProduct.title = productData.title;
@@ -111,6 +120,7 @@ export function addProduct(productData = <any>{}): Product {
   newProduct.price = productData.price;
   newProduct.categories = productData.categories;
   newProduct.url = newImageUrl;
+  newProduct.styleImgUrl = productData.styleImgUrl;
 
   products.splice(0, 0, newProduct);
 
@@ -123,14 +133,15 @@ export function addProduct(productData = <any>{}): Product {
 function readProducts() : any {
   let fs = require('fs');
   let file = "build/data/info/images.json";
-  return JSON.parse(fs.readFileSync( file)); 
+  return JSON.parse(fs.readFileSync(file)); 
 }
 
 function updateProducts(): void {
-  let fs = require('fs');
-  let path = "build/data/info/images.json";
   let newData = JSON.stringify(products);
   console.log(newData);
+
+  let fs = require('fs');
+  let path = "build/data/info/images.json";
   fs.writeFile(path, newData, function(err)  {
     if(err) {
       console.log(err);
@@ -138,6 +149,20 @@ function updateProducts(): void {
 
     console.log("Products are updated!");
   });
+}
+
+export function addContent(productData = <any>{}): Product {
+  // create an unique id
+  let imageId = generateUUID();
+
+  // get new image url from input image data
+  let newImageUrl = getNewImageUrl(productData.url, imageId, "contents");
+
+  // save new image data
+  let contentRes = new Product(imageId, "", "", "", 0, 0, "", "", "", []);
+  contentRes.url = newImageUrl;
+
+  return contentRes;
 }
 
 var reviews = [

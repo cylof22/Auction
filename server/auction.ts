@@ -3,7 +3,7 @@ import * as compression from 'compression';
 import * as path from 'path';
 import {Server as HttpServer} from 'http';
 import {Server as WsServer} from 'ws';
-import {Product, Review, getProducts, getProductById, getReviewsByProductId, addProduct} from './model';
+import {Product, Review, getProducts, getProductById, getReviewsByProductId, addProduct, addContent} from './model';
 // HTTP API
 
 const app = express();
@@ -30,6 +30,7 @@ app.use(compression());
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use("/outputs", express.static(path.join(__dirname, 'data/outputs')))
 app.use("/styles", express.static(path.join(__dirname, 'data/styles')))
+app.use("/contents", express.static(path.join(__dirname, 'data/contents')))
 
 app.get('/api/products', (req, res) => {
   res.json(getProducts(req.query));
@@ -43,16 +44,16 @@ app.get('/api/products/:id/reviews', (req, res) => {
   res.json(getReviewsByProductId(req.params.id));
 });
 
-app.get('/api/upload', (req, res) => {
-  res.json([{'owner': 'Jason'}]);
-});
-
 var bodyParser = require('body-parser');
 app.use(express.json({limit:'50mb'}));
 var jsonParser = bodyParser.json() 
 var urlencodedParser = bodyParser.urlencoded({ extended: false }) 
-app.post('/api/upload', jsonParser, (req, res) => {
+app.post('/api/upload/style', jsonParser, (req, res) => {
   res.json(addProduct(req.body));
+});
+
+app.post('/api/upload/content', jsonParser, (req, res) => {
+  res.json(addContent(req.body));
 });
 
 const httpServer: HttpServer = app.listen(8000, 'localhost', () => {

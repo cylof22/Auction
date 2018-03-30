@@ -16,7 +16,7 @@
             class="form-control"
             formControlName="category" 
             (change)="onSearch()">
-      <option value="">所有种类</option>
+      <option value="">所有类别</option>
       <option *ngFor="let c of categories"
               [value]="c">{{c}}</option>
     </select>

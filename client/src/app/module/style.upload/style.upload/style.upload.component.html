@@ -20,9 +20,9 @@
                 <textarea formControlName="description" id="description" class="form-control text-area" placeholder="请输入图片描述" required ></textarea>
             </div>
             <div class="form-group">
-                <label>类型：</label>
+                <label>类别：</label>
                 <select formControlName="categories" id="categories" class="form-control" required>
-                    <option value="">All categories</option>
+                    <option value="">所有类别</option>
                     <option *ngFor="let c of categories"
                             [value]="c">{{c}}</option>
                 </select>

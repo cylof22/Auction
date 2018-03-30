@@ -4,6 +4,7 @@ import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 export const STYLE_TRANSFER_SERVICE_URL = new OpaqueToken("style-transfer-url");
 export const STYLE_TRANSFER_UPLOAD_SERVICE_URL = new OpaqueToken("style-transfer-upload-url")
+import { Product } from '../../product/product.model/product'
 
 @Injectable()
 export class StyleTransferService {
@@ -42,13 +43,13 @@ export class StyleTransferService {
     styleUploadURL() : string {
         return this.uploadurl + "/style";
     }
+    
+    uploadContent(postedData : any) : Observable<Product> {
 
-    uploadContent(files : Array<File>) {
-        return this.uploadFile(this.uploadurl + "/content", files);
-    }
+        let body = postedData;
 
-    uploadStyle(files : Array<File>) {
-        return this.uploadFile(this.uploadurl + "/style", files);
+        return this.http.post(this.uploadurl + "/content", body)
+        .map(response => response.json());
     }
 
     private uploadFile(url : string, files: Array<File>) {

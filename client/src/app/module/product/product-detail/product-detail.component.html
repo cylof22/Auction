@@ -12,7 +12,7 @@
     </div>
         <p>拥有者：&nbsp;&nbsp;&nbsp;{{ product.owner }}</p>
         <p>作者：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.creator }}</p>
-        <p>价钱：&nbsp;&nbsp;&nbsp;{{ product.price }}</p>
+        <p>价钱：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product.price | currency }}</p>
         <p>类别：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ product?.categories }}</p>
 
     <div class="description">
@@ -20,7 +20,8 @@
     </div>
 
     <div>
-        <button class="buy" (click)="onBuy()">购买</button>
+        <button class="buy2" (click)="onBuyWithCash()">现金购买</button>
+        <button class="buy" (click)="onBuyWithDigitalCash()">代币购买</button>
     </div>
   </div>
 </div>

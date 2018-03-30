@@ -15,6 +15,7 @@ export class StyleTransferComponent {
     contentData : any;
     contentUploader : FileUploader;
 
+    contentImagePath: string;
     outputFile : string;
     styles: Product[];
     selectedStyle: Product;
@@ -23,14 +24,6 @@ export class StyleTransferComponent {
     constructor(private svc : StyleTransferService,
         private productService: ProductService,
         public route:Router) {
-
-        let contentURL = this.svc.contentUploadURL();
-        this.contentUploader = new FileUploader({
-            url: contentURL,
-            method: "POST",
-            itemAlias: "uploadContentfile"
-        });
-        this.contentUploader.onSuccessItem = (item, response, status, headers) => this.OnContentUploadSucess;
 
         this.productService.getProducts()
         .subscribe(
@@ -50,10 +43,10 @@ export class StyleTransferComponent {
     OnContentChange(input) {
         this.contentFile = input.files;
 
-        // update image path
         let imgPathText = document.getElementById("imagePath");
-        imgPathText.innerText = input.value;
+        imgPathText.innerText = "选择其它源文件";
 
+        // show preview
         this.showImage(input, "imagePreview");
     }
 
@@ -76,37 +69,49 @@ export class StyleTransferComponent {
     }
 
     uploadContent() {
-        this.contentUploader.options.url += "/" + this.contentFile;
-        this.contentUploader.queue[0].onSuccess = function (response, status, headers) {
-            if (status == 200) {
-                let contentRes = JSON.parse(response);
-            } else {
-
-                alert("");
-            }
-        };
-        this.contentUploader.queue[0].upload();
+        // get image data
+        let img = document.getElementById("imagePreview");
+        let uploadedData = {
+            "url": img.getAttribute("src")
+        }
+        
+        this.svc.uploadContent(uploadedData).subscribe( result =>  {
+            this.contentImagePath = result.id,
+            this.doTransfer()
+        });  
     }
-    
+
+    doTransfer()
+    {
+        let uploadedContentFile = "server\\build\\data\\contents\\" + this.contentImagePath + ".png";
+
+        // get absolut path for compute
+        var uploadStyleFile = "server\\build\\data\\\styles\\" + this.selectedStyle.id + ".png";
+
+        // transfer the content image by the style image
+        this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
+            let transferRes = JSON.parse(output)
+            this.outputFile = transferRes["output"];
+
+            this.showComputeRes(this.outputFile);
+        });
+    }
+
     Transfer(event) { 
         // Upload the content file
-        var uploadedContentFile : string;
-        this.contentUploader.uploadAll();
-        this.contentUploader.onSuccessItem = (item, response, status, headers) => {
-            let contentRes = JSON.parse(response)
-            uploadedContentFile = contentRes["output"]
+        this.uploadContent();
 
-            // get absolut path for compute
-            var uploadStyleFile = "Server\\build\\Data\\Styles\\" + this.selectedStyle.id + ".png";
+        /*
+        // get absolut path for compute
+        var uploadStyleFile = "server\\build\\data\\\styles\\" + this.selectedStyle.id + ".png";
 
-            // transfer the content image by the style image
-            this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
-                let transferRes = JSON.parse(output)
-                this.outputFile = transferRes["output"];
+        // transfer the content image by the style image
+        this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
+            let transferRes = JSON.parse(output)
+            this.outputFile = transferRes["output"];
 
-                this.showComputeRes(this.outputFile);
-            });
-        };
+            this.showComputeRes(this.outputFile);
+        }); */
     }
 
     showComputeRes(resUrl: string) {
@@ -135,6 +140,7 @@ export class StyleTransferComponent {
             "basedUrl": this.selectedStyle.url
         }
 
+        alert(JSON.stringify(paras));
         this.route.navigate(["/style-upload", paras])
     }
 }
