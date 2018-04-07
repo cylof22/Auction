@@ -63,7 +63,7 @@ export class StyleTransferComponent {
         reader.readAsDataURL(file);
         reader.onload = function(e) {
             let img = document.getElementById(previewID);
-            img.style.height = "100%";
+            img.style.width = "auto";
             img.setAttribute("src", this.result);
         }
     }
@@ -81,12 +81,18 @@ export class StyleTransferComponent {
         });  
     }
 
+    getFileName(filePath: string)
+    {
+        var pos = filePath.lastIndexOf("/");
+        return filePath.substring(pos+1);
+    }
+
     doTransfer()
     {
-        let uploadedContentFile = "server\\build\\data\\contents\\" + this.contentImagePath + ".png";
+        let uploadedContentFile = "..\\data\\contents\\" + this.contentImagePath + ".png";
 
         // get absolut path for compute
-        var uploadStyleFile = "server\\build\\data\\\styles\\" + this.selectedStyle.id + ".png";
+        var uploadStyleFile = "..\\data\\\styles\\" + this.getFileName(this.selectedStyle.url);
 
         // transfer the content image by the style image
         this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
@@ -94,7 +100,7 @@ export class StyleTransferComponent {
             this.outputFile = transferRes["output"];
 
             this.showComputeRes(this.outputFile);
-        });
+        }); 
     }
 
     Transfer(event) { 
@@ -140,7 +146,6 @@ export class StyleTransferComponent {
             "basedUrl": this.selectedStyle.url
         }
 
-        alert(JSON.stringify(paras));
         this.route.navigate(["/style-upload", paras])
     }
 }

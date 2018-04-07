@@ -5,7 +5,9 @@
                 上传图作<input type="file" accept="image/*" style="display:none" (change)="OnContentChange(input)" #input>
             </label>
             <label id="imagePath">请选择原图</label>
-            <img id="imagePreview" ng-src='' class="thumbnail" width="100%" height="400">
+            <div class="text-center">
+                <img id="imagePreview" ng-src='' class="image">
+            </div>
         </div>
     </form>    
     <div>

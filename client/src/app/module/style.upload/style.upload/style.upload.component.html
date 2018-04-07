@@ -21,8 +21,7 @@
             </div>
             <div class="form-group">
                 <label>类别：</label>
-                <select formControlName="categories" id="categories" class="form-control" required>
-                    <option value="">所有类别</option>
+                <select formControlName="categories" id="categories" class="form-control" multiple required>
                     <option *ngFor="let c of categories"
                             [value]="c">{{c}}</option>
                 </select>
