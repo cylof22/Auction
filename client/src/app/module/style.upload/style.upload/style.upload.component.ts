@@ -83,11 +83,8 @@ export class StyleUploadComponent {
         // get image data
         let img = document.getElementById("imagePreview");
         this.uploadedData.url = img.getAttribute("src");
-        
-        this.uploadService.uploadData(this.uploadedData).subscribe(
-            error => console.error(error));
-
-        // switch to main page
-        location.href = "/#/";
+        this.uploadService.uploadData(this.uploadedData).subscribe( output => {
+            location.href = "/#/";
+        });
     }
 }
