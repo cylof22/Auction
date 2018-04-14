@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { StyleUploadComponent } from "./style.upload/style.upload.component"
 import { StyleUploadService, STYLE_API_UPLOAD_SERVICE_URL } from "./services/style.upload.service"
+import { AuthGuard } from './../../interceptor/auth.guard'
 
 @NgModule({
     declarations: [
@@ -22,13 +23,14 @@ import { StyleUploadService, STYLE_API_UPLOAD_SERVICE_URL } from "./services/sty
         ReactiveFormsModule,
         HttpModule,
         RouterModule.forChild([
-            {path: 'style-upload', component: StyleUploadComponent }
+            {path: 'style-upload', component: StyleUploadComponent, canActivate: [AuthGuard] }
         ])
     ],
 
     providers:[
+        AuthGuard,
         StyleUploadService,
-        {provide: STYLE_API_UPLOAD_SERVICE_URL, useValue: "http://h20458g434.imwork.net:41827/api/upload/style"},
+        {provide: STYLE_API_UPLOAD_SERVICE_URL, useValue: "http://127.0.0.1:8000/api/upload/style"},
     ],
 })
 

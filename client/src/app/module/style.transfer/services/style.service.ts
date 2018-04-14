@@ -1,6 +1,6 @@
 import { Injectable, Inject, OpaqueToken } from "@angular/core";
 import { FileUploadModule } from 'ng2-file-upload';
-import { Http } from "@angular/http";
+import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 export const STYLE_TRANSFER_SERVICE_URL = new OpaqueToken("style-transfer-url");
 export const STYLE_TRANSFER_UPLOAD_SERVICE_URL = new OpaqueToken("style-transfer-upload-url")
@@ -8,7 +8,7 @@ import { Product } from '../../product/product.model/product'
 
 @Injectable()
 export class StyleTransferService {
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
         @Inject(STYLE_TRANSFER_SERVICE_URL) private transferurl : string,
         @Inject(STYLE_TRANSFER_UPLOAD_SERVICE_URL) private uploadurl : string) {
         }
@@ -17,23 +17,8 @@ export class StyleTransferService {
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
 
-        return this.http.get(this.transferurl + "?" + contentQueryParams + "&" + styleQueryParams + 
-            "&" + "iterations=10").map(response => response.json());
-    }
-
-    preview(content : string, style : string): string {
-        let previewURL = this.transferurl + "/preview"
-        let contentQueryParams = "content=" + btoa(content);
-        let styleQueryParams = "style=" + btoa(style);
-        
-        var outputFile : string;
-
-        this.http.get(previewURL + "?" + contentQueryParams + "&" + styleQueryParams).map(response => {
-                let jsonbody = response.json();
-                outputFile = jsonbody["output"];
-            });
-        
-        return "";
+        return this.http.get<string>(this.transferurl + "?" + contentQueryParams + "&" + styleQueryParams + 
+            "&" + "iterations=10");
     }
 
     contentUploadURL() : string {
@@ -48,8 +33,7 @@ export class StyleTransferService {
 
         let body = postedData;
 
-        return this.http.post(this.uploadurl + "/content", body)
-        .map(response => response.json());
+        return this.http.post<Product>(this.uploadurl + "/content", body);
     }
 
     private uploadFile(url : string, files: Array<File>) {
