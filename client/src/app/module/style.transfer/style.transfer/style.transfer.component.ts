@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FileUploader, FileItem, ParsedResponseHeaders } from "ng2-file-upload";
 import { StyleTransferService } from '../services/style.service';
-import { Product } from '../../product/product.model/product'
-import { ProductService } from '../../product/service/product.service'
 import { Router } from '@angular/router';
+import { StyleCustomComponent } from '../style.custom/style.custom.component';
+import { StyleArtistComponent } from '../style.artist/style.artist.component';
 
 @Component({
     selector: 'style-transfer',
@@ -12,35 +12,18 @@ import { Router } from '@angular/router';
 })
 export class StyleTransferComponent {
     contentFile : Array<File>;
-    contentData : any;
-    contentUploader : FileUploader;
 
     contentImageURL: string;
     outputFile : string;
-    styles: Product[];
-    defaultStyleURL : string;
-    selectedStyle: Product;
+
+    activatedStyleComponent : any;
+
+    selectedStyleURL : string;
+
     modelVisible = false;
-
+    
     constructor(private svc : StyleTransferService,
-        private productService: ProductService,
         public route:Router) {
-
-        this.productService.getProducts()
-        .subscribe(
-            params => { 
-                this.styles = params;
-                this.defaultStyleURL = this.styles[0].url;
-            }
-      );
-    }
-
-    OnContentUploadSucess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) {
-
-    }
-
-    OnStyleUploadSucess(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) { 
-
     }
 
     OnContentChange(input) {
@@ -48,13 +31,6 @@ export class StyleTransferComponent {
 
         // show preview
         this.showImage(input, "imagePreview");
-    }
-
-    OnStyleChange(style: Product) {
-        this.selectedStyle = style;
-
-        let img = document.getElementById("selectedStyle");
-        img.setAttribute("src", style.url);
     }
 
     private showImage(input, previewID) {
@@ -66,6 +42,10 @@ export class StyleTransferComponent {
             img.style.width = "auto";
             img.setAttribute("src", this.result);
         }
+    }
+
+    onRouterOutletActivate(event) {
+        this.activatedStyleComponent = event.component;
     }
 
     uploadContent() {
@@ -83,11 +63,22 @@ export class StyleTransferComponent {
 
     doTransfer()
     {
-        // transfer the content image by the style image
-        this.svc.transfer(this.contentImageURL, this.selectedStyle.url).subscribe(res => {
-            this.outputFile = res["output"];
-            this.showComputeRes(this.outputFile);
-        }); 
+        if(this.activatedStyleComponent instanceof StyleCustomComponent) {
+            let styleTransferComp = this.activatedStyleComponent as StyleCustomComponent;
+            // transfer the content image by the style image
+            this.svc.transfer(this.contentImageURL, styleTransferComp.getSelectedStyle()).subscribe(res => {
+                this.outputFile = res["output"];
+                this.showComputeRes(this.outputFile);
+            }); 
+        } else {
+            let artistTransferComp = this.activatedStyleComponent as StyleArtistComponent;
+            // transfer the content image by the artist type
+            this.svc.transferByArtist(this.contentImageURL,  artistTransferComp.getSelectedArtist()).subscribe( res => {
+                this.outputFile = res["output"];
+                this.showComputeRes(this.outputFile);
+            })
+        }
+        
     }
 
     Transfer(event) { 
@@ -113,12 +104,9 @@ export class StyleTransferComponent {
         // hide dialog
         this.hideComputeRes();
 
-        // get image urls
-        if (this.selectedStyle == undefined)
-            this.selectedStyle = this.styles[0];
         let paras = {
             "url":this.outputFile,
-            "basedUrl": this.selectedStyle.url
+            "basedUrl": this.selectedStyleURL
         }
 
         this.route.navigate(["/style-upload", paras])

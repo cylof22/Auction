@@ -1,15 +1,17 @@
 import { Injectable, Inject, OpaqueToken } from "@angular/core";
 import { FileUploadModule } from 'ng2-file-upload';
-import { Http } from "@angular/http";
+import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 export const STYLE_TRANSFER_SERVICE_URL = new OpaqueToken("style-transfer-url");
+export const STYLE_TRANSFER_BY_ARTIST_SERVICE_URL = new OpaqueToken("style-transfer-by-artist-url");
 export const STYLE_TRANSFER_UPLOAD_SERVICE_URL = new OpaqueToken("style-transfer-upload-url")
 import { Product } from '../../product/product.model/product'
 
 @Injectable()
 export class StyleTransferService {
     constructor(private http: Http,
-        @Inject(STYLE_TRANSFER_SERVICE_URL) private transferurl : string,
+        @Inject(STYLE_TRANSFER_SERVICE_URL) private transferURL : string,
+        @Inject(STYLE_TRANSFER_BY_ARTIST_SERVICE_URL) private transferByArtistURL : string,
         @Inject(STYLE_TRANSFER_UPLOAD_SERVICE_URL) private uploadurl : string) {
         }
 
@@ -17,12 +19,19 @@ export class StyleTransferService {
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
 
-        return this.http.get(this.transferurl + "?" + contentQueryParams + "&" + styleQueryParams + 
+        return this.http.get(this.transferURL + "?" + contentQueryParams + "&" + styleQueryParams + 
             "&" + "iterations=100").map(response => response.json());
     }
 
+    transferByArtist(contentURL : string, artist : string) : Observable<string> {
+        let contentQueryParams = "content=" + btoa(contentURL);
+        let artistQueryParams = "artist=" + artist;
+        return this.http.get(this.transferByArtistURL + "?" + contentQueryParams + 
+            "?" + artistQueryParams).map(res => res.json());
+    }
+    
     preview(content : string, style : string): string {
-        let previewURL = this.transferurl + "/preview"
+        let previewURL = this.transferURL + "/preview"
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
         
