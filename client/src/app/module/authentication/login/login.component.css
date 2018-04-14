@@ -1,0 +1,96 @@
+.container {
+    width:400px;
+    margin:0 auto;
+}
+
+.login-box {
+    height: 350px;
+}
+
+.user-box {
+    position: relative;
+}
+
+.user-box .lable-item {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+}
+
+.user-box .account-item {
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    width: 300px;
+}
+
+.user-box .password-item {
+    position: absolute;
+    top: 120px;
+    left: 30px;
+    width: 300px;
+}
+
+.user-box .auto-checkbox-item {
+    position: absolute;
+    top: 170px;
+    left: 30px;
+}
+
+.user-box .auto-text-item{
+    position:absolute;
+    top: 164px;
+    left: 43px;
+}
+
+.user-box .forget-item {
+    position: absolute;
+    top: 170px;
+    left: 225px;
+}
+
+.user-box .submit-item {
+    position: absolute;
+    width:300px;
+    height:30px;
+    top: 230px;
+    left: 30px;
+}
+
+.fenge {
+    position: absolute;
+    top: 317px;
+    left: 88px;
+    padding:10px 6px 0px 6px;
+    margin-left: 6px;
+    border-left: 1px solid rgb(37, 36, 36);
+    font-size: 0;
+}
+
+.user-box .bottom-group {
+    background-color:rgb(209, 216, 240);
+    border: none;
+    position: absolute;
+    top: 300px;
+    left: -5px;
+    width:102.8%;
+    height: 44px;
+}
+
+.user-box .weixin {
+    position: absolute;
+    top: 312px;
+    left: 30px;
+}
+
+.user-box .zhifubao {
+    position: absolute;
+    top: 312px;
+    left: 98px;
+}
+
+.user-box .zhuce {
+    position: absolute;
+    top: 312px;
+    left: 235px;
+}

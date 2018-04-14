@@ -1,0 +1,71 @@
+.container {
+    width:400px;
+    margin:0 auto;
+}
+
+.register {
+    position: relative;
+    height: 450px;
+}
+
+.register .name-label {
+    position: absolute;
+    top: 20px;
+}
+
+.register .name-input {
+    position: absolute;
+    top: 40px;
+}
+
+.register .password-label {
+    position: absolute;
+    top: 100px;
+}
+
+.register .password-input {
+    position: absolute;
+    top: 120px;
+}
+
+.register .repassword-input {
+    position: absolute;
+    top: 160px;
+}
+
+.register .phone-label {
+    position: absolute;
+    top: 220px;
+}
+
+.register .phone-input {
+    position: absolute;
+    top: 240px;
+}
+
+.register .email-label {
+    position: absolute;
+    top: 300px;
+}
+
+.register .email-input {
+    position: absolute;
+    top: 320px;
+}
+
+.register .condition-checkbox {
+    position: absolute;
+    top: 390px;
+}
+
+.register .condition-text {
+    position: absolute;
+    top: 383px;
+    left: 15px;
+}
+
+.register .submit-btn {
+    position: absolute;
+    top: 420px;
+    width:100%;
+}

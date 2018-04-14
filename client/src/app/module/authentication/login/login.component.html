@@ -1,0 +1,33 @@
+<form [formGroup]="formModel"
+      (ngSubmit)="f.form.valid && login()" #f="ngForm">
+    <div class="container">
+        <div>
+            <h3>Welcome to Tulian, please log in</h3>
+        </div>
+        <div class="thumbnail login-box">
+            <div class="form-group user-box">
+                <label class="lable-item">Log in with account</label>
+                <div class="form-group">
+                    <input formControlName="username" id="username" class="form-control account-item" type="text" placeholder="username/phone/email">
+                </div>
+                <input formControlName="password" id="password" class="form-control password-item" type="password" placeholder="password" required>
+                <div>
+                    <input class="auto-checkbox-item" type="checkbox" (change)="autoLoginFlag = !autoLoginFlag" [checked]="autoLoginFlag">
+                    <h6 class="auto-text-item">Remember me</h6>
+                </div>
+                <a href="" class="forget-item">Forget password</a>
+                <div>
+                    <button type="submit" class="submit-item">Log in</button>
+                </div>
+
+                <div>
+                    <button class="bottom-group"></button>
+                    <a href="" class="weixin">Facebook</a>
+                    <span class="fenge"></span>
+                    <a href=""  class="zhifubao">Alipay</a>
+                    <a href="/#/register" class="zhuce">Not a member?</a>
+                </div>
+            </div>
+        </div>
+    </div>  
+</form>

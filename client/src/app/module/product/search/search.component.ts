@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit{
 
     const fb = new FormBuilder();
     this.formModel = fb.group({
-      'title': [null],
+      'title': [''],
       'category': ['']
     })
   }

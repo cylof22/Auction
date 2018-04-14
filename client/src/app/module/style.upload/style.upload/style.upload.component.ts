@@ -6,6 +6,7 @@ import { Product } from '../../product/product.model/product'
 import { Review } from '../../product/product.model/review'
 import { Observable } from 'rxjs/Observable'
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from "../../authentication/services/authentication.service"
 
 @Component({
     selector: 'style-upload',
@@ -22,10 +23,10 @@ export class StyleUploadComponent {
 
     constructor(private productService: ProductService,
                 private uploadService: StyleUploadService,
+                private authService: AuthenticationService,
                 router: ActivatedRoute) {
         const fb = new FormBuilder();
         this.formModel = fb.group({
-        'owner': '图链',
         'price': '',
         'description': '',
         'categories': ['']
@@ -79,6 +80,7 @@ export class StyleUploadComponent {
         if (this.uploadedStyleUrl != undefined && this.uploadedStyleUrl != "") {
             this.uploadedData.styleImgUrl = this.uploadedStyleUrl;
         }
+        this.uploadedData.owner = this.authService.currentUser.username;
 
         // get image data
         let img = document.getElementById("imagePreview");
