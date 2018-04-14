@@ -18,7 +18,7 @@ export class StyleTransferService {
         let styleQueryParams = "style=" + btoa(style);
 
         return this.http.get(this.transferurl + "?" + contentQueryParams + "&" + styleQueryParams + 
-            "&" + "iterations=10").map(response => response.json());
+            "&" + "iterations=100").map(response => response.json());
     }
 
     preview(content : string, style : string): string {

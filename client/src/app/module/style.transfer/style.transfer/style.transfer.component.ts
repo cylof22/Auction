@@ -84,10 +84,8 @@ export class StyleTransferComponent {
     doTransfer()
     {
         // transfer the content image by the style image
-        this.svc.transfer(this.contentImageURL, this.selectedStyle.url).subscribe(output => {
-            let transferRes = JSON.parse(output)
-            this.outputFile = transferRes["output"];
-
+        this.svc.transfer(this.contentImageURL, this.selectedStyle.url).subscribe(res => {
+            this.outputFile = res["output"];
             this.showComputeRes(this.outputFile);
         }); 
     }
