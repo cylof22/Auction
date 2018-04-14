@@ -4,10 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ng serve --proxy-config proxy-conf.json",
-    "build": "ng build -prod",
-    "postbuild": "npm run deploy",
-    "predeploy": "rimraf ../server/build/public && mkdirp ../server/build/public",
-    "deploy": "copyfiles -f dist/** ../server/build/public",
+    "build": "ng build --prod --deploy-url /static",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

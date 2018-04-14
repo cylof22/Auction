@@ -27,8 +27,8 @@ import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL, STYLE_TRANSFER_UPLOAD
     ],
     providers: [
         StyleTransferService,
-        {provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://h20458g434.imwork.net:41488/styleTransfer"},
-        {provide: STYLE_TRANSFER_UPLOAD_SERVICE_URL, useValue: "http://h20458g434.imwork.net:41827/api/upload"},
+        {provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://localhost:9090/styleTransfer"},
+        {provide: STYLE_TRANSFER_UPLOAD_SERVICE_URL, useValue: "http://localhost:8000/api/upload"},
     ]
 })
 export class StyleTransferModule { }

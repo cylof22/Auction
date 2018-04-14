@@ -15,9 +15,10 @@ export class StyleTransferComponent {
     contentData : any;
     contentUploader : FileUploader;
 
-    contentImagePath: string;
+    contentImageURL: string;
     outputFile : string;
     styles: Product[];
+    defaultStyleURL : string;
     selectedStyle: Product;
     modelVisible = false;
 
@@ -27,8 +28,10 @@ export class StyleTransferComponent {
 
         this.productService.getProducts()
         .subscribe(
-            params => this.styles = params,
-            error => console.error(error)
+            params => { 
+                this.styles = params;
+                this.defaultStyleURL = this.styles[0].url;
+            }
       );
     }
 
@@ -42,9 +45,6 @@ export class StyleTransferComponent {
 
     OnContentChange(input) {
         this.contentFile = input.files;
-
-        let imgPathText = document.getElementById("imagePath");
-        imgPathText.innerText = "选择其它源文件";
 
         // show preview
         this.showImage(input, "imagePreview");
@@ -76,29 +76,16 @@ export class StyleTransferComponent {
         }
         
         this.svc.uploadContent(uploadedData).subscribe( result =>  {
-            this.contentImagePath = result.id,
+            this.contentImageURL = result.url;
             this.doTransfer()
         });  
     }
 
-    getFileName(filePath: string)
-    {
-        var pos = filePath.lastIndexOf("/");
-        return filePath.substring(pos+1);
-    }
-
     doTransfer()
     {
-        let uploadedContentFile = "..\\data\\contents\\" + this.contentImagePath + ".png";
-
-        // get absolut path for compute
-        var uploadStyleFile = "..\\data\\\styles\\" + this.getFileName(this.selectedStyle.url);
-
         // transfer the content image by the style image
-        this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
-            let transferRes = JSON.parse(output)
-            this.outputFile = transferRes["output"];
-
+        this.svc.transfer(this.contentImageURL, this.selectedStyle.url).subscribe(res => {
+            this.outputFile = res["output"];
             this.showComputeRes(this.outputFile);
         }); 
     }
@@ -106,18 +93,6 @@ export class StyleTransferComponent {
     Transfer(event) { 
         // Upload the content file
         this.uploadContent();
-
-        /*
-        // get absolut path for compute
-        var uploadStyleFile = "server\\build\\data\\\styles\\" + this.selectedStyle.id + ".png";
-
-        // transfer the content image by the style image
-        this.svc.transfer(uploadedContentFile, uploadStyleFile).subscribe(output => {
-            let transferRes = JSON.parse(output)
-            this.outputFile = transferRes["output"];
-
-            this.showComputeRes(this.outputFile);
-        }); */
     }
 
     showComputeRes(resUrl: string) {

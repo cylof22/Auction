@@ -6,5 +6,5 @@ export const ONLINE_AUCTION_SERVICES = [
   BidService,
   ProductService,
   WebsocketService,
-  {provide:API_PRODUCTS_SERVICE_URL, useValue: "http://h20458g434.imwork.net:41827"}
+  {provide:API_PRODUCTS_SERVICE_URL, useValue: "http://localhost:8000"}
 ];
