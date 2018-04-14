@@ -18,6 +18,7 @@ export class StyleTransferComponent {
     contentImageURL: string;
     outputFile : string;
     styles: Product[];
+    defaultStyleURL : string;
     selectedStyle: Product;
     modelVisible = false;
 
@@ -27,8 +28,10 @@ export class StyleTransferComponent {
 
         this.productService.getProducts()
         .subscribe(
-            params => this.styles = params,
-            error => console.error(error)
+            params => { 
+                this.styles = params;
+                this.defaultStyleURL = this.styles[0].url;
+            }
       );
     }
 
