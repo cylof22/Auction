@@ -22,7 +22,8 @@ import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL, STYLE_TRANSFER_UPLOAD
             {
                 path: 'style-transfer', component: StyleTransferComponent, 
                 children: [
-                    { path: 'hostArtists', component: StyleTransferComponent },
+                    { path: 'hotestStyles', component: StyleTransferComponent },
+                    { path: 'hotestArtists', component: StyleTransferComponent },
                     { path: 'schools', component: StyleTransferComponent },
                     { path: 'genres', component: StyleTransferComponent },
                     { path: 'fields', component: StyleTransferComponent },
