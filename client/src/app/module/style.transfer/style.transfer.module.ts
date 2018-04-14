@@ -19,7 +19,18 @@ import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL, STYLE_TRANSFER_UPLOAD
         ReactiveFormsModule,
         HttpModule,
         RouterModule.forChild([
-            {path: 'style-transfer', component: StyleTransferComponent},
+            {
+                path: 'style-transfer', component: StyleTransferComponent, 
+                children: [
+                    { path: 'hostArtists', component: StyleTransferComponent },
+                    { path: 'schools', component: StyleTransferComponent },
+                    { path: 'genres', component: StyleTransferComponent },
+                    { path: 'fields', component: StyleTransferComponent },
+                    { path: 'nationalities', component: StyleTransferComponent, },
+                    { path: 'centuries', component: StyleTransferComponent, },
+                    { path: 'custom', component: StyleTransferComponent },
+                ],
+            },
           ]),
     ],
     exports: [
