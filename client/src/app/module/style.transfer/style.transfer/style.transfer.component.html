@@ -2,16 +2,15 @@
     <form enctype="multipart/form-data">
         <div>
             <label class="btn btn-default">
-                上传图作<input type="file" accept="image/*" style="display:none" (change)="OnContentChange(input)" #input>
+                选择原图<input type="file" accept="image/*" style="display:none" (change)="OnContentChange(input)" #input>
             </label>
-            <label id="imagePath">请选择原图</label>
             <div class="text-center">
                 <img id="imagePreview" ng-src='' class="image">
             </div>
         </div>
     </form>    
     <div>
-        <label class="center">选择想要的风格</label>
+        <label class="center">选择风格</label>
         <div class="row">
             <div class="col-sm-5 col-lg-5 col-md-5">
                 <div class="thumbnail" ng-if="styles">

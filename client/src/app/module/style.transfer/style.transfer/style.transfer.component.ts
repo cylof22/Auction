@@ -43,9 +43,6 @@ export class StyleTransferComponent {
     OnContentChange(input) {
         this.contentFile = input.files;
 
-        let imgPathText = document.getElementById("imagePath");
-        imgPathText.innerText = "选择其它源文件";
-
         // show preview
         this.showImage(input, "imagePreview");
     }
