@@ -5,9 +5,6 @@
   "scripts": {
     "start": "ng serve --proxy-config proxy-conf.json",
     "build": "ng build --prod --deploy-url /static",
-    "postbuild": "npm run deploy",
-    "predeploy": "rimraf ../server/build/public && mkdirp ../server/build/public",
-    "deploy": "copyfiles -f dist/** ../server/build/public",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
