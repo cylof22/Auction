@@ -44,8 +44,14 @@ export class StyleTransferComponent {
         }
     }
 
-    onRouterOutletActivate(event) {
-        this.activatedStyleComponent = event.component;
+    onRouterOutletActivate(component) {
+        this.activatedStyleComponent = component;
+        if(this.activatedStyleComponent instanceof StyleCustomComponent) {
+            alert("Custom")
+        } else
+        {
+            alert("Artist")
+        }
     }
 
     uploadContent() {

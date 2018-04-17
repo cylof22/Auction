@@ -41,6 +41,11 @@ export class StyleArtistComponent {
     }
 
     getSelectedArtistModel() : string {
-        return this.selectedArtist.modelName;
+        return this.selectedArtist.modelname;
+    }
+
+    OnSelectedArtist(artist: Artist) {
+        this.selectedArtist = artist;
+        alert(this.selectedArtist.modelname);
     }
 }

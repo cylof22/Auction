@@ -1,3 +1,9 @@
 <div *ngFor="let artist of artists | async" class="col-sm-4 col-lg-4 col-md-4">
-    <artist-item [artist]="artist"></artist-item>
+    <div class="thumbnail">
+        <img [src] = "artist.masterpiece" width="90%" (click)=OnSelectedArtist(artist)>
+        <div class="caption">
+            <label class="label-left">{{ artist.name }}</label>
+            <label class="label-right">{{ artist.modelname }}</label>
+        </div>
+    </div>
 </div>

@@ -27,7 +27,7 @@ export class StyleTransferService {
         let contentQueryParams = "content=" + btoa(contentURL);
         let artistQueryParams = "artist=" + artist;
         return this.http.get<string>(this.transferByArtistURL + "?" + contentQueryParams + 
-            "?" + artistQueryParams);
+            "&" + artistQueryParams);
     }
     
     preview(content : string, style : string): Observable<string> {
