@@ -8,12 +8,14 @@ import { FileUploadModule, FileSelectDirective } from 'ng2-file-upload';
 import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL, STYLE_TRANSFER_BY_ARTIST_SERVICE_URL, STYLE_TRANSFER_UPLOAD_SERVICE_URL } from './services/style.service';
 import { StyleCustomComponent } from './style.custom/style.custom.component';
 import { StyleArtistComponent } from './style.artist/style.artist.component';
+import { ArtistItemComponent } from './style.artist/artist-item.component';
 
 @NgModule({
     declarations: [
         StyleTransferComponent,
         StyleCustomComponent,
         StyleArtistComponent,
+        ArtistItemComponent,
     ],
     imports: [
         CommonModule,
@@ -36,6 +38,7 @@ import { StyleArtistComponent } from './style.artist/style.artist.component';
         StyleTransferComponent,
         StyleCustomComponent,
         StyleArtistComponent,
+        ArtistItemComponent,
     ],
     providers: [
         StyleTransferService,

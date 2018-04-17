@@ -12,6 +12,7 @@ import { ProductModule } from './module/product/product.module';
 import { StyleTransferModule } from './module/style.transfer/style.transfer.module';
 import { WalletModule } from './module/wallet/wallet.module';
 import { StyleUploadModule } from './module/style.upload/style.upload.module';
+import { ArtistModule } from './module/artist/artist.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { StyleUploadModule } from './module/style.upload/style.upload.module';
     StyleTransferModule,
     StyleUploadModule,
     WalletModule,
+    ArtistModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

@@ -73,7 +73,7 @@ export class StyleTransferComponent {
         } else {
             let artistTransferComp = this.activatedStyleComponent as StyleArtistComponent;
             // transfer the content image by the artist type
-            this.svc.transferByArtist(this.contentImageURL,  artistTransferComp.getSelectedArtist()).subscribe( res => {
+            this.svc.transferByArtist(this.contentImageURL,  artistTransferComp.getSelectedArtistModel()).subscribe( res => {
                 this.outputFile = res["output"];
                 this.showComputeRes(this.outputFile);
             })
