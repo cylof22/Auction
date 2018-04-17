@@ -9,6 +9,7 @@ import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL, STYLE_TRANSFER_BY_ART
 import { StyleCustomComponent } from './style.custom/style.custom.component';
 import { StyleArtistComponent } from './style.artist/style.artist.component';
 import { ArtistItemComponent } from './style.artist/artist-item.component';
+import { AuthGuard } from './../../interceptor/auth.guard'
 
 @NgModule({
     declarations: [
@@ -28,8 +29,8 @@ import { ArtistItemComponent } from './style.artist/artist-item.component';
             {
                 path: 'style-transfer', component: StyleTransferComponent, 
                 children: [
-                    { path: 'styles/:mode', component: StyleCustomComponent },
-                    { path: 'artists/:mode', component: StyleArtistComponent },
+                    { path: 'styles/:mode', component: StyleCustomComponent, canActivate: [AuthGuard] },
+                    { path: 'artists/:mode', component: StyleArtistComponent, canActivate: [AuthGuard] },
                 ],
             },
           ]),
@@ -41,6 +42,7 @@ import { ArtistItemComponent } from './style.artist/artist-item.component';
         ArtistItemComponent,
     ],
     providers: [
+        AuthGuard,
         StyleTransferService,
         { provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://localhost:9090/styleTransfer" },
         { provide: STYLE_TRANSFER_BY_ARTIST_SERVICE_URL, useValue: "http://localhost:9090/artistStyle"},

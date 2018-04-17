@@ -1,6 +1,6 @@
 import { Injectable, Inject, OpaqueToken } from "@angular/core";
 import { FileUploadModule } from 'ng2-file-upload';
-import { Http, Response } from "@angular/http";
+import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 export const STYLE_TRANSFER_SERVICE_URL = new OpaqueToken("style-transfer-url");
 export const STYLE_TRANSFER_BY_ARTIST_SERVICE_URL = new OpaqueToken("style-transfer-by-artist-url");
@@ -9,7 +9,7 @@ import { Product } from '../../product/product.model/product'
 
 @Injectable()
 export class StyleTransferService {
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
         @Inject(STYLE_TRANSFER_SERVICE_URL) private transferURL : string,
         @Inject(STYLE_TRANSFER_BY_ARTIST_SERVICE_URL) private transferByArtistURL : string,
         @Inject(STYLE_TRANSFER_UPLOAD_SERVICE_URL) private uploadurl : string) {
@@ -19,30 +19,25 @@ export class StyleTransferService {
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
 
-        return this.http.get(this.transferURL + "?" + contentQueryParams + "&" + styleQueryParams + 
-            "&" + "iterations=100").map(response => response.json());
+        return this.http.get<string>(this.transferURL + "?" + contentQueryParams + "&" + styleQueryParams + 
+            "&" + "iterations=100");
     }
 
     transferByArtist(contentURL : string, artist : string) : Observable<string> {
         let contentQueryParams = "content=" + btoa(contentURL);
         let artistQueryParams = "artist=" + artist;
-        return this.http.get(this.transferByArtistURL + "?" + contentQueryParams + 
-            "?" + artistQueryParams).map(res => res.json());
+        return this.http.get<string>(this.transferByArtistURL + "?" + contentQueryParams + 
+            "?" + artistQueryParams);
     }
     
-    preview(content : string, style : string): string {
+    preview(content : string, style : string): Observable<string> {
         let previewURL = this.transferURL + "/preview"
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
         
         var outputFile : string;
 
-        this.http.get(previewURL + "?" + contentQueryParams + "&" + styleQueryParams).map(response => {
-                let jsonbody = response.json();
-                outputFile = jsonbody["output"];
-            });
-        
-        return "";
+        return this.http.get<string>(previewURL + "?" + contentQueryParams + "&" + styleQueryParams);
     }
 
     contentUploadURL() : string {
@@ -57,8 +52,7 @@ export class StyleTransferService {
 
         let body = postedData;
 
-        return this.http.post(this.uploadurl + "/content", body)
-        .map(response => response.json());
+        return this.http.post<Product>(this.uploadurl + "/content", body);
     }
 
     private uploadFile(url : string, files: Array<File>) {
