@@ -30,7 +30,7 @@ import { AuthGuard } from './../../interceptor/auth.guard'
     providers:[
         AuthGuard,
         StyleUploadService,
-        {provide: STYLE_API_UPLOAD_SERVICE_URL, useValue: "http://127.0.0.1:8000/api/upload/style"},
+        {provide: STYLE_API_UPLOAD_SERVICE_URL, useValue: "http://localhost:8000/api/upload/style"},
     ],
 })
 

@@ -3,16 +3,17 @@ import { Http,Response,RequestOptions,Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { Md5 } from 'ts-md5/dist/md5'
 import { LoginInfo, RegisterInfo, User } from "./../../user/user.model/user"
+import { HttpClient } from "@angular/common/http";
+export const AUTHETICATION_SERVICE_URL = new OpaqueToken("authentication-service-url");
 
 @Injectable()
 export class AuthenticationService {
     localKey: string;
-    url:string;
     currentUser: User;
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient, 
+        @Inject(AUTHETICATION_SERVICE_URL) private authenticationURL) {
         this.localKey = 'currentTLUser';
-        this.url = 'http://127.0.0.1:8000/api/';
         this.currentUser = this.loadUserAuthentication();
     }
 
@@ -39,15 +40,13 @@ export class AuthenticationService {
     login(loginInfo: LoginInfo) : Observable<User> {
         let body = loginInfo;
 
-        return this.http.post(this.url + "authenticate", body)
-        .map(response => response.json());
+        return this.http.post<User>(this.authenticationURL + "authenticate", body);
     }
 
     register(postedData : RegisterInfo) : Observable<string> {
 
         let body = postedData;
 
-        return this.http.post(this.url + "register", body)
-        .map(response => response.json());
+        return this.http.post<string>(this.authenticationURL + "register", body);
     }
 }

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component';
-import { AuthenticationService } from "./services/authentication.service"
+import { AuthenticationService, AUTHETICATION_SERVICE_URL } from "./services/authentication.service"
 
 @NgModule({
     declarations: [
@@ -31,7 +31,8 @@ import { AuthenticationService } from "./services/authentication.service"
     ],
 
     providers:[
-        AuthenticationService
+        AuthenticationService,
+        {provide: AUTHETICATION_SERVICE_URL, useValue: "http://localhost:8000/api/"},
     ],
 })
 
