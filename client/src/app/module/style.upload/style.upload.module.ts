@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { StyleUploadComponent } from "./style.upload/style.upload.component"
 import { StyleUploadService, STYLE_API_UPLOAD_SERVICE_URL } from "./services/style.upload.service"
 import { AuthGuard } from './../../interceptor/auth.guard'
+import { ProductModule } from './../product/product.module';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import { AuthGuard } from './../../interceptor/auth.guard'
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        ProductModule,
         RouterModule.forChild([
             {path: 'style-upload', component: StyleUploadComponent, canActivate: [AuthGuard] }
         ])

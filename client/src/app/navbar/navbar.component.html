@@ -21,7 +21,8 @@
         <li ><a [routerLink]="['/login']">Login</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" *ngIf="isAuthenticated">
-        <li><a href="/#/users/{{userId}}">{{userName}}</a></li>
+        <li><a href="/#/users/{{userName}}">{{userName}}</a></li>
+        <li><a href="/#/users/{{userName}}/gallery">My gallery</a></li>
         <button type="button" class="btn btn-default navbar-btn" (click)="onLogout()">
           Logout
         </button>

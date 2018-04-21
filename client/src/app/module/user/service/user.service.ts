@@ -28,4 +28,12 @@ export class UserService {
   getConcernedUsers(userId: string): Observable<UserInfo[]> {
     return this.http.get<UserInfo[]>(`/api/users/${userId}/concernedUsers`);
   }
+
+  getProductsInShopping(userId: string): Observable<Product[]> {
+    return this.http.get<Product[]>('/api/users/${userId}/shoppedProducts');
+  }
+
+  buy(productId: string) {
+
+  }
 }

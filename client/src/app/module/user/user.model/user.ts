@@ -28,7 +28,8 @@ export class RegisterInfo {
       public username: string,
       public phone: string,
       public email: string,
-      public concernedProducts: Array<string>,
+      public amount: string,
+      public address: string,
       public concernedUsers: Array<string>){
       }
   }

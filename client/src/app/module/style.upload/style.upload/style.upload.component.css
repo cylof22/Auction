@@ -13,3 +13,13 @@
     width: 100%;
     font-size: 20px;
 }
+
+.picAuth-container {
+    position: relative;
+    height: 400px;
+}
+
+.picAuth-container .picAuth {
+    position: absolute;
+    top: -30px;
+}
