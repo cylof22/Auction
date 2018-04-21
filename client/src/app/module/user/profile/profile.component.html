@@ -1,11 +1,26 @@
-<div class="row">
-    <span>user profile test</span>
-</div>
-<!-- 
-<div class="row div-style" >
-<div class="alert alert-warning" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+<div>
+    <div>
+        <label class="left">username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <p contentEditable="true">{{ username }}</p>
+    </div>
 
-<div *ngFor="let product of products | async" class="col-sm-4 col-lg-4 col-md-4">
-<auction-product-item [product]="product"></auction-product-item>
+    <div>
+        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wallet:</label>
+        <div class="row wallet-container">
+            <div class="amount">
+                <p class="left">&nbsp;&nbsp;&nbsp;&nbsp;amount:&nbsp;&nbsp;</p><p class="left" contentEditable="true">{{ currentUserInfo.amount }}</p>
+            </div>
+            <div class="address">
+                <p class="left">&nbsp;&nbsp;&nbsp;&nbsp;address:&nbsp;&nbsp;</p><p class="left" contentEditable="true">{{ currentUserInfo.amount }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="hobby-container">
+        <user-hobby-item class="hobby"></user-hobby-item>
+    </div>
+
+    <div class="submit-container">
+        <button class="submit">submit</button>
+    </div>
 </div>
-</div> -->

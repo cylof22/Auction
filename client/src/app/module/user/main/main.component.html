@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-sm-3 col-lg-3 col-md-3">
+        <div>
+            <button class="active button" id="shoppingCart" (click)="onClickShop(inputShop)" #inputShop>Shopping Cart</button>
+        </div>
+        <div>
+            <button class="button" id="profile" (click)="onClickProfile(inputProfile)" #inputProfile>Personal Info</button>
+        </div>
+        <div>
+            <button class="button" id="concernedPersons" (click)="onClickConUsers(inputConUsers)" #inputConUsers>Concerned Users</button>
+        </div>
+    </div>
+    <div class="col-sm-9 col-lg-9 col-md-9">
+        <div *ngIf="shownElem==0">
+            <user-shopping-page></user-shopping-page>
+        </div>
+        <div *ngIf="shownElem==1">
+            <user-profile-page></user-profile-page>
+        </div>
+        <div *ngIf="shownElem==2">
+            <user-concernedusers-page></user-concernedusers-page>
+        </div>
+    </div>
+</div>

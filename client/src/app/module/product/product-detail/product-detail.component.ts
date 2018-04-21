@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Product } from '../product.model/product'
+import { Product, PicAuth } from '../product.model/product'
 import { Review } from '../product.model/review';
 import { ProductService } from '../service/product.service';
 
@@ -25,6 +25,8 @@ export class ProductDetailComponent implements OnDestroy {
   isReviewHidden: boolean = true;
   isWatching: boolean = false;
   imgHtml: SafeHtml;
+  readonly: boolean = true;
+  showPicAuth: boolean = false;
 
   private subscription: Subscription;
 
@@ -38,6 +40,10 @@ export class ProductDetailComponent implements OnDestroy {
 
     const productId = router.snapshot.params['productId'];
 
+    if  (router.snapshot.params['readonly'] == 'false') {
+      this.readonly = false;
+    }
+
     this.productService
       .getProductById(productId)
       .subscribe(
@@ -45,6 +51,11 @@ export class ProductDetailComponent implements OnDestroy {
           this.product = product;
           this.currentBid = product.price;
 
+          if (this.product.hasOwnProperty('picAuth')) {
+            if (this.product.picAuth.isPublic) {
+              this.showPicAuth = true;
+            }
+          }
         },
         error => console.error(error));
 
@@ -59,6 +70,15 @@ export class ProductDetailComponent implements OnDestroy {
     let img = document.getElementById("imagePreview");
     let detailBox = document.getElementById("detailBox");
     detailBox.style.height = img.style.height;
+
+    // update some controls
+    if (!this.readonly) {
+      // set some control editable
+      var editItems = document.getElementsByClassName("editItem");
+      for (var i = 0; i < editItems.length; i++) {
+        editItems[i].setAttribute("contentEditable", "true");
+      }
+    }
   }
 
   toggleWatchProduct() {
@@ -101,10 +121,6 @@ export class ProductDetailComponent implements OnDestroy {
     this.newRating = 0;
     this.newComment = null;
     this.isReviewHidden = true;
-  }
-
-  onBuyWithCash() {
-    alert("请静待下个版本");
   }
 
   onBuyWithDigitalCash() {

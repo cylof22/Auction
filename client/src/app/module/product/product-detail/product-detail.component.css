@@ -21,10 +21,6 @@
     padding-top: 20px;
 }
 
-.style-image {
-    height: 210px;
-}
-
 .detail-box {
     position:relative;
     height:450px;
@@ -44,4 +40,26 @@
     width: 100%;
     font-size: 20px;
     bottom: 60px;
+}
+
+.p-left {
+    float:left;
+}
+
+.p-right {
+    float:left;
+}
+
+.picAuthArea {
+    position: relative;
+    height: 400px;
+}
+
+.picAuthArea .picAuthGroup {
+    position: absolute;
+}
+
+.submit-button {
+    margin-top: 20px;
+    width: 100%;
 }

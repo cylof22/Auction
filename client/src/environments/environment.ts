@@ -7,5 +7,5 @@ export const environment = {
   production: false,
   productionURL : "http://localhost:8000",
   styleTransferURL : "http://localhost:9090/styleTransfer",
-  
+  aritstTransferURL : "http://localhost:9000/artistStyle",
 };

@@ -13,6 +13,7 @@ import { ProductModule } from './module/product/product.module';
 import { StyleTransferModule } from './module/style.transfer/style.transfer.module';
 import { WalletModule } from './module/wallet/wallet.module';
 import { StyleUploadModule } from './module/style.upload/style.upload.module';
+import { ArtistModule } from './module/artist/artist.module';
 import { AuthenticationModule } from './module/authentication/authentication.module'
 import { UserModule } from './module/user/user.module'
 import { HeaderInterceptor } from './interceptor/header.interceptor'
@@ -31,6 +32,7 @@ import { ResponseInterceptor } from './interceptor/response.interceptor'
     StyleTransferModule,
     StyleUploadModule,
     WalletModule,
+    ArtistModule,
     AuthenticationModule,
     UserModule,
     BrowserModule,
