@@ -7,6 +7,7 @@ import { StyleTransferComponent } from './style.transfer/style.transfer.componen
 import { FileUploadModule, FileSelectDirective } from 'ng2-file-upload';
 import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL, STYLE_TRANSFER_UPLOAD_SERVICE_URL } from './services/style.service';
 import { AuthGuard } from './../../interceptor/auth.guard'
+import { environment } from '../../../environments/environment'
 
 @NgModule({
     declarations: [
@@ -29,8 +30,8 @@ import { AuthGuard } from './../../interceptor/auth.guard'
     providers: [
         AuthGuard,
         StyleTransferService,
-        {provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://h20458g434.imwork.net:41488/styleTransfer"},
-        {provide: STYLE_TRANSFER_UPLOAD_SERVICE_URL, useValue: "http://127.0.0.1:8000/api/upload"},
+        { provide: STYLE_TRANSFER_SERVICE_URL, useValue: environment.styleTransferURL },
+        { provide: STYLE_TRANSFER_UPLOAD_SERVICE_URL, useValue: environment.productionURL + "/api/upload/style"},
     ]
 })
 export class StyleTransferModule { }

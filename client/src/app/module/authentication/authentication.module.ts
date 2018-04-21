@@ -5,7 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component';
-import { AuthenticationService } from "./services/authentication.service"
+import { AuthenticationService, API_AUTHENTICATION_SERVICE_URL } from "./services/authentication.service";
+import { environment } from '../../../environments/environment';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { AuthenticationService } from "./services/authentication.service"
     ],
 
     providers:[
-        AuthenticationService
+        AuthenticationService,
+        { provide: API_AUTHENTICATION_SERVICE_URL, useValue: environment.productionURL + "/api/" },
     ],
 })
 
