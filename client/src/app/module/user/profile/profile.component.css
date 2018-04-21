@@ -1,0 +1,41 @@
+.left {
+    float: left;
+}
+
+.wallet-container {
+    position: relative;
+    height: 60px;
+    width: 200px;
+}
+
+.wallet-container .amount {
+    position: absolute;
+    left: 95px;
+}
+
+.wallet-container .address {
+    position: absolute;
+    left:95px;
+    top: 30px;
+}
+
+.hobby-container {
+    position: relative;
+    height: 60px;
+}
+
+.hobby-container .hobby {
+    position: absolute;
+}
+
+.submit-container {
+    position: relative;
+    height: 60px;
+}
+
+.submit-container .submit {
+    position: absolute;
+    left: 95px;
+    top: 30px;
+    background-color: rgb(213, 236, 236);
+}

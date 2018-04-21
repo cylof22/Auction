@@ -9,8 +9,7 @@ export const API_PRODUCTS_SERVICE_URL = new OpaqueToken("api-products-url");
 
 export interface ProductSearchParams {
   title: string;
-  minPrice: number;
-  maxPrice: number;
+  owner: string;
 }
 
 @Injectable()
@@ -22,7 +21,7 @@ export class ProductService {
   ) {
   }
 
-  search(params: ProductSearchParams): Observable<Product[]> {
+  search(params: any): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl + '/api/products', {params: encodeParams(params)});
   }
 
@@ -43,7 +42,7 @@ export class ProductService {
   }
 
   getAllCategories(): string[] {
-    return ['风景', '人物', '油画'];
+    return ['Landscape', 'Figure Painting', 'Oil Painting'];
   }
 }
 

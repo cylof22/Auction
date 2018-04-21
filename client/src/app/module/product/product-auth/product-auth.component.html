@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <label class="authText">Picture Authentication</label>
+        <div *ngIf="!readonly">
+            <input class="authCheckbox" type="checkbox" checked="checked">
+            <h6 class="authCheckboxText">public</h6>
+        </div>
+    </div>
+    <div class="row thumbnail authArea">
+        <div class="col-sm-10 col-lg-10 col-md-10">
+            <label class="btn btn-default">
+                Select Authentication files<input type="file" accept="image/*" style="display:none" (change)="OnAuthFileAdd(input)" #input>
+            </label>
+            <div class="thumbnail authFiles">
+                <div *ngIf="hasAuthInfo">
+                    <div *ngFor="let authfile of picAuth.authFiles" class="col-sm-2 col-lg-2 col-md-2"> 
+                        <img [src]="authfile">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="descriptionContainer col-sm-2 col-lg-2 col-md-2">
+            <label class="title">Description:</label>
+            <div *ngIf="hasAuthInfo" class="thumbnail descriptionUpdate">
+                <p contentEditable="true">{{ picAuth?.authDescrption }}</p>
+            </div>
+            <textarea *ngIf="!hasAuthInfo" class="descriptionInput" placeholder="Please input description for the authentication files" ></textarea>
+        </div>
+    </div>
+</div>

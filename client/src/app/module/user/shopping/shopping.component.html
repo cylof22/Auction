@@ -1,0 +1,18 @@
+<div class="row">
+    <div *ngIf="productsInShopping">
+        <div class="container col-sm-12 col-lg-12 col-md-12">
+            <ng-masonry-grid class="grid-style"
+                    [masonryOptions]="{ transitionDuration: '0.8s'}" 
+                    [useAnimation]="false"
+                    [useImagesLoaded]="false"
+                    [scrollAnimationOptions]="{ animationEffect: 'effect-4', minDuration : 0.4, maxDuration : 0.7 }">
+                
+            <ng-masonry-grid-item id="{{'masonry-shop-prod-'+i}}" *ngFor="let product of productsInShopping" class="col-sm-3 col-lg-3 col-md-3"> 
+                <auction-product-item [product]="product" [readonly]="true"></auction-product-item>
+            </ng-masonry-grid-item>
+        </ng-masonry-grid>
+    </div>
+    <div *ngIf="!productsInShopping">
+        <h3>No shopped products</h3>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.left {
+    float: left;
+}
+
+.button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.container {
+    position: relative;
+}
+
+.container .group {
+    position: absolute;
+    left: 100px;
+}

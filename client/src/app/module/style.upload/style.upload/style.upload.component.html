@@ -5,22 +5,22 @@
             <div id="fileSelGroup">
                 <input type="file" name="imagePath" id="imagePath" style="display: none;"
                     (change)="showImage(input)" accept="image/png,image/jpg,image/jpeg" #input required/>
-                <input type="button" value="上传图作" (click)="selectFile()">
-                <label id="pathText" >未选择任何文件</label>
+                <input type="button" value="Upload Picture" (click)="selectFile()">
+                <label id="pathText" >No file selected</label>
             </div>
             <img id="imagePreview" ng-src='' class="thumbnail" width="100%" height="400">
         </div>
         <div class="col-sm-4 col-lg-4 col-md-4 container">
             <div class="form-group">
-                <label>价钱：</label>
-                <input formControlName="price" id="price" class="form-control" type="number" placeholder="请输入价钱" required> 
+                <label>price:</label>
+                <input formControlName="price" id="price" class="form-control" type="number" placeholder="Please input price" required> 
             </div>
             <div class="form-group">
-                <label>描述：</label>
-                <textarea formControlName="description" id="description" class="form-control text-area" placeholder="请输入图片描述" required ></textarea>
+                <label>Description:</label>
+                <textarea formControlName="description" id="description" class="form-control text-area" placeholder="Please input picture description" required ></textarea>
             </div>
             <div class="form-group">
-                <label>类别：</label>
+                <label>category:</label>
                 <select formControlName="categories" id="categories" class="form-control" multiple required>
                     <option *ngFor="let c of categories"
                             [value]="c">{{c}}</option>
@@ -28,7 +28,13 @@
             </div>
         </div>
     </div>  
+
+    <!--Picture Authentication area -->
+    <div class="picAuth-container">
+        <auction-product-auth class="picAuth" [readonly]="false"></auction-product-auth>
+    </div>
+
     <div>
-        <button type="submit" class="btn btn-default submit-btn" >提交</button>
+        <button type="submit" class="btn btn-default submit-btn" >Submit</button>
     </div>
 </form>
