@@ -1,5 +1,5 @@
 import {EventEmitter, Inject, Injectable, OpaqueToken} from '@angular/core';
-import {Http, URLSearchParams} from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {Observable} from "rxjs/Observable";
 import {Product} from '../product.model/product';
 import {Review} from '../product.model/review';
@@ -17,31 +17,29 @@ export interface ProductSearchParams {
 export class ProductService {
   searchEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
     @Inject(API_PRODUCTS_SERVICE_URL) private apiUrl : string,
-  ) {}
+  ) {
+  }
 
   search(params: ProductSearchParams): Observable<Product[]> {
-    return this.http.get(this.apiUrl + '/api/products', {search: encodeParams(params)})
-      .map(response => response.json());
+    return this.http.get<Product[]>(this.apiUrl + '/api/products', {params: encodeParams(params)});
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get(this.apiUrl + '/api/products')
-      .map(response => response.json());
+    return this.http.get<Product[]>(this.apiUrl + '/api/products');
   }
 
   getProductById(productId: number): Observable<Product> {
-    return this.http.get(this.apiUrl + `/api/products/${productId}`)
-      .map(response => response.json());
+    return this.http.get<Product>(this.apiUrl + `/api/products/${productId}`);
   }
 
   getReviewsForProduct(productId: number): Observable<Review[]> {
     return this.http
-      .get(this.apiUrl + `/api/products/${productId}/reviews`)
-      .map(response => response.json())
-      .map(reviews => reviews.map(
-        (r: any) => new Review(r.id, r.productId, new Date(r.timestamp), r.user, r.rating, r.comment)));
+    .get<Review[]>(this.apiUrl + `/api/products/${productId}/reviews`)
+    .map(reviews => reviews.map(
+      (r: any) => new Review(r.id, r.productId, new Date(r.timestamp), r.user, r.rating, r.comment)));
+
   }
 
   getAllCategories(): string[] {
@@ -52,11 +50,8 @@ export class ProductService {
 /**
  * Encodes the object into a valid query string.
  */
-function encodeParams(params: any): URLSearchParams {
-  return Object.keys(params)
-    .filter(key => params[key])
-    .reduce((accum: URLSearchParams, key: string) => {
-      accum.append(key, params[key]);
-      return accum;
-    }, new URLSearchParams());
-}
+function encodeParams(params: any): HttpParams {
+  return Object.getOwnPropertyNames(params)
+    .reduce((p, key) => 
+      p.append(key, params[key]),new HttpParams());
+  }

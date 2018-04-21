@@ -1,0 +1,30 @@
+<form [formGroup]="formModel"
+      (ngSubmit)="submit()">
+      <div class="container">
+        <div>
+            <h1 > Join Tulian for Free</h1>
+        </div>
+        <div class="register">
+            <label class="name-label">Username</label>
+            <input formControlName="username" id="username" class="form-control name-input" type="text" placeholder="Enter name" required>
+
+            <label class="password-label">Password</label>
+            <input formControlName="password" id="password" class="form-control password-input " type="password" placeholder="Enter password" required>
+            <input class="form-control repassword-input" type="password" placeholder="Re-enter password" required>
+
+            <label class="phone-label">Phone</label>
+            <input formControlName="phone" id="phone" class="form-control phone-input" type="text" placeholder="Enter phone number" required>
+
+            <label class="email-label">Email</label>
+            <input formControlName="email" id="email" class="form-control email-input" type="email" placeholder="Enter email" required>
+
+            <div>
+                <input class="condition-checkbox" type="checkbox" checked="checked">
+                <h6 class="condition-text">I agree with the  
+                    <a href="">terms & conditions</a> of Tulian.com
+                </h6>
+            </div>
+            <button type="submit" class="submit-btn">Sign up</button>
+        </div>
+    </div>  
+</form>

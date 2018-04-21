@@ -16,8 +16,18 @@
         <li><a [routerLink]="['/style-transfer']">创作</a></li>
         <li><a [routerLink]="['/style-upload']">上传</a></li>
         <li><a [routerLink]="['/wallet']">钱包</a></li>
-        <!-- <li><a href="#">关于</a></li> -->
       </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf="!isAuthenticated">
+        <li ><a [routerLink]="['/login']">Login</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf="isAuthenticated">
+        <li><a href="/#/users/{{userId}}">{{userName}}</a></li>
+        <button type="button" class="btn btn-default navbar-btn" (click)="onLogout()">
+          Logout
+        </button>
+      </ul>
+
+      <!-- <li><a href="#">关于</a></li> -->
     </div>
 
   </div>
