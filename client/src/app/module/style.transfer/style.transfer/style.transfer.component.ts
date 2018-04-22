@@ -14,11 +14,12 @@ export class StyleTransferComponent {
     contentFile : Array<File>;
 
     contentImageURL: string;
-    outputFile : string;
 
     activatedStyleComponent : any;
 
     selectedStyleURL : string;
+
+    outputFileData : string;
 
     modelVisible = false;
     
@@ -67,15 +68,15 @@ export class StyleTransferComponent {
             let styleTransferComp = this.activatedStyleComponent as StyleCustomComponent;
             // transfer the content image by the style image
             this.svc.transfer(this.contentImageURL, styleTransferComp.getSelectedStyle()).subscribe(res => {
-                this.outputFile = res["output"];
-                this.showComputeRes(this.outputFile);
+                this.outputFileData = res;
+                this.showComputeRes(this.outputFileData);
             }); 
         } else {
             let artistTransferComp = this.activatedStyleComponent as StyleArtistComponent;
             // transfer the content image by the artist type
             this.svc.transferByArtist(this.contentImageURL,  artistTransferComp.getSelectedArtistModel()).subscribe( res => {
-                this.outputFile = res["output"];
-                this.showComputeRes(this.outputFile);
+                this.outputFileData = res;
+                this.showComputeRes(this.outputFileData);
             })
         }
         
@@ -105,7 +106,7 @@ export class StyleTransferComponent {
         this.hideComputeRes();
 
         let paras = {
-            "url":this.outputFile,
+            "url":this.outputFileData,
             "basedUrl": this.selectedStyleURL
         }
 
