@@ -15,19 +15,19 @@ export class StyleTransferService {
         @Inject(STYLE_TRANSFER_UPLOAD_SERVICE_URL) private uploadurl : string) {
         }
 
-    transfer(content : string, style : string) : Observable<string> {
+    transfer(content : string, style : string): Observable<Blob> {
         let contentQueryParams = "content=" + btoa(content);
         let styleQueryParams = "style=" + btoa(style);
 
-        return this.http.get<string>(this.transferURL + "?" + contentQueryParams + "&" + styleQueryParams + 
-            "&" + "iterations=100");
+        return this.http.get(this.transferURL + "?" + contentQueryParams + "&" + styleQueryParams + 
+            "&" + "iterations=100", { responseType: 'blob' });
     }
 
-    transferByArtist(contentURL : string, artist : string) : Observable<string> {
+    transferByArtist(contentURL : string, artist : string) : Observable<Blob> {
         let contentQueryParams = "content=" + btoa(contentURL);
         let artistQueryParams = "artist=" + artist;
-        return this.http.get<string>(this.transferByArtistURL + "?" + contentQueryParams + 
-            "&" + artistQueryParams);
+        return this.http.get(this.transferByArtistURL + "?" + contentQueryParams + 
+            "&" + artistQueryParams, { responseType: 'blob' });
     }
     
     preview(content : string, style : string): Observable<string> {
