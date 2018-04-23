@@ -46,6 +46,5 @@ export class StyleArtistComponent {
 
     OnSelectedArtist(artist: Artist) {
         this.selectedArtist = artist;
-        alert(this.selectedArtist.modelname);
     }
 }
