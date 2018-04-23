@@ -66,31 +66,13 @@ export class StyleTransferComponent {
             let styleTransferComp = this.activatedStyleComponent as StyleCustomComponent;
             // transfer the content image by the style image
             this.svc.transfer(this.contentImageURL, styleTransferComp.getSelectedStyle()).subscribe(res => {
-                let reader = new FileReader();
-                reader.readAsDataURL(res);
-                reader.onload = function(e) {
-                    let img = document.getElementById("computedRes");
-                    img.setAttribute("src", this.result);
-                }
-
-                reader.onloadend = () => {
-                    this.modelVisible = true;
-                }
+                this.showComputeRes(res);
             }); 
         } else {
             let artistTransferComp = this.activatedStyleComponent as StyleArtistComponent;
             // transfer the content image by the artist type
             this.svc.transferByArtist(this.contentImageURL,  artistTransferComp.getSelectedArtistModel()).subscribe( res => {
-                let reader = new FileReader();
-                reader.readAsDataURL(res);
-                reader.onload = function(e) {
-                    let img = document.getElementById("computedRes");
-                    img.setAttribute("src", this.result);
-                }
-
-                reader.onloadend = () => {
-                    this.modelVisible = true;
-                }
+                this.showComputeRes(res);
             })
         }
         
@@ -101,11 +83,17 @@ export class StyleTransferComponent {
         this.uploadContent();
     }
 
-    showComputeRes(resUrl: string) {
-        let img = document.getElementById("computedRes");
-        img.setAttribute("src", resUrl);
+    showComputeRes(output: Blob) {
+        let reader = new FileReader();
+        reader.readAsDataURL(output);
+        reader.onload = function(e) {
+            let img = document.getElementById("computedRes");
+            img.setAttribute("src", this.result);
+        }
 
-        this.modelVisible = true;
+        reader.onloadend = () => {
+            this.modelVisible = true;
+        }
     }
 
     hideComputeRes() {
