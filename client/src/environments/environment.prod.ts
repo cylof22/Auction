@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  productionURL : "http://127.0.0.1:8000",
-  styleTransferURL : "http://127.0.0.1:9090/styleTransfer",
-  aritstTransferURL : "http://127.0.0.1:9090/artistStyle",
+  productionURL : "http://www.elforce.net:80",
+  styleTransferURL : "http://www.elforce.net:9090/styleTransfer",
+  aritstTransferURL : "http://www.elforce.net:9090/artistStyle",
 };
