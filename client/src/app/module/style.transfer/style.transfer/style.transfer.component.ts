@@ -78,9 +78,17 @@ export class StyleTransferComponent {
         
     }
 
-    Transfer(event) { 
+    Transfer(event) {
+        // get image data
+        let contentImg = document.getElementById("imagePreview");
+        let contentImgData = contentImg.getAttribute("src");
+
+        let resultImg = document.getElementById("resultPreview");
+        resultImg.setAttribute("src", contentImgData);
+
+        this.modelVisible = true;
         // Upload the content file
-        this.uploadContent();
+        //this.uploadContent();
     }
 
     showComputeRes(output: Blob) {
@@ -97,14 +105,14 @@ export class StyleTransferComponent {
     }
 
     hideComputeRes() {
-        let img = document.getElementById("computedRes");
+        let img = document.getElementById("resultPreview");
         img.setAttribute("src", "");
 
         this.modelVisible = false;
     }
 
     prepareToUpload() {
-        let img = document.getElementById("computedRes");
+        let img = document.getElementById("resultPreview");
         let outfileData = img.getAttribute("src");
 
         // hide dialog

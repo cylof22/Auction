@@ -9,69 +9,43 @@
             </div>
         </div>
     </form>    
-    <div>
-    
-    <label class="center">我想要的风格</label>
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="sidebar-nav">
-                <div class="navbar navbar-default" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <span class="visible-xs navbar-brand">Sidebar menu</span>
-                    </div>
-                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active"></li>
-                            <li class="active"><a [routerLink]="['/style-transfer/styles/hotest']">热门样式</a></li>
-                            <li><a [routerLink]="['/style-transfer/artists/hotest']">热门艺术家</a></li>
-                            <li><a [routerLink]="['/style-transfer/artists/all']">艺术家</a></li>
-                            <li><a [routerLink]="['/style-transfer/styles/custom']">自定义样式</a></li>
-                            <!-- <li><a [routerLink]="['/style-transfer/schools']">艺术流派</a></li> -->
-                            <!-- <li><a [routerLink]="['/style-transfer/genres']">类型</a></li> -->
-                            <!-- <li><a [routerLink]="['/style-transfer/fields']">领域</a></li> -->
-                            <!-- <li><a [routerLink]="['/style-transfer/nationalities']">国籍</a></li> -->
-                            <!-- <li><a [routerLink]="['/style-transfer/centuries']">时代</a></li> -->
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9">
-            <div class="row">
-                <router-outlet (activate)="onRouterOutletActivate($event)"></router-outlet>
-            </div>
-        </div>
-      </div>  
-    </div>
-    <div class="panel panel-default panel-primary text-center">
-        <div class="panel-heading">试试人工智能为你创作</div>
-        <div class="panel-body">
-            <input type="button" class="btn btn-default btn-sm active" value="不，谢谢!">
-            <input type="submit" class="btn btn-default btn-sm" value="试试" (click)="Transfer($event)">
-        </div>
-    </div>
+<div>
 
-    <!-- pop up a model to show computed picture -->
-    <div class="modal fade" id="modelDig" role="dialog" tabindex="-1"
+<div class="style-transfer-panel">
+    <h5>Try AI for Style Transfer?</h5>
+    <h6>Only for digital pictures, not for real painting</h6>
+    <input type="submit" class="btn btn-default btn-sm" value="Try" (click)="Transfer($event)">
+</div>
+
+<!-- pop up a model to show computed picture -->
+<div class="modal fade" id="modelDig" role="dialog" tabindex="-1"
     [ngStyle]="{'display': modelVisible ? 'block' : 'none', 'opacity': 1}">
-    <div class="modal-dialog">
+    <div class="modal-dialog model-style">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="modal-body">
-                    <img id="computedRes" ng-src='' class="thumbnail" width="100%">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideComputeRes()">关闭</button>
-                    <button type="button" class="btn btn-primary" (click)="prepareToUpload()">上传</button>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Preview</label>
+                        <div class="thumbnail" ng-if="styles">
+                            <img id="resultPreview" ng-src="" width="100%">
+                        </div>
+                      </div>
+                      <div class="row col-md-9 style-transfer">
+                        <div id="centeredmenu">
+                            <ul>
+                                <li><a [routerLink]="['/style-transfer/artists/all']">The Master Style</a></li>
+                                <li><a [routerLink]="['/style-transfer/styles/custom']">Custom Style</a></li>
+                            </ul>
+                        </div>
+                        <router-outlet (activate)="onRouterOutletActivate($event)"></router-outlet>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideComputeRes()">关闭</button>
+                        <button type="button" class="btn btn-primary" (click)="prepareToUpload()">上传</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>

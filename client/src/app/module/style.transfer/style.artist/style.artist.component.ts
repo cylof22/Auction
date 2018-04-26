@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable'
 
 @Component({
     selector: 'style-artist',
+    styleUrls: ['./style.artist.component.css'],
     templateUrl: './style.artist.component.html',
 })
 
