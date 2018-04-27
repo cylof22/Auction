@@ -4,59 +4,54 @@
     padding-right: 10px;
 }
 
+.picture-container {
+    text-align: center;
+}
+
+.picture-container .picture {
+    width: auto;
+    height: 450px;
+}
+
+.picture-container .story-container {
+    margin-top: 20px;
+}
+
+.picture-container .story-container .title{
+    top: -10px;
+    left: 45%;
+}
+
+.picture-container .story-container .description {
+    width: 96.5%;
+    margin-top: 10px;
+    margin-left: 15px;
+    padding-top: 20px;
+    background-color:rgb(235, 232, 232);
+}
+
+.picture-container .story-container .description .text {
+    margin-top: -15px;
+}
+
+.picture-container .story-container .pictures {
+    margin-top: 20px;
+    height: 300px;
+    overflow: auto;
+    text-align: center;
+}
+
+.picture-container .story-container .pictures .pic {
+    width: 25%;
+}
+
 .image-background {
     background-color:rgb(235, 232, 232);
     text-align: center;
   }
 
-.image {
-    height: 450px;
-}
-
-.div-style {
-    padding-bottom: 12px;
-}
-
-.description {
-    padding-top: 20px;
-}
-
-.detail-box {
-    position:relative;
-    height:450px;
-  }
-
-.detail-box .buy {
-    position: absolute;
-    height: 40px;
-    width: 100%;
-    font-size: 20px;
-    bottom: 10px;
-}
-
-.detail-box .buy2 {
-    position: absolute;
-    height: 40px;
-    width: 100%;
-    font-size: 20px;
-    bottom: 60px;
-}
-
-.p-left {
+.left {
     float:left;
-}
-
-.p-right {
-    float:left;
-}
-
-.picAuthArea {
-    position: relative;
-    height: 400px;
-}
-
-.picAuthArea .picAuthGroup {
-    position: absolute;
 }
 
 .submit-button {

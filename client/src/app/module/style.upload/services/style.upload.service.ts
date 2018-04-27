@@ -8,11 +8,15 @@ import { Product } from '../../product/product.model/product'
 export class StyleUploadService {
     constructor(private http: HttpClient,
         @Inject(STYLE_API_UPLOAD_SERVICE_URL) private url : string) {
-        }
+    }
 
     uploadData(postedData : any) : Observable<Product> {
-
         let body = postedData;
-        return this.http.post<Product>(this.url, body);
+        return this.http.post<Product>(this.url + "/style", body);
+    }
+
+    batchUpload(postedData : any) : Observable<string> {
+        let body = postedData;
+        return this.http.post<string>(this.url + "/styles", body);
     }
 }

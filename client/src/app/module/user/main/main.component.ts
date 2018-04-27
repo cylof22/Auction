@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable'
 
 /* import { ProductService } from './../../product/service/product.service';
 import { UserService } from '../service/user.service';
-import { Product, ProductStatus } from '../../product/product.model/product';
+import { Product } from '../../product/product.model/product';
 import { UserInfo } from '../user.model/user' */
 
 enum ShownElem {

@@ -41,8 +41,17 @@ export class ProductService {
 
   }
 
+  getAllTags(): string[] {
+    return ['Landscape', 'Figure Painting', 'Oil Painting'];
+  }
+
   getAllCategories(): string[] {
     return ['Landscape', 'Figure Painting', 'Oil Painting'];
+  }
+
+  getPoundage(price) : number{
+    let intPrice = parseInt(price);
+    return (intPrice / 100);
   }
 }
 

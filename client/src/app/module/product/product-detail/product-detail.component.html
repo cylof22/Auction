@@ -1,37 +1,54 @@
-<div>
-  <div class="row">
-    <div id="imagePreview" class="col-sm-9 col-lg-9 col-md-9 image-background">
-      <div>
-        <img [src]="product.url" class="image">
+<div class="row">
+  <div class="picture-container col-sm-8 col-lg-8 col-md-8">
+    <div id="imagePreview">
+      <img [src]="product.url" class="picture">
+    </div>
+
+    <div *ngIf="hasStory" id="story-container" class="story-container thumbnail">
+      <h3 class="title">Product story</h3>
+      <div *ngIf="product.story.description" id="storyDescrip" class="description">
+        <h4 class="text">{{ product.story.description }}</h4>
       </div>
+      <div *ngIf="hasStoryPic" class="pictures">
+        <div *ngFor="let pic of product.story.pictures" class="col-sm-3 col-lg-3 col-md-3">
+          <img [src]="pic">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="detailBox" class="col-sm-4 col-lg-4 col-md-4">
+    <div>
+      <p class="col-sm-4 col-lg-4 col-md-4">Owner</p>
+      <p class="col-sm-8 col-lg-8 col-md-8">{{ product.owner }}</p>
     </div>
     <div>
-
-    <div id="detailBox" class="col-sm-3 col-lg-3 col-md-3 detail-box">
-      <div class="div-style">
-        <strong>Detail</strong>
-      </div>
-          <p class="p-left">owner:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>{{ product.owner }}</p>
-          <p class="p-left">creator:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p class="editItem">{{ product?.creator }}</p>
-          <p class="p-left">price:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p class="editItem">{{ product.price | currency }}</p>
-          <p class="p-left">category:&nbsp;&nbsp;&nbsp;</p><p class="editItem">{{ product?.categories }}</p>
-
-      <div class="description">
-        <p class="editItem">{{ product?.description }}</p>
-      </div>
+      <p class="col-sm-4 col-lg-4 col-md-4">Maker</p>
+      <p class="editItem col-sm-8 col-lg-8 col-md-8">{{ product.maker }}</p>
     </div>
-  </div>
-
-  <!--Picture Authentication area -->
-  <div *ngIf="showPicAuth" class="col-sm-12 col-lg-12 col-md-12">
-      <auction-product-auth [picAuth]="product.picAuth" [readonly]="readonly"></auction-product-auth>
-  </div>
-
-  <div *ngIf="readonly">
+    <div>
+      <p class="col-sm-4 col-lg-4 col-md-4">Tag</p>
+      <p class="editItem col-sm-8 col-lg-8 col-md-8">{{ product.tags }}
+      </p>
+    </div>
+    <div>
+      <p class="col-sm-4 col-lg-4 col-md-4">Property</p>
+      <p class="editItem col-sm-8 col-lg-8 col-md-8">{{ productType }}</p>
+    </div>
+    <div *ngIf="product.price.type != '2'">
+      <p class="col-sm-4 col-lg-4 col-md-4">{{ priceType }}</p>
+      <p class="editItem col-sm-8 col-lg-8 col-md-8">{{ price }}</p>
+    </div>
+    <div *ngIf="product.price.type == '2'">
+      <p class="col-sm-6 col-lg-6 col-md-6">{{ priceType }}</p>
+    </div>
+      
+    <div *ngIf="readonly" class="col-sm-12 col-lg-12 col-md-12">
       <button class="submit-button" (click)="onBuyWithDigitalCash()">Buy</button>
-  </div>
+    </div>          
 
-  <div *ngIf="!readonly">
-      <button class="submit-button">Submit</button>
+    <div *ngIf="!readonly" class="col-sm-12 col-lg-12 col-md-12">
+        <button class="submit-button">Submit</button>
+    </div>
   </div>
 </div>
