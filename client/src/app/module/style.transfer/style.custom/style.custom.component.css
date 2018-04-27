@@ -1,4 +1,6 @@
 .image {
-    max-width: 20em;
-    max-height: 20em;
+    width: auto;
+    height: 10em;
+    margin-top: 1em;
+    margin-left: 1em;
 }
