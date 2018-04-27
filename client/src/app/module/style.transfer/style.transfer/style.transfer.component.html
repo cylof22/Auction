@@ -2,7 +2,7 @@
     <form enctype="multipart/form-data">
         <div>
             <label class="btn btn-default">
-                上传原作<input type="file" accept="image/*" style="display:none" (change)="OnContentChange(input)" #input>
+                Upload Picture<input type="file" accept="image/*" style="display:none" (change)="OnContentChange(input)" #input>
             </label>
             <div class="text-center">
                 <img id="imagePreview" ng-src='' class="image">
@@ -41,8 +41,9 @@
                       </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" (click)="applyTransfer()">Apply</button>
+                        <button type="button" class="btn btn-default" (click)="goToUpload()">Upload</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideComputeRes()">关闭</button>
-                        <button type="button" class="btn btn-primary" (click)="prepareToUpload()">上传</button>
                     </div>
                 </div>
             </div>

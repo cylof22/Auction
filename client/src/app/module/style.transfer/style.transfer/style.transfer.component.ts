@@ -56,11 +56,12 @@ export class StyleTransferComponent {
         
         this.svc.uploadContent(uploadedData).subscribe( result =>  {
             this.contentImageURL = result.url;
-            this.doTransfer()
+            
+            //this.doTransfer()
         });  
     }
 
-    doTransfer()
+    applyTransfer()
     {
         if(this.activatedStyleComponent instanceof StyleCustomComponent) {
             let styleTransferComp = this.activatedStyleComponent as StyleCustomComponent;
@@ -87,6 +88,8 @@ export class StyleTransferComponent {
         resultImg.setAttribute("src", contentImgData);
 
         this.modelVisible = true;
+
+
         // Upload the content file
         //this.uploadContent();
     }
@@ -111,7 +114,8 @@ export class StyleTransferComponent {
         this.modelVisible = false;
     }
 
-    prepareToUpload() {
+
+    goToUpload() {
         let img = document.getElementById("resultPreview");
         let outfileData = img.getAttribute("src");
 
