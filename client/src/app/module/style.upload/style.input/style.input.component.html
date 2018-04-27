@@ -1,0 +1,74 @@
+<form [formGroup]="formModel">
+    <div>
+        <label>Add Tag</label>
+        <input id="tag" class="form-control" formControlName="cusmizedTags" type="text" placeholder="Please input tags, separated by comma" required> 
+        <div class="tag-container row col-sm-12 col-lg-12 col-md-12">
+            <div class="tags">
+                <button class="tag select-button">Recommend</button>
+            </div>
+            <div class="default-tags">
+                <div *ngFor="let tagText of tags" >
+                    <button (click)="onClickTag(tagInput)" class="left tag select-button" #tagInput>{{ tagText }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="hasStory" >
+        <br>
+        <div class="story-container">
+            <label>Writting story and adding auxiliary pictures(max count is 4)</label>
+            <textarea id="description" class="form-control description" formControlName="userDescp" placeholder="less than 500 words"></textarea>
+            <div class="row addGroup">
+                <div class="col-sm-3 col-lg-3 col-md-3">
+                    <input type="file" name="storyImagePath" id="storyImagePath" style="display: none;"
+                        (change)="showImage(input)" accept="image/png,image/jpg,image/jpeg" #input required/>
+                    <input id="selectBtn" class="addBtn" type="button" value="+" (click)="selectFile()">
+                </div>
+                <div id="storyImages" class="col-sm-9 col-lg-9 col-md-9">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div id="" class="property-container col-sm-12 col-lg-12 col-md-12">
+        <label class="left notice">Property</label>
+        <button id="digInput" class="left select-button digital" (click)="onClickDigtal(digInput)" #digInput>Digital picture</button>
+        <button id="matInput" class="select-button material" (click)="onClickMaterial(matInput)" #matInput>Material object</button>
+    </div>
+
+    <br>
+    <div class="price-container col-sm-12 col-lg-12 col-md-12">
+        <label class="left notice">Price</label>
+        <button id="fix" class="left fix select-button" (click)="onClickFix(fix)" #fix>Fixed</button>
+        <button id="auction" class="left auction select-button" (click)="onClickAuction(auction)" #auction>Auction</button>
+        <button id="onlyShow" class="left exb select-button" (click)="onClickOnlyShow(onlyShow)" #onlyShow>Exhibition</button>
+        <div class="price-input-box">
+            <input id="priceValue" *ngIf="priceType != 2" class="price-input form-control" formControlName="price" type="text" placeholder="Please input price" (blur)="endPrice(priceInput)" (focus)="beginPrice(priceInput)"  (change)="changePrice()" #priceInput>
+        </div>
+        <div class="poundage-box">
+            <p class="poundage">Poundage: {{poundage}}</p>
+            <a href="">Poundage explain</a>
+        </div>
+    </div>
+
+    <br>
+    <div class="maker-container col-sm-12 col-lg-12 col-md-12">
+        <label class="left labelText">Maker</label>
+        <input class="left maker form-control" type="text" formControlName="maker" placeholder="maker of the picture">
+    </div>
+
+    <div class="copyright-container col-sm-12 col-lg-12 col-md-12">
+        <input class="left check" type="checkbox" checked="checked">
+        <h6 class="condition-text">I have copyright of uploaded picture. I agree with the  
+            <a href="">copyright notice</a> and <a href="">other notices</a>
+        </h6>
+    </div>
+
+    <div class="submit-container">
+        <button class="right cancelBtn" (click)="onCancel()">Cancel</button>
+        <button class="btn-default right" (click)="onSubmit()">Submit</button>
+    </div>
+</form>

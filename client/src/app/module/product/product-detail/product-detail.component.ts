@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Product, PicAuth } from '../product.model/product'
+import { Product } from '../product.model/product'
 import { Review } from '../product.model/review';
 import { ProductService } from '../service/product.service';
 
@@ -18,7 +18,6 @@ export class ProductDetailComponent implements OnDestroy {
   product: Product;
   reviews: Review[];
 
-  currentBid: number;
   newComment: string;
   newRating: number;
 
@@ -26,7 +25,12 @@ export class ProductDetailComponent implements OnDestroy {
   isWatching: boolean = false;
   imgHtml: SafeHtml;
   readonly: boolean = true;
-  showPicAuth: boolean = false;
+
+  productType: string;
+  priceType: string;
+  price: string;
+  hasStory: boolean;
+  hasStoryPic: boolean;
 
   private subscription: Subscription;
 
@@ -49,13 +53,9 @@ export class ProductDetailComponent implements OnDestroy {
       .subscribe(
         product => {
           this.product = product;
-          this.currentBid = product.price;
-
-          if (this.product.hasOwnProperty('picAuth')) {
-            if (this.product.picAuth.isPublic) {
-              this.showPicAuth = true;
-            }
-          }
+          this.setProductType(product);
+          this.setPrice(product);
+          this.setStoryInfo(product);
         },
         error => console.error(error));
 
@@ -64,6 +64,46 @@ export class ProductDetailComponent implements OnDestroy {
       .subscribe(
         reviews => this.reviews = reviews,
         error => console.error(error));
+  }
+
+  setProductType(product: Product) {
+    switch (parseInt(product.type)) {
+      case 0:
+      this.productType = "Digital picture";
+      break;
+      case 1:
+      this.productType = "Material object"
+      break;
+    }
+  }
+
+  setPrice(product: Product) {
+    this.price = product.price.value;
+    switch (parseInt(product.price.type)) {
+      case 0:
+      this.priceType = "Fixed Price";
+      break;
+      case 1:
+      this.priceType = "Auction Price";
+      break;
+      case 2:
+      this.priceType = "Only Exhibition"
+      break;
+    }
+  }
+
+  setStoryInfo(product: Product) {
+    this.hasStory = false;
+    if (product.story != undefined) {
+      this.hasStoryPic = false;
+      if (product.story.pictures.length > 0) {
+        this.hasStoryPic = true;
+
+        if (product.story.description != "") {
+          this.hasStory = true;
+        }
+      }
+    }
   }
 
   ngOnInit() {
@@ -90,7 +130,6 @@ export class ProductDetailComponent implements OnDestroy {
       this.isWatching = true;
       this.subscription = this.bidService.watchProduct(this.product.id)
         .subscribe(
-          products => this.currentBid = products.find((p: any) => p.productId === this.product.id).bid,
           error => console.log(error));
     }
   }

@@ -7,28 +7,31 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" [routerLink]="['/']">图链</a>
+      <a class="navbar-brand" >PicChain</a>
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
-        <!-- <li><a [routerLink]="['/']">发现</a></li> -->
-        <li><a [routerLink]="['/style-transfer']">创作</a></li>
-        <li><a [routerLink]="['/style-upload']">上传</a></li>
-        <li><a [routerLink]="['/wallet']">钱包</a></li>
+        <li><a [routerLink]="['/']">Discovery</a></li>
+        <li><a [routerLink]="['/style-upload']">Upload</a></li>
+        <li><a [routerLink]="['/batch-upload']">BatchUpload</a></li>
+        <li><a [routerLink]="">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" *ngIf="!isAuthenticated">
         <li ><a [routerLink]="['/login']">Login</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" *ngIf="isAuthenticated">
-        <li><a href="/#/users/{{userName}}">{{userName}}</a></li>
-        <li><a href="/#/users/{{userName}}/gallery">My gallery</a></li>
-        <button type="button" class="btn btn-default navbar-btn" (click)="onLogout()">
-          Logout
-        </button>
+        <li class="dropdown">
+          <a href="/#/users/{{userName}}">{{userName}}<b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <button type="button" class="btn btn-default navbar-btn logout" (click)="onLogout()">
+              Logout
+            </button>
+          </ul>
+        </li>
       </ul>
 
-      <!-- <li><a href="#">关于</a></li> -->
     </div>
 
   </div>

@@ -1,25 +1,9 @@
-.container {
-    margin-top: 20px;
-    position:relative;
-    float: left;
-    height: 315px;
-}
-
-.text-area {
-    height:130px;
-}
-
-.submit-btn {
+.image-container {
     width: 100%;
-    font-size: 20px;
-}
-
-.picAuth-container {
-    position: relative;
     height: 400px;
 }
 
-.picAuth-container .picAuth {
-    position: absolute;
-    top: -30px;
+.image-container .image {
+    width: auto;
+    height: 100%;
 }
