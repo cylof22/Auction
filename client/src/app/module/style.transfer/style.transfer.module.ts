@@ -9,6 +9,7 @@ import { StyleTransferService, STYLE_TRANSFER_SERVICE_URL, STYLE_TRANSFER_BY_ART
 import { StyleCustomComponent } from './style.custom/style.custom.component';
 import { StyleArtistComponent } from './style.artist/style.artist.component';
 import { AuthGuard } from './../../interceptor/auth.guard'
+import { environment } from '../../../environments/environment'
 
 @NgModule({
     declarations: [
@@ -41,9 +42,9 @@ import { AuthGuard } from './../../interceptor/auth.guard'
     providers: [
         AuthGuard,
         StyleTransferService,
-        { provide: STYLE_TRANSFER_SERVICE_URL, useValue: "http://localhost:9090/styleTransfer" },
-        { provide: STYLE_TRANSFER_BY_ARTIST_SERVICE_URL, useValue: "http://localhost:9090/artistStyle"},
-        {provide: STYLE_TRANSFER_UPLOAD_SERVICE_URL, useValue: "http://localhost:8000/api/upload"},
+        { provide: STYLE_TRANSFER_SERVICE_URL, useValue: environment.styleTransferURL },
+        { provide: STYLE_TRANSFER_BY_ARTIST_SERVICE_URL, useValue: environment.aritstTransferURL },
+        { provide: STYLE_TRANSFER_UPLOAD_SERVICE_URL, useValue: environment.productionURL + "/api/upload"},
     ]
 })
 export class StyleTransferModule { }

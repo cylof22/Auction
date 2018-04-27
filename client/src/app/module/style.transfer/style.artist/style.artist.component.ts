@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable'
 
 @Component({
     selector: 'style-artist',
+    styleUrls: ['./style.artist.component.css'],
     templateUrl: './style.artist.component.html',
 })
 
@@ -46,6 +47,5 @@ export class StyleArtistComponent {
 
     OnSelectedArtist(artist: Artist) {
         this.selectedArtist = artist;
-        alert(this.selectedArtist.modelname);
     }
 }

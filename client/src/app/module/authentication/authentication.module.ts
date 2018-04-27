@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component';
 import { AuthenticationService, AUTHETICATION_SERVICE_URL } from "./services/authentication.service"
+import { environment } from '../../../environments/environment';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,7 @@ import { AuthenticationService, AUTHETICATION_SERVICE_URL } from "./services/aut
 
     providers:[
         AuthenticationService,
-        {provide: AUTHETICATION_SERVICE_URL, useValue: "http://localhost:8000/api/"},
+        { provide: AUTHETICATION_SERVICE_URL, useValue: environment.productionURL + "/api/" },
     ],
 })
 
