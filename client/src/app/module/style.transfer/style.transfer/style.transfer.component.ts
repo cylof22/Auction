@@ -47,7 +47,8 @@ export class StyleTransferComponent {
         this.activatedStyleComponent = component;
     }
 
-    uploadContent() {
+    applyTransfer()
+    {
         // get image data
         let img = document.getElementById("imagePreview");
         let uploadedData = {
@@ -56,38 +57,40 @@ export class StyleTransferComponent {
         
         this.svc.uploadContent(uploadedData).subscribe( result =>  {
             this.contentImageURL = result.url;
-            this.doTransfer()
-        });  
+            
+            if(this.activatedStyleComponent instanceof StyleCustomComponent) {
+                let styleTransferComp = this.activatedStyleComponent as StyleCustomComponent;
+                // transfer the content image by the style image
+                this.svc.transfer(this.contentImageURL, styleTransferComp.getSelectedStyle()).subscribe(res => {
+                    this.showComputeRes(res);
+                }); 
+            } else {
+                let artistTransferComp = this.activatedStyleComponent as StyleArtistComponent;
+                // transfer the content image by the artist type
+                this.svc.transferByArtist(this.contentImageURL,  artistTransferComp.getSelectedArtistModel()).subscribe( res => {
+                    this.showComputeRes(res);
+                })
+            }
+        });
     }
 
-    doTransfer()
-    {
-        if(this.activatedStyleComponent instanceof StyleCustomComponent) {
-            let styleTransferComp = this.activatedStyleComponent as StyleCustomComponent;
-            // transfer the content image by the style image
-            this.svc.transfer(this.contentImageURL, styleTransferComp.getSelectedStyle()).subscribe(res => {
-                this.showComputeRes(res);
-            }); 
-        } else {
-            let artistTransferComp = this.activatedStyleComponent as StyleArtistComponent;
-            // transfer the content image by the artist type
-            this.svc.transferByArtist(this.contentImageURL,  artistTransferComp.getSelectedArtistModel()).subscribe( res => {
-                this.showComputeRes(res);
-            })
-        }
-        
-    }
+    Transfer(event) {
+        // get image data
+        let contentImg = document.getElementById("imagePreview");
+        let contentImgData = contentImg.getAttribute("src");
 
-    Transfer(event) { 
-        // Upload the content file
-        this.uploadContent();
+        let resultImg = document.getElementById("resultPreview");
+        resultImg.setAttribute("src", contentImgData);
+
+        this.modelVisible = true;
     }
 
     showComputeRes(output: Blob) {
         let reader = new FileReader();
         reader.readAsDataURL(output);
         reader.onload = function(e) {
-            let img = document.getElementById("computedRes");
+            let img = document.getElementById("resultPreview");
+            alert(this.result)
             img.setAttribute("src", this.result);
         }
 
@@ -97,14 +100,15 @@ export class StyleTransferComponent {
     }
 
     hideComputeRes() {
-        let img = document.getElementById("computedRes");
+        let img = document.getElementById("resultPreview");
         img.setAttribute("src", "");
 
         this.modelVisible = false;
     }
 
-    prepareToUpload() {
-        let img = document.getElementById("computedRes");
+
+    goToUpload() {
+        let img = document.getElementById("resultPreview");
         let outfileData = img.getAttribute("src");
 
         // hide dialog

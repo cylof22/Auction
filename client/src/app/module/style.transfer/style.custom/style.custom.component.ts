@@ -6,11 +6,11 @@ import { ActivatedRoute } from "@angular/router";
 @Component({
     selector: 'style-custom',
     templateUrl: './style.custom.component.html',
+    styleUrls: ['/style.custom.component.css'],
 })
 
 export class StyleCustomComponent {
     styles: Product[];
-    defaultStyleURL : string;
     selectedStyle: Product;
     hotest : boolean;
 
@@ -22,14 +22,13 @@ export class StyleCustomComponent {
             this.styleService.getProducts().subscribe(
                 params => { 
                     this.styles = params;
-                    this.defaultStyleURL = this.styles[0].url;
+                    
                 }
             );
         } else {
             this.styleService.getProducts().subscribe(
                 params => { 
                     this.styles = params;
-                    this.defaultStyleURL = this.styles[0].url;
                 }
             );
         }

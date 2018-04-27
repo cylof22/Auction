@@ -1,8 +1,8 @@
-<div *ngFor="let artist of artists | async" class="col-sm-4 col-lg-4 col-md-4">
-    <div class="thumbnail">
-        <img [src] = "artist.masterpiece" width="90%" (click)=OnSelectedArtist(artist)>
-        <div class="caption">
-            <label class="label-left">{{ artist.name }}</label>
+<div *ngFor="let artist of artists | async" class="col-md-3">
+    <div class="thumbnail artist-style">
+        <img class="image" [src]="artist.masterpiece" (click)=OnSelectedArtist(artist)>
+        <div class="caption" style="text-align:center">
+            <h5>{{ artist.name }}</h5>
         </div>
     </div>
 </div>
