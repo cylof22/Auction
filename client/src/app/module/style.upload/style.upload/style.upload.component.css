@@ -1,9 +1,26 @@
 .image-container {
     width: 100%;
     height: 400px;
+    margin-bottom: 0px;
 }
 
 .image-container .image {
     width: auto;
     height: 100%;
 }
+
+.style-transfer-panel {
+    background-color: dodgerblue;
+    text-align: center;
+    margin-top: 0px;
+ }
+
+ .style-transfer-panel h5 {
+    padding-top: 10px;
+ }
+
+ .style-transfer-panel button {
+    background-color: transparent;
+    width: 60px;
+    margin-bottom: 10px;
+ }

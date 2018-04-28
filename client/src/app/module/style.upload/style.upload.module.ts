@@ -7,9 +7,10 @@ import { StyleUploadComponent } from "./style.upload/style.upload.component"
 import { StyleUploadService, STYLE_API_UPLOAD_SERVICE_URL } from "./services/style.upload.service";
 import { AuthGuard } from './../../interceptor/auth.guard';
 import { ProductModule } from './../product/product.module';
-import { environment } from '../../../environments/environment';
+import { environment } from './../../../environments/environment';
 import { StyleBatchComponent } from './style.batchupload/style.batch.component'
 import { StyleInputComponent } from './style.input/style.input.component'
+import { StyleTransferModule } from './../style.transfer/style.transfer.module'
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { StyleInputComponent } from './style.input/style.input.component'
         ReactiveFormsModule,
         HttpModule,
         ProductModule,
+        StyleTransferModule,
         RouterModule.forChild([
             {path: 'style-upload', component: StyleUploadComponent, canActivate: [AuthGuard] },
             {path: 'batch-upload', component: StyleBatchComponent, canActivate: [AuthGuard] }

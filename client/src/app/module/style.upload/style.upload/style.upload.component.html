@@ -1,15 +1,23 @@
 <div class="row">
-    <div class="form-group col-sm-8 col-lg-8 col-md-8">
+    <div class="col-sm-8 col-lg-8 col-md-8">
         <div id="fileSelGroup">
             <input type="file" name="imagePath" id="imagePath" style="display: none;"
                 (change)="showImage(input)" accept="image/png,image/jpg,image/jpeg" #input required/>
             <input type="button" value="Upload Product" (click)="selectFile()">
         </div>
         <div class="thumbnail image-container">
-            <img id="imagePreview" class="image">
+            <img id="imagePreview" class="image" #imagePreview>
+        </div>
+        <div *ngIf="imagePreview.src != ''" class="style-transfer-panel">
+            <h5>Try AI for Style Transfer?</h5>
+            <h6>Only for digital pictures, not for real painting</h6>
+            <button (click)="doTransfer()">Try</button>
         </div>
     </div>
     <div class="col-sm-4 col-lg-4 col-md-4">
-        <style-input (onUploadProductData)="onUploadProduct($event)" [hasStory]="true"></style-input>
+        <style-input [hasStory]="true" (onUploadProductData)="onUploadProduct($event)"></style-input>
     </div>
 </div>  
+<div *ngIf="showTransferDlg">
+    <style-transfer [ImgSrc]="imagePreview.src" (completeTransfer)="onCompleteTransfer($event)"></style-transfer>
+</div>

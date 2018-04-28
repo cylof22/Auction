@@ -47,25 +47,6 @@
     line-height:1.3em;
  }
 
- .style-transfer-panel {
-    background-color: dodgerblue;
-    text-align: center;
- }
-
- .style-transfer-panel h5 {
-    text-align: center
- }
-
- .style-transfer-panel h6 {
-    text-align: center
- }
-
- .style-transfer-panel input {
-    margin: 0 auto;
-    text-align: center;
-    background: dodgerblue
- }
-
 .modal-dialog {
     position: relative;
     margin: 0 auto;

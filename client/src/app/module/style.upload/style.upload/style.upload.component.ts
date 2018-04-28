@@ -16,6 +16,8 @@ export class StyleUploadComponent {
     uploadedImgUrl: string;
     uploadedStyleUrl: string;
 
+    showTransferDlg: boolean = false;
+
     constructor(private productService: ProductService,
                 private uploadService: StyleUploadService,
                 router: ActivatedRoute) {
@@ -36,9 +38,7 @@ export class StyleUploadComponent {
             selectGroup.style.visibility = "hidden";
 
             // show image
-            let img = document.getElementById("imagePreview");
-            img.style.height = "100%";
-            img.setAttribute("src", this.uploadedImgUrl);
+            this.showUploadedImage(this.uploadedImgUrl);
         }
     }
 
@@ -54,9 +54,13 @@ export class StyleUploadComponent {
         reader.readAsDataURL(file);
         reader.onload = function(e) {
             let img = document.getElementById("imagePreview");
-            //img.style.height = "100%";
             img.setAttribute("src", this.result);
         }
+    }
+
+    showUploadedImage(imageSrc) {
+        let img = document.getElementById("imagePreview");
+        img.setAttribute("src", imageSrc);
     }
 
     onUploadProduct(data) {
@@ -71,5 +75,22 @@ export class StyleUploadComponent {
         this.uploadService.uploadData(uploadProduct).subscribe( output => {
             location.href = "/#/";
         });
+    }
+
+    doTransfer() {
+        this.showTransferDlg = true;
+    }
+
+    onCompleteTransfer(data) {
+        this.showTransferDlg = false;
+
+        if (data.hasOwnProperty('url') &&
+            data.hasOwnProperty('basedUrl')) {
+            this.uploadedImgUrl = data['url'];
+            this.uploadedStyleUrl = data['basedUrl'];
+
+            // show image
+            this.showUploadedImage(this.uploadedImgUrl);
+        }
     }
 }
