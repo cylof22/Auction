@@ -16,9 +16,7 @@ export class StyleTransferComponent {
 
     @ViewChild(StyleArtistComponent) artistComponet : StyleArtistComponent;
     @ViewChild(StyleCustomComponent) customComponent : StyleCustomComponent;
-
-    contentFile : Array<File>;
-
+    
     contentImageURL: string;
 
     selectedStyleURL : string;
