@@ -53,6 +53,9 @@ export class ProductDetailComponent implements OnDestroy {
       .subscribe(
         product => {
           this.product = product;
+          if (this.product.maker == "") {
+            this.product.maker = this.product.owner;
+          }
           this.setProductType(product);
           this.setPrice(product);
           this.setStoryInfo(product);

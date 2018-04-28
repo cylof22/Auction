@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FileUploader, FileItem, ParsedResponseHeaders } from "ng2-file-upload";
 import { StyleTransferService } from '../services/style.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,9 @@ import { StyleArtistComponent } from '../style.artist/style.artist.component';
     styleUrls: ['./style.transfer.component.css']
 })
 export class StyleTransferComponent {
+    @Input("ImgSrc") originalImgSrc: string = "";
+    @Output() completeTransfer: EventEmitter<any> = new EventEmitter;
+
     contentFile : Array<File>;
 
     contentImageURL: string;
@@ -25,11 +28,15 @@ export class StyleTransferComponent {
         public route:Router) {
     }
 
-    OnContentChange(input) {
-        this.contentFile = input.files;
+    ngOnInit() {
+        if (this.originalImgSrc != "") {
 
-        // show preview
-        this.showImage(input, "imagePreview");
+            let img = document.getElementById("resultPreview");
+            img.style.width = "auto";
+            img.setAttribute("src", this.originalImgSrc);
+
+            this.modelVisible = true;
+        }
     }
 
     private showImage(input, previewID) {
@@ -99,7 +106,7 @@ export class StyleTransferComponent {
         }
     }
 
-    hideComputeRes() {
+    hideTransferDlg() {
         let img = document.getElementById("resultPreview");
         img.setAttribute("src", "");
 
@@ -112,13 +119,18 @@ export class StyleTransferComponent {
         let outfileData = img.getAttribute("src");
 
         // hide dialog
-        this.hideComputeRes();
+        this.hideTransferDlg();
 
-        let paras = {
+        let result = {
             "url":outfileData,
             "basedUrl": this.selectedStyleURL
         }
 
-        this.route.navigate(["/style-upload", paras])
+        this.completeTransfer.emit(result);
+    }
+
+    cancel() {
+        this.hideTransferDlg();
+        this.completeTransfer.emit("");
     }
 }

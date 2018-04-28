@@ -1,22 +1,3 @@
-<div class="container">
-    <form enctype="multipart/form-data">
-        <div>
-            <label class="btn btn-default">
-                Upload Picture<input type="file" accept="image/*" style="display:none" (change)="OnContentChange(input)" #input>
-            </label>
-            <div class="text-center">
-                <img id="imagePreview" ng-src='' class="image">
-            </div>
-        </div>
-    </form>    
-<div>
-
-<div class="style-transfer-panel">
-    <h5>Try AI for Style Transfer?</h5>
-    <h6>Only for digital pictures, not for real painting</h6>
-    <input type="submit" class="btn btn-default btn-sm" value="Try" (click)="Transfer($event)">
-</div>
-
 <!-- pop up a model to show computed picture -->
 <div class="modal fade" id="modelDig" role="dialog" tabindex="-1"
     [ngStyle]="{'display': modelVisible ? 'block' : 'none', 'opacity': 1}">
@@ -29,8 +10,8 @@
                         <div class="thumbnail" ng-if="styles">
                             <img id="resultPreview" ng-src="" width="100%">
                         </div>
-                      </div>
-                      <div class="row col-md-9 style-transfer">
+                    </div>
+                    <div class="row col-md-9 style-transfer">
                         <div id="centeredmenu">
                             <ul>
                                 <li><a [routerLink]="['/style-transfer/artists/all']">The Master Style</a></li>
@@ -38,13 +19,12 @@
                             </ul>
                         </div>
                         <router-outlet (activate)="onRouterOutletActivate($event)"></router-outlet>
-                      </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" (click)="applyTransfer()">Apply</button>
-                        <button type="button" class="btn btn-default" (click)="goToUpload()">Upload</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="hideComputeRes()">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="applyTransfer()">Apply</button>
+                    <button type="button" class="btn btn-default" (click)="goToUpload()">Upload</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancel()">Cancel</button>
                 </div>
             </div>
         </div>

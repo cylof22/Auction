@@ -1,6 +1,6 @@
 <div class="row">
   <div class="picture-container col-sm-8 col-lg-8 col-md-8">
-    <div id="imagePreview">
+    <div id="imagePreview" class="picArea">
       <img [src]="product.url" class="picture">
     </div>
 
@@ -28,8 +28,8 @@
     </div>
     <div>
       <p class="col-sm-4 col-lg-4 col-md-4">Tag</p>
-      <p class="editItem col-sm-8 col-lg-8 col-md-8">{{ product.tags }}
-      </p>
+      <p *ngIf="product.tags" class="editItem col-sm-8 col-lg-8 col-md-8">{{ product.tags }}</p>
+      <p *ngIf="!product.tags" class="editItem col-sm-8 col-lg-8 col-md-8 empty-tag"></p>
     </div>
     <div>
       <p class="col-sm-4 col-lg-4 col-md-4">Property</p>
