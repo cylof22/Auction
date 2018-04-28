@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FileUploader, FileItem, ParsedResponseHeaders } from "ng2-file-upload";
 import { StyleTransferService } from '../services/style.service';
 import { Router } from '@angular/router';
@@ -14,16 +14,19 @@ export class StyleTransferComponent {
     @Input("ImgSrc") originalImgSrc: string = "";
     @Output() completeTransfer: EventEmitter<any> = new EventEmitter;
 
+    @ViewChild(StyleArtistComponent) artistComponet : StyleArtistComponent;
+    @ViewChild(StyleCustomComponent) customComponent : StyleCustomComponent;
+
     contentFile : Array<File>;
 
     contentImageURL: string;
-
-    activatedStyleComponent : any;
 
     selectedStyleURL : string;
 
     modelVisible = false;
     
+    isArtistStyle = true;
+
     constructor(private svc : StyleTransferService,
         public route:Router) {
     }
@@ -50,10 +53,6 @@ export class StyleTransferComponent {
         }
     }
 
-    onRouterOutletActivate(component) {
-        this.activatedStyleComponent = component;
-    }
-
     applyTransfer()
     {
         // get image data
@@ -65,18 +64,16 @@ export class StyleTransferComponent {
         this.svc.uploadContent(uploadedData).subscribe( result =>  {
             this.contentImageURL = result.url;
             
-            if(this.activatedStyleComponent instanceof StyleCustomComponent) {
-                let styleTransferComp = this.activatedStyleComponent as StyleCustomComponent;
-                // transfer the content image by the style image
-                this.svc.transfer(this.contentImageURL, styleTransferComp.getSelectedStyle()).subscribe(res => {
-                    this.showComputeRes(res);
-                }); 
-            } else {
-                let artistTransferComp = this.activatedStyleComponent as StyleArtistComponent;
+            if(this.isArtistStyle) {
                 // transfer the content image by the artist type
-                this.svc.transferByArtist(this.contentImageURL,  artistTransferComp.getSelectedArtistModel()).subscribe( res => {
+                this.svc.transferByArtist(this.contentImageURL,  this.artistComponet.getSelectedArtistModel()).subscribe( res => {
                     this.showComputeRes(res);
                 })
+            } else {
+                // transfer the content image by the style image
+                this.svc.transfer(this.contentImageURL, this.customComponent.getSelectedStyle()).subscribe(res => {
+                    this.showComputeRes(res);
+                }); 
             }
         });
     }
@@ -132,5 +129,13 @@ export class StyleTransferComponent {
     cancel() {
         this.hideTransferDlg();
         this.completeTransfer.emit("");
+    }
+
+    OnSelectedCustom() {
+        this.isArtistStyle = false;
+    }
+
+    OnSelectedArtist() {
+        this.isArtistStyle = true;
     }
 }
