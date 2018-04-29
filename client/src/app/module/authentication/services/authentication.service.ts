@@ -1,18 +1,19 @@
-import { Injectable, Inject, OpaqueToken } from "@angular/core";
+import { Injectable, Injector, InjectionToken } from "@angular/core";
 import { Http,Response,RequestOptions,Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { Md5 } from 'ts-md5/dist/md5'
 import { LoginInfo, RegisterInfo, User } from "./../../user/user.model/user"
 import { HttpClient } from "@angular/common/http";
-export const AUTHETICATION_SERVICE_URL = new OpaqueToken("authentication-service-url");
+export const AUTHETICATION_SERVICE_URL = new InjectionToken<string>("authentication-service-url");
 
 @Injectable()
 export class AuthenticationService {
     localKey: string;
     currentUser: User;
+    private authenticationURL : string;
 
-    constructor(private http: HttpClient, 
-        @Inject(AUTHETICATION_SERVICE_URL) private authenticationURL) {
+    constructor(private http: HttpClient, injector : Injector) {
+        this.authenticationURL = injector.get(AUTHETICATION_SERVICE_URL);
         this.localKey = 'currentTLUser';
         this.currentUser = this.loadUserAuthentication();
     }

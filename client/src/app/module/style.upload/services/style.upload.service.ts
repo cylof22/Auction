@@ -1,13 +1,15 @@
-import { Injectable, Inject, OpaqueToken } from "@angular/core";
+import { Injectable, Injector, InjectionToken } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
-export const STYLE_API_UPLOAD_SERVICE_URL = new OpaqueToken("style-upload-url");
+export const STYLE_API_UPLOAD_SERVICE_URL = new InjectionToken<string>("style-upload-url");
 import { Product } from '../../product/product.model/product'
 
 @Injectable()
 export class StyleUploadService {
-    constructor(private http: HttpClient,
-        @Inject(STYLE_API_UPLOAD_SERVICE_URL) private url : string) {
+    private url : string;
+
+    constructor(private http: HttpClient, injector : Injector) {
+            this.url = injector.get(STYLE_API_UPLOAD_SERVICE_URL);
     }
 
     uploadData(postedData : any) : Observable<Product> {
