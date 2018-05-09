@@ -12,9 +12,10 @@
       "es2016",
       "dom"
     ],
-    "types": ["node", "jasmine"],
-    "typeRoots": [
-      "node_modules/@types"
+    "types": ["node", "jasmine", "typed-freewall"],
+    "typeRoots": [ 
+      "node_modules/@types", 
+      "./typings"
     ]
   }
 }
