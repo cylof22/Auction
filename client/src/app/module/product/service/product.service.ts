@@ -1,11 +1,11 @@
-import {EventEmitter, Inject, Injectable, OpaqueToken} from '@angular/core';
+import {EventEmitter, Injector, Injectable, InjectionToken} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import { Product, UploadProduct } from '../product.model/product';
 import { Review } from '../product.model/review';
 
 import 'rxjs/add/operator/map';
-export const API_PRODUCTS_SERVICE_URL = new OpaqueToken("api-products-url");
+export const API_PRODUCTS_SERVICE_URL = new InjectionToken<string>("api-products-url");
 
 export interface ProductSearchParams {
   title: string;
@@ -15,10 +15,10 @@ export interface ProductSearchParams {
 @Injectable()
 export class ProductService {
   searchEvent: EventEmitter<any> = new EventEmitter();
+  private apiUrl : string;
 
-  constructor(private http: HttpClient,
-    @Inject(API_PRODUCTS_SERVICE_URL) private apiUrl : string,
-  ) {
+  constructor(private http: HttpClient, injector : Injector) {
+    this.apiUrl = injector.get(API_PRODUCTS_SERVICE_URL);
   }
 
   search(params: any): Observable<Product[]> {

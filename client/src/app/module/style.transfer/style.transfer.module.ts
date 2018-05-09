@@ -26,11 +26,7 @@ import { environment } from '../../../environments/environment'
         HttpModule,
         RouterModule.forChild([
             {
-                path: 'style-transfer', component: StyleTransferComponent, 
-                children: [
-                    { path: 'styles/:mode', component: StyleCustomComponent, canActivate: [AuthGuard] },
-                    { path: 'artists/:mode', component: StyleArtistComponent, canActivate: [AuthGuard] },
-                ],
+                path: 'style-transfer', component: StyleTransferComponent
             },
           ]),
     ],

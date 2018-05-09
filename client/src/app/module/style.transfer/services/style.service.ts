@@ -1,18 +1,23 @@
-import { Injectable, Inject, OpaqueToken } from "@angular/core";
+import { Injectable, Injector, InjectionToken } from "@angular/core";
 import { FileUploadModule } from 'ng2-file-upload';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
-export const STYLE_TRANSFER_SERVICE_URL = new OpaqueToken("style-transfer-url");
-export const STYLE_TRANSFER_BY_ARTIST_SERVICE_URL = new OpaqueToken("style-transfer-by-artist-url");
-export const STYLE_TRANSFER_UPLOAD_SERVICE_URL = new OpaqueToken("style-transfer-upload-url")
+export const STYLE_TRANSFER_SERVICE_URL = new InjectionToken<string>('style-transfer-url');
+export const STYLE_TRANSFER_BY_ARTIST_SERVICE_URL = new InjectionToken<string>('style-transfer-by-artist-url');
+export const STYLE_TRANSFER_UPLOAD_SERVICE_URL = new InjectionToken<string>('style-transfer-upload-url')
 import { Product } from '../../product/product.model/product'
 
 @Injectable()
 export class StyleTransferService {
+    private transferURL : string;
+    private transferByArtistURL : string;
+    private uploadurl : string;
+
     constructor(private http: HttpClient,
-        @Inject(STYLE_TRANSFER_SERVICE_URL) private transferURL : string,
-        @Inject(STYLE_TRANSFER_BY_ARTIST_SERVICE_URL) private transferByArtistURL : string,
-        @Inject(STYLE_TRANSFER_UPLOAD_SERVICE_URL) private uploadurl : string) {
+        injector: Injector) {
+            this.transferURL = injector.get(STYLE_TRANSFER_SERVICE_URL);
+            this.transferByArtistURL = injector.get(STYLE_TRANSFER_BY_ARTIST_SERVICE_URL);
+            this.uploadurl = injector.get(STYLE_TRANSFER_UPLOAD_SERVICE_URL);
         }
 
     transfer(content : string, style : string): Observable<Blob> {
