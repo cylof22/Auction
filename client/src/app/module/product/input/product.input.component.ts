@@ -301,9 +301,12 @@ export class ProductInputComponent {
     }
 
     getPriceInfo() : ProductPrice { 
-        let priceValueCtrl = <HTMLInputElement>document.getElementById('priceValue');
-        let productPrice = new ProductPrice(this.priceType.toString(), 
-        priceValueCtrl.value);
+        let priceValue = '';
+        if (this.priceType != EPriceType.OnlyShow) {
+            let priceValueCtrl = <HTMLInputElement>document.getElementById('priceValue');
+            priceValue = priceValueCtrl.value;
+        }
+        let productPrice = new ProductPrice(this.priceType.toString(), priceValue);
 
         return productPrice;
     }

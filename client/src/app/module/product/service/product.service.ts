@@ -29,7 +29,7 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl + '/api/products');
   }
 
-  getProductById(productId: number): Observable<Product> {
+  getProductById(productId: string): Observable<Product> {
     return this.http.get<Product>(this.apiUrl + `/api/products/${productId}`);
   }
 
@@ -42,11 +42,11 @@ export class ProductService {
   }
 
   updateProduct(productId: string, productData: UploadProduct): Observable<string> {
-    return this.http.post<string>(this.apiUrl + "/api/products/${productId}/update", productData);
+    return this.http.post<string>(this.apiUrl + "/api/products/" + productId + "/update", productData);
   }
 
   deleteProduct(productId: string): Observable<string> {
-    return this.http.get<string>(this.apiUrl + "/api/products/${productId}/delete");
+    return this.http.get<string>(this.apiUrl + "/api/products/" + productId + "/delete");
   }
 
   getAllTags(): string[] {

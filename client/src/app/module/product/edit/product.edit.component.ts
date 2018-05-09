@@ -21,7 +21,9 @@ export class ProductEditComponent {
         product => this.product = product);
     }
 
-    onUploadProduct(updateProduct) {
+    onUploadProduct(data) {
+        let updateProduct : UploadProduct = data;
+        updateProduct.picData = this.product.url;
         this.productService.updateProduct(this.product.id, updateProduct).subscribe(
             output => {
                 // handle error

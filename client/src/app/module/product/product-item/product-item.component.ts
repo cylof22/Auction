@@ -44,6 +44,8 @@ export class ProductItemComponent {
   }
 
   onDelete() {
-    this.productService.deleteProduct(this.product.id);
+    this.productService.deleteProduct(this.product.id).subscribe(
+      res => location.reload(true)
+    );
   }
 }
