@@ -14,11 +14,12 @@
                     <div class="row col-md-9 style-transfer">
                         <div id="centeredmenu">
                             <ul>
-                                <li><a [routerLink]="['/style-transfer/artists/all']">The Master Style</a></li>
-                                <li><a [routerLink]="['/style-transfer/styles/custom']">Custom Style</a></li>
+                                <li><a (click)="OnSelectedArtist()">The Master Style</a></li>
+                                <li><a (click)="OnSelectedCustom()">Custom Style</a></li>
                             </ul>
                         </div>
-                        <router-outlet (activate)="onRouterOutletActivate($event)"></router-outlet>
+                        <style-artist [hidden] = "!isArtistStyle"></style-artist>
+                        <style-custom [hidden] = "isArtistStyle"></style-custom>
                     </div>
                 </div>
                 <div class="modal-footer">
