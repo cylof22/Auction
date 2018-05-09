@@ -1,0 +1,54 @@
+.order-state {
+    float: left;
+    margin-right: 20px;
+}
+
+.orders {
+    margin-top: 20px;
+}
+
+.orders .item {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.modal {
+    background: rgba(0,0,0,0.6);
+}
+
+.cancel-dialog {
+    position: relative;
+    margin: 0 auto;
+    top: 25%;
+    width: 300px;
+    text-align: center;
+}
+
+.cancel-inputBox {
+    width: 90%;
+    height: 200px;
+}
+
+.return-dialog {
+    position: relative;
+    margin: 0 auto;
+    top: 25%;
+    width: 350px;
+}
+
+.express-div {
+    margin-bottom: 10px;
+}
+
+.express-courier {
+    float: left;
+    padding-left: 60px;
+    margin-right: 10px;
+    width: 120px;
+}
+
+.express-number {
+    float: left;
+    margin-right: 10px;
+    width: 120px;
+}

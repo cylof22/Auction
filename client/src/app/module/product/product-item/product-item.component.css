@@ -1,24 +1,39 @@
-.caption {
-  position:relative;
-  padding-top: 10px;
-  height: 40px;
-  overflow: hidden;
+.not-readonly-container {
+  position: relative;
+  top: -35px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.not-readonly-container .edit {
+  position: absolute;
+  left: 15px;
+}
+
+.not-readonly-container .delete {
+  position: absolute;
+  right: 15px;
+}
+
+.text-container {
+  position: relative;
+  height: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.text-container .label-left {
+  position: absolute;
+	left: 10px;
+}
+
+.text-container .label-right {
+  position: absolute;
+	right: 10px;
 }
 
 .caption h4 {
   white-space: nowrap;
-}
-
-.thumbnail {
-  padding: 1;
-}
-
-.thumbnail img {
-  width: 100%;
-}
-
-.thumbnail .caption-full {
-  padding: 9px;
 }
 
 .ratings {
@@ -27,16 +42,8 @@
   padding-right: 10px;
 }
 
-.label-left {
-	position: absolute;
-	left: 10px;
-}
-
-.label-right {
-	position: absolute;
-	right: 10px;
-}
-
 .image {
-  width: 90%;
+  width: 100%;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
 }

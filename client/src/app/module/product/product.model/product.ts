@@ -9,7 +9,7 @@ export class Product {
     public styleImgUrl: string,
     public tags: Array<string>,
     public story: ProductStory,
-    public type: string) {
+    public type: string) {       // digit(0) and entity(1)
   }
 }
 

@@ -1,0 +1,8 @@
+<div *ngIf="concernedUsers">
+    <div *ngFor="let user of concernedUsers" class="user">
+        <user-concernuser-page [user]="user"></user-concernuser-page>
+    </div>
+</div>
+<div *ngIf="!concernedUsers">
+    <h3>No concerned users</h3>
+</div>

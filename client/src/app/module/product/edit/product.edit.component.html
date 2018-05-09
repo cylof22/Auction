@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-sm-8 col-lg-8 col-md-8">
+        <div *ngIf="product" class="thumbnail image-container">
+            <img id="imagePreview" [src]="product.url" class="image">
+        </div>
+    </div>
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <product-input *ngIf="product" 
+                       [isBatch]="false" 
+                       [product]="product" 
+                       (onUploadProductData)="onUploadProduct($event)">
+        </product-input>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="row">
+<div *ngIf="product" class="row">
   <div class="picture-container col-sm-8 col-lg-8 col-md-8">
     <div id="imagePreview" class="picArea">
       <img [src]="product.url" class="picture">
@@ -24,31 +24,27 @@
     </div>
     <div>
       <p class="col-sm-4 col-lg-4 col-md-4">Maker</p>
-      <p class="editItem col-sm-8 col-lg-8 col-md-8">{{ product.maker }}</p>
+      <p class="col-sm-8 col-lg-8 col-md-8">{{ product.maker }}</p>
     </div>
     <div>
       <p class="col-sm-4 col-lg-4 col-md-4">Tag</p>
-      <p *ngIf="product.tags" class="editItem col-sm-8 col-lg-8 col-md-8">{{ product.tags }}</p>
-      <p *ngIf="!product.tags" class="editItem col-sm-8 col-lg-8 col-md-8 empty-tag"></p>
+      <p *ngIf="product.tags" class="col-sm-8 col-lg-8 col-md-8">{{ product.tags }}</p>
+      <p *ngIf="!product.tags" class="col-sm-8 col-lg-8 col-md-8 empty-tag"></p>
     </div>
     <div>
       <p class="col-sm-4 col-lg-4 col-md-4">Property</p>
-      <p class="editItem col-sm-8 col-lg-8 col-md-8">{{ productType }}</p>
+      <p class="col-sm-8 col-lg-8 col-md-8">{{ productType }}</p>
     </div>
     <div *ngIf="product.price.type != '2'">
       <p class="col-sm-4 col-lg-4 col-md-4">{{ priceType }}</p>
-      <p class="editItem col-sm-8 col-lg-8 col-md-8">{{ price }}</p>
+      <p class="col-sm-8 col-lg-8 col-md-8">{{ price }}</p>
     </div>
     <div *ngIf="product.price.type == '2'">
       <p class="col-sm-6 col-lg-6 col-md-6">{{ priceType }}</p>
     </div>
       
-    <div *ngIf="readonly" class="col-sm-12 col-lg-12 col-md-12">
+    <div class="col-sm-12 col-lg-12 col-md-12">
       <button class="submit-button" (click)="onBuyWithDigitalCash()">Buy</button>
     </div>          
-
-    <div *ngIf="!readonly" class="col-sm-12 col-lg-12 col-md-12">
-        <button class="submit-button">Submit</button>
-    </div>
   </div>
 </div>

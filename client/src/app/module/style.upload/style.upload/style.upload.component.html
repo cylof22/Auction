@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="col-sm-4 col-lg-4 col-md-4">
-        <style-input [hasStory]="true" (onUploadProductData)="onUploadProduct($event)"></style-input>
+        <product-input [isBatch]="false" (onUploadProductData)="onUploadProduct($event)"></product-input>
     </div>
 </div>  
 <div *ngIf="showTransferDlg">

@@ -1,0 +1,14 @@
+.container {
+    width: 100%;
+    text-align: center;
+}
+
+.container .state-button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.container .actived {
+    color: cornflowerblue;
+}
