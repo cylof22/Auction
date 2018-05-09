@@ -1,0 +1,77 @@
+.container {
+    background-color: rgb(247, 244, 244);
+    width: 100%;
+    height: 150px;
+}
+
+.container .baseinfo {
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+.container .baseinfo .portraintDiv {
+    float: left;
+    margin-left: 15px;
+}
+
+.container .baseinfo .portraintDiv .portraint {
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+
+.container .baseinfo .text {
+    margin-top: 4px;
+    margin-left: 10px;
+    padding-bottom: 0px;
+    float: left;
+    width: 160px;
+    overflow: auto;
+}
+
+.container .baseinfo .text .username {
+    margin-bottom: 0px;
+}
+
+.container .baseinfo .text .items {
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.container .baseinfo .text .items .item {
+    float: left;
+    margin-top: 0px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+
+.container .imageGroup {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+}
+
+.container .imageGroup .imageDiv {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 25%;
+    float: left;
+}
+
+.container .imageGroup .imageDiv .image {
+    width: 95%;
+    margin-right: 5%;
+    height: 60px;
+    overflow: hidden;
+    vertical-align: middle;
+}

@@ -1,8 +1,8 @@
 import {EventEmitter, Inject, Injectable, OpaqueToken} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {Observable} from "rxjs/Observable";
-import {Product} from '../product.model/product';
-import {Review} from '../product.model/review';
+import { Observable } from "rxjs/Observable";
+import { Product, UploadProduct } from '../product.model/product';
+import { Review } from '../product.model/review';
 
 import 'rxjs/add/operator/map';
 export const API_PRODUCTS_SERVICE_URL = new OpaqueToken("api-products-url");
@@ -39,6 +39,14 @@ export class ProductService {
     .map(reviews => reviews.map(
       (r: any) => new Review(r.id, r.productId, new Date(r.timestamp), r.user, r.rating, r.comment)));
 
+  }
+
+  updateProduct(productId: string, productData: UploadProduct): Observable<string> {
+    return this.http.post<string>(this.apiUrl + "/api/products/${productId}/update", productData);
+  }
+
+  deleteProduct(productId: string): Observable<string> {
+    return this.http.get<string>(this.apiUrl + "/api/products/${productId}/delete");
   }
 
   getAllTags(): string[] {

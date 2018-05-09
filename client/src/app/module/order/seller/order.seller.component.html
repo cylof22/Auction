@@ -1,0 +1,53 @@
+<div>
+    <div class="row">
+        <order-state-page id="unshipped" 
+                            class="order-state" 
+                            title="Not Yet Shipped" 
+                            active="true" 
+                            (click)="onClickUnshipped(unshipped, inreturn)" #unshipped>
+        </order-state-page>
+
+        <order-state-page id="inreturn" 
+                            class="order-state" 
+                            title="In Return" 
+                            active="false" 
+                            (click)="onClickInReturn(unshipped, inreturn)" #inreturn>
+        </order-state-page>
+
+    </div>
+    <div class="orders">
+        <div *ngFor="let order of orders" class="row col-sm-12 col-lg-12 col-md-12">
+            <order-item-page [order]="order" 
+                             *ngIf="currentType.includes(order.state)" 
+                             class="item thumbnail"
+                             isBuyer="false"
+                             (handleOrderEvent)="handleOrderEvent($event)">
+            </order-item-page>
+        </div>
+    </div>
+</div>
+
+<!-- a dialog to input exress info for pruduct -->
+<div class="modal fade" id="dispatchDig" role="dialog" tabindex="-1"
+    [ngStyle]="{'display': activeOrderEventType == 2 ? 'block' : 'none', 'opacity': 1}">
+    <div class="dispatch-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div>
+                    <div class="dispatch-div">
+                        <label class="dispatch-courier">courier</label>
+                        <input id="courier" type="text" placeholder="please input courier">
+                    </div>
+                    <div class="dispatch-div">
+                        <label class="dispatch-number">tracking number</label>
+                        <input id="dispatchId" type="text" placeholder="please input tracking number">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="submitExpress()">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelExpress()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

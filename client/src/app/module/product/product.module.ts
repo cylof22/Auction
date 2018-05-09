@@ -5,6 +5,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { ProductInputComponent } from './input/product.input.component'
+import { ProductEditComponent } from './edit/product.edit.component'
 import { ONLINE_AUCTION_SERVICES } from './service/services';
 import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
@@ -18,10 +20,13 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
         StarsComponent,
         SearchComponent,
         FootScrollBarComponent,
+        ProductInputComponent,
+        ProductEditComponent,
     ],
     exports: [
         ProductDetailComponent,
         ProductItemComponent,
+        ProductInputComponent,
         StarsComponent,
         SearchComponent,
         FootScrollBarComponent,
@@ -35,6 +40,7 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
         HttpModule,
         RouterModule.forChild([
             {path: 'products/:productId', component: ProductDetailComponent},
+            {path: 'products/:productId/edit', component: ProductEditComponent},
           ]),
     ],
     providers:[

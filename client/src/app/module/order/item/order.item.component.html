@@ -1,0 +1,48 @@
+<div *ngIf="order" class="row container">
+    <div>
+        <img [src]="order.productUrl" class="image">
+    </div>
+    <div class="infoItem">
+        <h5>{{ order.time }}</h5>
+    </div>
+    <div class="infoItem">
+        <h5>order number: <a>{{ order.id }}</a></h5>
+    </div>
+    <div class="infoItem">
+        <h5>$ {{ order.price }}</h5>
+    </div>
+    <div class="infoItem stateValue">
+        <h5>{{ stateValue }}</h5>
+    </div>
+
+    <!-- product is shipped: for buyer -->
+    <div *ngIf="order.state == 3 && isBuyer=='true'" class="dispatch">
+        <div class="check-logistics">
+            <button (click)="checkLogistics()">check logistics</button>
+        </div>
+        <div>
+            <button class="confirm" (click)="confirmOrderByBuyer()">Confirm</button>
+            <button (click)="cancelOrderByBuyer()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- one return is agreed: for buyer -->
+    <div *ngIf="order.state == 5 && isBuyer=='true'" class="middle-btn">
+        <button (click)="shipReturnByBuyer()">return</button>
+    </div>
+
+    <!-- waiting for shipping: for seller -->
+    <div *ngIf="order.state == 2 && isBuyer=='false'" class="middle-btn">
+        <button (click)="shipGoodsBySeller()">Dispatch</button>
+    </div>
+
+    <!-- waiting for agreement for one return: for seller -->
+    <div *ngIf="order.state == 4 && isBuyer=='false'" class="middle-btn">
+        <button (click)="agreeReturnBySeller()">Agree</button>
+    </div>
+
+    <!-- returned product is in express: for seller -->
+    <div *ngIf="order.state == 6 && isBuyer=='false'" class="middle-btn">
+        <button (click)="confirmReturnBySeller()">Confirm</button>
+    </div>
+</div>

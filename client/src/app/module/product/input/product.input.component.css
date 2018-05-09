@@ -1,0 +1,177 @@
+.tag-container {
+    position: relative;
+    height: 80px;
+}
+
+.tag-container .tags {
+    position: absolute;
+    top: 3px;
+    left: 10px;
+    width: 20%;
+}
+
+.tag-container .tag {
+   margin-bottom: 2px;
+   margin-left: 2px;
+   margin-right: 2px;
+   font-size: 12px;
+}
+
+.tag-container .default-tags {
+    position: absolute;
+    top: 5px;
+    left: 90px;
+    max-height: 50px;
+    overflow: auto;
+    width: 80%;
+ }
+
+ .tag-container .default-tags .blue{
+    color: blue;
+ }
+
+ .story-container {
+    margin-top: 30px;
+ }
+
+ .story-container .description {
+     height: 60px;
+ }
+
+ .story-container .addGroup {
+    margin-top: 10px;
+}
+
+ .story-container .addGroup .addBtn {
+    height: 60px;
+    width: 100%;
+    background-color: transparent;
+    border-style: dashed;
+    outline: none;
+}
+
+ .property-container {
+    position: relative;
+    height: 20px;
+    margin-top: 10px;
+ }
+
+ .property-container .notice {
+    position: absolute;
+    left: 1px;
+ }
+
+ .property-container .digital {
+    position: absolute;
+    left: 80px;
+ }
+
+ .property-container .material {
+    position: absolute;
+    left: 200px;
+ }
+
+ .price-container {
+    position: relative;
+    margin-top: 30px;
+    height: 50px;
+ }
+
+ .price-container .notice {
+    position: absolute;
+    left: 1px;
+ }
+
+ .price-container .fix {
+    position: absolute;
+    left: 80px;
+ }
+
+ .price-container .auction {
+    position: absolute;
+    left: 140px;
+ }
+
+ .price-container .exb {
+    position: absolute;
+    left: 210px;
+ }
+
+ .price-container .price-input-box {
+    position: absolute;
+    top: 30px;
+    left: 85px;
+ }
+
+ .price-container .price-input-box .price-input {
+    height: 25px;
+ }
+
+ .price-container .poundage-box {
+    position: absolute;
+    top: 60px;
+    left: 85px;
+ }
+
+ .price-container .poundage-box .poundage {
+    float: left;
+    margin-right: 20px;
+ }
+
+ .copyright-container {
+     margin-top: 20px;
+     height: 50px;
+     position: relative;
+ }
+
+ .copyright-container .check {
+    position: absolute;
+    top: 8px;
+    left: 0px;
+}
+
+.copyright-container .condition-text {
+    position: absolute;
+    left: 15px;
+}
+
+.maker-container {
+    position: relative;
+    margin-top: 50px;
+    height: 30px;
+}
+
+.maker-container .labelText {
+    position: absolute;
+    left: 1px;
+}
+
+.maker-container .maker {
+    position: absolute;
+    left: 85px;
+    height: 25px;
+    width: 160px;
+}
+
+.submit-container .cancelBtn {
+    margin-left: 20px;
+ }
+
+.no-border {
+    border: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    outline: none;
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}

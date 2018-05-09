@@ -1,0 +1,10 @@
+<div *ngIf="wallet">
+    <div class="row">
+        <div>
+            <p class="amount">amount</p><p>{{ wallet.amount }}</p>
+        </div>
+        <div>
+            <p class="address">address</p><p contentEditable="true">{{ wallet.address }}</p>
+        </div>
+    </div>
+</div>

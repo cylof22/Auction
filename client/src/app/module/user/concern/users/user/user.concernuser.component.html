@@ -1,0 +1,22 @@
+<div *ngIf="concernedUser" class="container">
+    <div class="row baseinfo">
+        <div class="portraintDiv">
+            <button class="portraint"></button>
+        </div>
+        <div class="text">
+            <div>
+                <label class="username">{{ concernedUser.username }}</label>
+            </div>
+           <div class="items">
+                <h6 class="item">{{concernedUser.productsNumber}} productions</h6>
+                <h6 class="item">{{concernedUser.fansNumber}} fans</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="imageGroup">
+        <div *ngFor="let product of concernedUser.shownProducts" class="imageDiv">
+            <img [src]="product" class="image">
+        </div>
+    </div>
+</div>

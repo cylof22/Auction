@@ -1,8 +1,14 @@
-<div class="thumbnail">
-  <img [src] = "product.url" (click)="showProduct()" class="image">
-  <div class="caption">
+<div class="thumbnail" (mouseenter)="showEditCtrls()" (mouseleave)="removeEditCtrls()">
+  <div>
+    <img [src] = "product.url" (click)="showProduct()" class="image">
+    <div *ngIf="isShowEditCtrls" class="not-readonly-container">
+      <button class="edit" (click)="onEdit()">edit</button>
+      <button class="delete" (click)="onDelete()">delete</button>
+    </div>
+  </div>
+  <div class="text-container">
     <label class="label-left">{{ product.owner }}</label>
-    <label class="label-right">{{ product.price | currency }}</label>
+    <label class="label-right">{{ product.price.value }}</label>
   </div>
     <!-- <h4><a [routerLink]="['/products', product.id]">{{ product.title }}</a></h4>
     <p>{{ product.description }}</p> -->

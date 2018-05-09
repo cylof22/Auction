@@ -24,7 +24,6 @@ export class ProductDetailComponent implements OnDestroy {
   isReviewHidden: boolean = true;
   isWatching: boolean = false;
   imgHtml: SafeHtml;
-  readonly: boolean = true;
 
   productType: string;
   priceType: string;
@@ -44,10 +43,6 @@ export class ProductDetailComponent implements OnDestroy {
 
     const productId = router.snapshot.params['productId'];
 
-    if  (router.snapshot.params['readonly'] == 'false') {
-      this.readonly = false;
-    }
-
     this.productService
       .getProductById(productId)
       .subscribe(
@@ -61,12 +56,9 @@ export class ProductDetailComponent implements OnDestroy {
           this.setStoryInfo(product);
         },
         error => console.error(error));
+  }
 
-    this.productService
-      .getReviewsForProduct(productId)
-      .subscribe(
-        reviews => this.reviews = reviews,
-        error => console.error(error));
+  ngOnInit() {
   }
 
   setProductType(product: Product) {
@@ -105,21 +97,6 @@ export class ProductDetailComponent implements OnDestroy {
         if (product.story.description != "") {
           this.hasStory = true;
         }
-      }
-    }
-  }
-
-  ngOnInit() {
-    let img = document.getElementById("imagePreview");
-    let detailBox = document.getElementById("detailBox");
-    detailBox.style.height = img.style.height;
-
-    // update some controls
-    if (!this.readonly) {
-      // set some control editable
-      var editItems = document.getElementsByClassName("editItem");
-      for (var i = 0; i < editItems.length; i++) {
-        editItems[i].setAttribute("contentEditable", "true");
       }
     }
   }
@@ -166,6 +143,6 @@ export class ProductDetailComponent implements OnDestroy {
   }
 
   onBuyWithDigitalCash() {
-    location.href = "/#/wallet";
+    //location.href = "/#/wallet";
   }
 }

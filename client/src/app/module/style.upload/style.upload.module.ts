@@ -9,7 +9,6 @@ import { AuthGuard } from './../../interceptor/auth.guard';
 import { ProductModule } from './../product/product.module';
 import { environment } from './../../../environments/environment';
 import { StyleBatchComponent } from './style.batchupload/style.batch.component'
-import { StyleInputComponent } from './style.input/style.input.component'
 import { StyleTransferModule } from './../style.transfer/style.transfer.module'
 
 
@@ -17,7 +16,6 @@ import { StyleTransferModule } from './../style.transfer/style.transfer.module'
     declarations: [
         StyleUploadComponent,
         StyleBatchComponent,
-        StyleInputComponent,
     ],
 
     exports: [

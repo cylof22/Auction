@@ -1,0 +1,90 @@
+<div>
+    <div class="row">
+        <order-state-page id="auction" 
+                          class="order-state" 
+                          title="In Auction" 
+                          active="true" 
+                          (click)="onClickAuction(auction, unshipped, dispatched, inreturn)" #auction>
+        </order-state-page>
+
+        <order-state-page id="unshipped" 
+                          class="order-state" 
+                          title="Not Yet Shipped" 
+                          active="false" 
+                          (click)="onClickUnshipped(auction, unshipped, dispatched, inreturn)" #unshipped>
+        </order-state-page>
+
+        <order-state-page id="dispatched" 
+                          class="order-state" 
+                          title="Dispatched" 
+                          active="false" 
+                          (click)="onClickDispatched(auction, unshipped, dispatched, inreturn)" #dispatched>
+        </order-state-page>
+
+        <order-state-page id="return" 
+                          class="order-state" 
+                          title="In Return" 
+                          active="false" 
+                          (click)="onClickReturn(auction, unshipped, dispatched, inreturn)" #inreturn>
+        </order-state-page>
+
+    </div>
+    <div class="orders">
+        <div *ngFor="let order of orders" class="row col-sm-12 col-lg-12 col-md-12">
+            <order-item-page [order]="order" isBuyer="true"
+                             *ngIf="currentType.includes(order.state)" 
+                             class="item thumbnail" 
+                             (handleOrderEvent)="handleOrderEvent($event)">
+            </order-item-page>
+        </div>
+    </div>
+</div>
+
+<!-- a dialog to input info for cancelling the order -->
+<div class="modal fade" id="cancelDig" role="dialog" tabindex="-1"
+    [ngStyle]="{'display': activeOrderEventType == 1 ? 'block' : 'none', 'opacity': 1}">
+    <div class="cancel-dialog">
+        <div class="modal-content">
+            <div id="test" class="modal-body">
+                <div>
+                    <div>
+                        <label>Please input info for cancelling</label>
+                    </div>
+                    <div>
+                        <textarea autocomplete="off" id="cancelInfo" class="cancel-inputBox" placeholder="less than 500 words"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="applyOrderCancel()">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="endOrderCancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- a dialog to input exress info for returned pruduct -->
+<div class="modal fade" id="expressDig" role="dialog" tabindex="-1"
+    [ngStyle]="{'display': activeOrderEventType == 3 ? 'block' : 'none', 'opacity': 1}">
+    <div class="return-dialog">
+        <div class="modal-content">
+            <div id="test" class="modal-body">
+                <div>
+                    <div class="express-div">
+                        <label class="express-courier">courier</label>
+                        <input id="courier" type="text" placeholder="please input courier">
+                    </div>
+                    <div class="express-div">
+                        <label class="express-number">tracking number</label>
+                        <input id="expressId" type="text" placeholder="please input tracking number">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="submitReturnExpress()">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelReturnExpress()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

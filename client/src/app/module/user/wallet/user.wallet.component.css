@@ -1,0 +1,10 @@
+.amount {
+    float: left;
+    padding-left: 3px;
+    margin-right: 20px;
+}
+
+.address {
+    float: left;
+    margin-right: 20px;
+}
