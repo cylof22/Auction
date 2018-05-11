@@ -17,7 +17,9 @@ import { ArtistModule } from './module/artist/artist.module';
 import { AuthenticationModule } from './module/authentication/authentication.module'
 import { UserModule } from './module/user/user.module'
 import { HeaderInterceptor } from './interceptor/header.interceptor'
-import { ResponseInterceptor } from './interceptor/response.interceptor'
+import { ResponseInterceptor } from './interceptor/response.interceptor';
+import { GridDirective } from './directives/grid.directive';
+import { PinintestDirective } from './directives/pinintest.directive'
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { ResponseInterceptor } from './interceptor/response.interceptor'
     NavbarComponent,
     HomeComponent,
     CarouselComponent,
+    GridDirective,
+    PinintestDirective,
   ],
   imports: [
     ProductModule,
