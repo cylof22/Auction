@@ -1,15 +1,15 @@
-import { Directive, ElementRef, Input, TemplateRef, ViewContainerRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, ViewContainerRef, OnInit } from '@angular/core';
 var Freewall = require("freewall")
 
 @Directive({
   selector: '[appGrid]'
 })
-export class GridDirective {
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainerRef: ViewContainerRef
-  ) {
-    let id = this.viewContainerRef.element.nativeElement.selector;
+export class GridDirective implements OnInit {
+  constructor( private viewContainerRef: ViewContainerRef) {
+	}
+	
+	ngOnInit() {
+		let id = this.viewContainerRef.element.nativeElement.selector;
     let queryId = "#" + id;
 
     var temp = "<div class='cell' style='width:{width}px; height: {height}px; background-image: url(i/photo/{index}.jpg)'></div>";
@@ -32,5 +32,5 @@ export class GridDirective {
 			wall.fitWidth();
 			// for scroll bar appear;
       $(window).trigger("resize");
-  }
+	}
 }
