@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-
-import * as Freewall from "freewall";
+var Freewall = require("freewall")
 
 @Directive({
   selector: '[appGrid]'
