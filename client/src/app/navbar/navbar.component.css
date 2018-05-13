@@ -1,8 +1,6 @@
-.logout {
-    border: none;
-    float: right;
+.container {
+    width: 100%
 }
-
 .navbar-nav > li > a, .navbar-brand {
     padding-top:6px !important; 
     padding-bottom:6px !important;
@@ -10,7 +8,8 @@
 }
 
 .navbar{
-    min-height:35px; 
+    min-height:35px;
+    width: 100%; 
 }
 
 .navbar .nav > li .dropdown-menu {  
@@ -19,3 +18,8 @@
 .navbar .nav > li:hover .dropdown-menu {  
     display: block;  
 } 
+
+.logout {
+    border: none;
+    float: right;
+}
