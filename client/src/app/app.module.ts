@@ -18,8 +18,6 @@ import { AuthenticationModule } from './module/authentication/authentication.mod
 import { UserModule } from './module/user/user.module'
 import { HeaderInterceptor } from './interceptor/header.interceptor'
 import { ResponseInterceptor } from './interceptor/response.interceptor';
-import { GridDirective } from './directives/grid.directive';
-import { PinintestDirective } from './directives/pinintest.directive'
 
 @NgModule({
   declarations: [
@@ -28,8 +26,6 @@ import { PinintestDirective } from './directives/pinintest.directive'
     NavbarComponent,
     HomeComponent,
     CarouselComponent,
-    GridDirective,
-    PinintestDirective,
   ],
   imports: [
     ProductModule,
