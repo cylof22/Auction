@@ -12,18 +12,10 @@ export class GridDirective implements OnInit {
 	ngOnInit() {
 		let id = this.viewContainerRef.element.nativeElement.id;
 		alert(id)
-    let queryId = "#" + id;
-
-    var temp = "<div class='cell' style='width:{width}px; height: {height}px; background-image: url(i/photo/{index}.jpg)'></div>";
-		var w = 200, h = 200, html = '', limitItem = 49;
-		for (var i = 0; i < limitItem; ++i) {
-			html += temp.replace(/\{height\}/g, h.toString()).replace(/\{width\}/g, w.toString()).replace("{index}", (i + 1).toString());
-		}
-
-		this.viewContainerRef.element.nativeElement.html(html);
+		let queryId = "#" + id;
 		var wall = new Freewall.freewall(queryId);
 		wall.reset({
-			selector: '.cell',
+			selector: '.brick',
 			animate: true,
 			cellW: 200,
 			cellH: 200,
