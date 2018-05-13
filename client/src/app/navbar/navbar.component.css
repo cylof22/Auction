@@ -3,6 +3,16 @@
     float: right;
 }
 
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:6px !important; 
+    padding-bottom:6px !important;
+    height: 20px;
+}
+
+.navbar{
+    min-height:35px; 
+}
+
 .navbar .nav > li .dropdown-menu {  
     margin: 0;  
 }  
