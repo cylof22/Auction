@@ -17,7 +17,9 @@
         <li><a [routerLink]="['/batch-upload']">BatchUpload</a></li>
         <li><a [routerLink]="">About</a></li>
       </ul>
-      <auction-search></auction-search>
+      <div class="nav navbar-nav">
+          <auction-search></auction-search>
+      </div>
       <ul class="nav navbar-nav navbar-right" *ngIf="!isAuthenticated">
         <li ><a [routerLink]="['/login']">Login</a></li>
       </ul>
@@ -32,9 +34,7 @@
           </ul>
         </li>
       </ul>
-
     </div>
-
   </div>
 </nav>
 
