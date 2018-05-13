@@ -4,19 +4,8 @@
   </div>
 </div>
 
-<ng-masonry-grid class="grid-style"
-                 [masonryOptions]="{ transitionDuration: '0.8s'}" 
-                 [useAnimation]="true"
-                 [useImagesLoaded]="true"
-                 [scrollAnimationOptions]="{ animationEffect: 'effect-4', minDuration : 0.4, maxDuration : 0.7 }">
-  
-  <div class="alert alert-warning" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
-  
-  <ng-masonry-grid-item id="{{'masonry-item-'+i}}" *ngFor="let product of products | async" class="col-sm-4 col-lg-4 col-md-4"> 
-    <auction-product-item [product]="product" readonly="true"></auction-product-item>
-  </ng-masonry-grid-item>
-</ng-masonry-grid>
-
-<!-- <div class="row" style="margin-top: 30px;background-color:grey">
-  <foot-scrollbar></foot-scrollbar>
-</div> -->
+<div id="freewall" class="free-wall" appPinintest>
+  <div class="brick col-sm-4 col-lg-4 col-md-4" *ngFor="let product of products | async">
+      <auction-product-item [product]="product" readonly="true"></auction-product-item>
+  </div>
+</div>

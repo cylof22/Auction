@@ -11,7 +11,6 @@ import { ONLINE_AUCTION_SERVICES } from './service/services';
 import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
 import { FootScrollBarComponent } from './scrollBar/scrollBar.component'
-import { NgMasonryGridModule } from 'ng-masonry-grid';
 
 @NgModule({
     declarations: [
@@ -30,7 +29,6 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
         StarsComponent,
         SearchComponent,
         FootScrollBarComponent,
-        NgMasonryGridModule,
     ],
     imports: [
         CommonModule,

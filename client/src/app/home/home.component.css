@@ -13,3 +13,16 @@
 .grid-style {
   background-color:rgb(235, 232, 232);
 }
+
+.free-wall {
+  margin: 15px;
+}
+.brick {
+  width: 221.2px;
+}
+
+.brick img {
+  margin: 0px;
+  padding: 0px;
+  display: block;
+}
