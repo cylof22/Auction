@@ -355,7 +355,7 @@ export class ProductInputComponent {
             this.onUploadProductData.emit(uploadData);
         } 
         else {
-            let uploadData = new BatchProducts([''], tags, owner, maker, productType.toString(), price);
+            let uploadData = new BatchProducts([], tags, owner, maker, productType.toString(), price);
             this.onUploadProductData.emit(uploadData);
         }
     }
