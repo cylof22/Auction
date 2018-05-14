@@ -1,17 +1,4 @@
 .container {
-    height: 450px;
-    overflow: auto;
-}
-
-.free-wall {
-    margin: 15px;
-}
-.brick {
-    width: 221.2px;
-}
-  
-.brick img {
-    margin: 0px;
-    padding: 0px;
-    display: block;
+    max-height: 700px;
+    overflow-y: auto;
 }

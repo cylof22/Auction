@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-8 col-lg-8 col-md-8">
+        <div class="col-sm-7 col-lg-7 col-md-7">
             <div id="selectBox">
                 <input #folderInput type="file" name="folderCtrl" id="folderCtrl" 
                     (change)="onFolderSelected(folderInput.files)"
@@ -11,7 +11,7 @@
             <div id="gridGroup" class="thumbnail pictureArea row">
             </div>
         </div>
-        <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="col-sm-5 col-lg-5 col-md-5">
             <product-input (onUploadProductData)="onUploadProducts($event)" [isBatch]="true"></product-input>
         </div>
     </div>
