@@ -17,7 +17,7 @@ import { ArtistModule } from './module/artist/artist.module';
 import { AuthenticationModule } from './module/authentication/authentication.module'
 import { UserModule } from './module/user/user.module'
 import { HeaderInterceptor } from './interceptor/header.interceptor'
-import { ResponseInterceptor } from './interceptor/response.interceptor'
+import { ResponseInterceptor } from './interceptor/response.interceptor';
 
 @NgModule({
   declarations: [

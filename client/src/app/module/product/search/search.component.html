@@ -1,25 +1,17 @@
-<form [formGroup]="formModel"
+<form class="form-inline" [formGroup]="formModel"
       (ngSubmit)="onSearch()"
       novalidate>
-
-  <!-- <div class="form-group div-container col-sm-6 col-lg-6 col-md-6">
-    <input id="title"
-          placeholder="搜索..."
-          class="form-control"
-          type="text"
-          formControlName="title">
-      <button type="submit" class="search-click-btn"></button>
-  </div> -->
-
-  <div class="form-group col-sm-3 col-lg-3 col-md-3">
-    <select id="categories"
-            class="form-control"
-            formControlName="categories" 
-            (change)="onSearch()">
-      <option value="">All categories</option>
-      <option *ngFor="let c of categories"
-              [value]="c">{{c}}</option>
-    </select>
-  </div>
+      <div class="input-group">
+            <span class="input-group-addon drop-down-sel">
+                  <div class="dropdown" (selected)="onSearch()">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">All Categories<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                              <li><a>All Categories</a></li>
+                              <li><a *ngFor="let c of categories">{{c}}</a></li>
+                        </ul>
+                  </div>
+            </span>
+            <input placeholder="Search Key Words" class="form-control search-txt" type="text">
+      </div>
 </form>
 

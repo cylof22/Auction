@@ -1,4 +1,4 @@
 .container {
-    height: 450px;
-    overflow: auto;
+    max-height: 700px;
+    overflow-y: auto;
 }
