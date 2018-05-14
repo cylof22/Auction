@@ -1,16 +1,18 @@
-<div class="row">
-    <div class="col-sm-8 col-lg-8 col-md-8">
-        <div id="selectBox">
-            <input #folderInput type="file" name="folderCtrl" id="folderCtrl" 
-            (change)="onFolderSelected(folderInput.files)"
-            accept="image/png,image/jpg,image/jpeg" webkitDirectory style="display: none;"/>
-            <input type="button" value="Select a folder" (click)="selectFolder()">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8 col-lg-8 col-md-8">
+            <div id="selectBox">
+                <input #folderInput type="file" name="folderCtrl" id="folderCtrl" 
+                    (change)="onFolderSelected(folderInput.files)"
+                    accept="image/png,image/jpg,image/jpeg" webkitDirectory style="display: none;"/>
+                <input type="button" value="Select a folder" (click)="selectFolder()">
+            </div>
+            
+            <div id="gridGroup" class="thumbnail pictureArea row">
+            </div>
         </div>
-
-        <div id="gridGroup" class="thumbnail pictureArea row">
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <product-input (onUploadProductData)="onUploadProducts($event)" [isBatch]="true"></product-input>
         </div>
-    </div>
-    <div class="col-sm-4 col-lg-4 col-md-4">
-        <product-input (onUploadProductData)="onUploadProducts($event)" [isBatch]="true"></product-input>
     </div>
 </div>

@@ -1,4 +1,6 @@
 .pictureArea {
     height: 400px;
+    width: 100%;
     overflow: auto;
+    margin-left: 1px;
 }
