@@ -32,7 +32,6 @@ export class SearchComponent implements OnInit{
   OnSearch() {
     let searchTextElem = document.getElementById("SearchInfo") as HTMLInputElement;
     this.searchText = searchTextElem.value;
-    alert(this.searchText)
     if(this.searchText.length != 0) {
       let key = this.selectedType as string;
       let searchParas = {
