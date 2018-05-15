@@ -27,6 +27,7 @@ export class SearchComponent implements OnInit{
     let selectedType = event.target.text;
       if(selectedType != null) {
         this.selectedType = event.target.text;
+        this.OnSearch();
     }
   }
 
