@@ -6,6 +6,7 @@ import { Review } from '../product.model/review';
 
 import 'rxjs/add/operator/map';
 export const API_PRODUCTS_SERVICE_URL = new InjectionToken<string>("api-products-url");
+export const API_SEARCH_SERVICE_URL = new InjectionToken<string>("api-search-url");
 
 export interface ProductSearchParams {
   title: string;
@@ -16,14 +17,16 @@ export interface ProductSearchParams {
 export class ProductService {
   searchEvent: EventEmitter<any> = new EventEmitter();
   private apiProductsUrl : string;
+  private apiSearchUrL: string;
 
   constructor(private http: HttpClient, injector : Injector) {
     this.apiProductsUrl = injector.get(API_PRODUCTS_SERVICE_URL);
+    this.apiSearchUrL = injector.get(API_SEARCH_SERVICE_URL);
   }
 
-  search(params: any): Observable<Product[]> {
+  search(queryParams: any): Observable<Product[]> {
     // add the params as query paramters
-    return this.http.get<Product[]>(this.apiProductsUrl + "/search", {params: encodeParams(params)});
+    return this.http.get<Product[]>(this.apiSearchUrL, {params: queryParams});
   }
   
   getProductsByUser(usrid: string): Observable<Product[]> {
@@ -72,7 +75,8 @@ export class ProductService {
  * Encodes the object into a valid query string.
  */
 function encodeParams(params: any): HttpParams {
+  alert(JSON.stringify(params))
   return Object.getOwnPropertyNames(params)
-    .reduce((p, key) => 
+    .reduce((p, key) =>
       p.append(key, params[key]),new HttpParams());
 }

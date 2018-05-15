@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from '../service/product.service'
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'auction-search',
@@ -33,11 +34,8 @@ export class SearchComponent implements OnInit{
     let searchTextElem = document.getElementById("SearchInfo") as HTMLInputElement;
     this.searchText = searchTextElem.value;
     if(this.searchText.length != 0) {
-      let key = this.selectedType as string;
-      let searchParas = {
-        key: this.searchText,
-      } 
-      this.productService.searchEvent.emit(searchParas);
+      let params = new HttpParams().append(this.selectedType.toLowerCase(), this.searchText);
+      this.productService.searchEvent.emit(params);
     }
   }
 }
