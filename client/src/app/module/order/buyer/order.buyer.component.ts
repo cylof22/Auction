@@ -37,11 +37,7 @@ export class OrderBuyerComponent {
   }
 
   test() {
-    let searchParas = {
-      "owner":this.username,
-    } 
-
-    this.productService.search(searchParas).subscribe(
+    this.productService.getProductsByUser(this.username).subscribe(
       params => {
         this.orders = new Array<Order>();
         for (let i = 0; i < params.length; i++) {

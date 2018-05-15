@@ -4,10 +4,9 @@
       <div class="input-group">
             <span class="input-group-addon drop-down-sel">
                   <div class="dropdown" (click)="onSearch($event)">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{selectedTag}}<b class="caret"></b></a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{selectedType}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                              <li><a>All Categories</a></li>
-                              <li><a *ngFor="let c of categories">{{c}}</a></li>
+                              <li><a *ngFor="let c of searchTypes">{{c}}</a></li>
                         </ul>
                   </div>
             </span>

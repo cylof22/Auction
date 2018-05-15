@@ -9,28 +9,29 @@ import { ProductService } from '../service/product.service'
 })
 export class SearchComponent implements OnInit{
   formModel: FormGroup;
-  categories: string[];
-  selectedTag: string;
+  searchTypes: string[];
+  selectedType: string;
 
   constructor(private productService: ProductService) {
 
     const fb = new FormBuilder();
     this.formModel = fb.group({
-      'categories': ['']
+      'searchTypes': ['']
     })
 
-    this.selectedTag = "All Categories";
+    this.selectedType = "Tag";
   }
 
   ngOnInit() {
-    this.categories = this.productService.getAllCategories();
+    this.searchTypes = this.productService.getSearchTypes();
+    this.selectedType = this.searchTypes[0];
   }
 
   onSearch(event) {
     if (this.formModel.valid) {
       let selectedType = event.target.text;
       if(selectedType != null) {
-        this.selectedTag = event.target.text;
+        this.selectedType = event.target.text;
         this.productService.searchEvent.emit(this.formModel.value);
       }
     }

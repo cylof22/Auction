@@ -30,10 +30,7 @@ export class ConcernUsersComponent {
   }
 
   test() {
-    let searchParas = {
-      "owner":this.username,
-    }
-    this.productService.search(searchParas).subscribe(
+    this.productService.getProductsByUser(this.username).subscribe(
       res => {
         this.concernedUsers = new Array<ConcernedUser>();
         for (let i = 0; i < 5; i++) {

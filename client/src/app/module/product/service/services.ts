@@ -7,5 +7,5 @@ export const ONLINE_AUCTION_SERVICES = [
   BidService,
   ProductService,
   WebsocketService,
-  { provide:API_PRODUCTS_SERVICE_URL, useValue: environment.productionURL },
+  { provide:API_PRODUCTS_SERVICE_URL, useValue: environment.productsURL },
 ];
