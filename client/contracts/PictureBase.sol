@@ -19,6 +19,11 @@ contract PictureBase is PictureAccessControl {
     ///  when a new gen0 cat is created.
     event CreatePictureWithArtist(address owner, string hashValue, address styleOwner);
 
+    /// @dev The Birth event is fired whenever a new picture comes into existence. This obviously
+    ///  includes any time a picture is created through the giveBirth method, but it is also called
+    ///  when a new gen0 cat is created.
+    event CreatePicture(address owner, string hashValue);
+
     /// @dev Transfer event as defined in current draft of ERC721. Emitted every time a picture
     ///  ownership is assigned, including births.
     event Transfer(address from, address to, uint256 tokenId);
@@ -149,10 +154,11 @@ contract PictureBase is PictureAccessControl {
     ///  input data is known to be valid. Will generate both a Make event
     ///  and a Transfer event.
     /// @param _hashValue The picture's hash value.
+    /// @param _styleOwner The style model's owner - artist.
     /// @param _owner The inital owner of this picture, must be non-zero (except for the unKitty, ID 0)
     function _createPictureWithArtist(
         string _hashValue,
-        address  _styleOwnerAdd,
+        address  _styleOwner,
         address _owner
     )
         internal
@@ -163,7 +169,7 @@ contract PictureBase is PictureAccessControl {
             hashValue: _hashValue,
             birthTime: uint64(now),
             styleHash: "",
-            styleOwner: _styleOwnerAdd,
+            styleOwner: _styleOwner,
             maker:_owner
         });
         uint256 newPictureId = pictures.push(_picture) - 1;
@@ -176,7 +182,47 @@ contract PictureBase is PictureAccessControl {
         CreatePictureWithArtist(
             _owner,
             _hashValue,
-            _styleOwnerAdd
+            _styleOwner
+        );
+
+        // This will assign ownership, and also emit the Transfer event as
+        // per ERC721 draft
+        _transfer(0, _owner, newPictureId);
+
+        return newPictureId;
+    }
+
+    /// @dev An internal method that creates a new picture and stores it. This
+    ///  method doesn't do any checking and should only be called when the
+    ///  input data is known to be valid. Will generate both a Make event
+    ///  and a Transfer event.
+    /// @param _hashValue The picture's hash value.
+    /// @param _owner The inital owner of this picture, must be non-zero (except for the unKitty, ID 0)
+    function _createPicture(
+        string _hashValue,
+        address _owner
+    )
+        internal
+        returns (uint)
+    {
+        // style picture is not needed, but we need style
+        Picture memory _picture = Picture({
+            hashValue: _hashValue,
+            birthTime: uint64(now),
+            styleHash: "",
+            styleOwner: address(0),
+            maker:_owner
+        });
+        uint256 newPictureId = pictures.push(_picture) - 1;
+
+        // It's probably never going to happen, 4 billion cats is A LOT, but
+        // let's just be 100% sure we never let this happen.
+        require(newPictureId == uint256(uint32(newPictureId)));
+
+        // emit the make event
+        CreatePicture(
+            _owner,
+            _hashValue
         );
 
         // This will assign ownership, and also emit the Transfer event as

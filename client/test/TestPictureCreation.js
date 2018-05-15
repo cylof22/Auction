@@ -170,8 +170,17 @@ contract('PictureCore', function(accounts) {
       const contactBal = await web3.eth.getBalance(saleAuctionContact.address);
       const user1Bal = await web3.eth.getBalance(user1);
 
-      // transfer picA from coo to user1
+      // step 1 : show the intention to buy the token
+      // Not transfer picA from coo to user1, waiting for confirming
       await saleAuctionContact.buyItNow(picA, {from:user1, value:10000});
+      owner = await picture.ownerOf(picA);
+      assert.equal(owner, saleAuctionContact.address, "picA's owner should be contact");
+
+      count = await picture.balanceOf(saleAuctionContact.address);
+      assert.equal(count, 1, "auction contact has 1 pictures");
+
+      // step 2 : confirm the buy behavior and then transfer the token to buyer
+      await saleAuctionContact.confirmBuy(picA, {from:user1});
       owner = await picture.ownerOf(picA);
       assert.equal(owner, user1, "picA's owner should be user1");
 

@@ -44,6 +44,7 @@ contract ClockAuctionBase {
     event ConfirmAuction(uint256 tokenId, uint256 totalPrice, address winner, address styleOwner, uint256 brokerage);
     event Bid(uint256 tokenId, uint256 newPrice, address bidder);
     event PayBack(uint256 tokenId, uint256 prePrice, address preBidder);
+    event WantoToBuy(uint256 tokenId, uint256 price, address buyer);
     event Buy(uint256 tokenId, uint256 price, address buyer, address styleOwner, uint256 brokerage);
     event AuctionCancelled(uint256 tokenId);
 
@@ -115,6 +116,28 @@ contract ClockAuctionBase {
         // on the lookup above failing. An invalid _tokenId will just
         // return an auction object that is all zeros.)
         require(_isOnAuction(auction));
+        require(auction.bidder == address(0));   // only one buyer is allow to buy this token
+        auction.bidder = msg.sender;             // change the bidder for this token
+
+        // Check that the bid is greater than or equal to the current price
+        uint128 price = _currentPrice(auction);
+
+        // Tell the world!
+        WantoToBuy(_tokenId, price, msg.sender);
+
+        return price;
+    }
+
+    function _confirmBuy(uint256 _tokenId) internal returns(uint256) {
+        // Get a reference to the auction struct
+        Auction storage auction = tokenIdToAuction[_tokenId];
+
+        // Explicitly check that this auction is currently live.
+        // (Because of how Ethereum mappings work, we can't just count
+        // on the lookup above failing. An invalid _tokenId will just
+        // return an auction object that is all zeros.)
+        require(_isOnAuction(auction));
+        require(auction.bidder == msg.sender);    // only the buyer can confirm the deal
 
         // Check that the bid is greater than or equal to the current price
         uint128 price = _currentPrice(auction);
@@ -263,12 +286,12 @@ contract ClockAuctionBase {
         // before calling transfer(), and the only thing the seller
         // can DoS is the sale of their own asset! (And if it's an
         // accident, they can call cancelAuction(). )
-        seller.send(auctioneerCut);
+        seller.transfer(auctioneerCut);
 
         // do transfer to style owner
         if (_brokerage > 0) {
             uint256 fee2StyleOwner = _brokerage * _totalPrice / 10000;
-            _styleOwner.send(fee2StyleOwner);
+            _styleOwner.transfer(fee2StyleOwner);
         }
     }
 

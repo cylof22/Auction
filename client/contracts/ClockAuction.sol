@@ -107,19 +107,27 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         _bid(_tokenId, msg.value);
     }
 
-    /// @dev Bids on an open auction, completing the auction and transferring
-    ///  ownership of the NFT if enough Ether is supplied.
-    /// @param _tokenId - ID of token to bid on.
-    function buyItNow(uint256 _tokenId)
+    /// @dev Updates lastSalePrice if seller is the nft contract
+    /// Otherwise, works the same as default bid method.
+    function confirmBuy(uint256 _tokenId)
         external
         payable
         whenNotPaused
     {
-        // _buyItNow will throw if the buy or funds transfer fails
-        _buyItNow(_tokenId);
-
-        // transfer token ownership
+        // _bid verifies token ID size
+        address seller = tokenIdToAuction[_tokenId].seller;
+        _confirmBuy(_tokenId);
         _transfer(msg.sender, _tokenId);
+    }
+
+    /// @dev Updates lastSalePrice if seller is the nft contract
+    /// Otherwise, works the same as default bid method.
+    function buyItNow(uint256 _tokenId)
+        external
+        payable
+    {
+        // transfer the bidder and price and pay money back to the pre-bidder
+        _buyItNow(_tokenId);
     }
 
     /// @dev Cancels an auction that hasn't been won yet.
