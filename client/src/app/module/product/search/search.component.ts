@@ -10,6 +10,7 @@ import { ProductService } from '../service/product.service'
 export class SearchComponent implements OnInit{
   formModel: FormGroup;
   categories: string[];
+  selectedTag: string;
 
   constructor(private productService: ProductService) {
 
@@ -17,15 +18,21 @@ export class SearchComponent implements OnInit{
     this.formModel = fb.group({
       'categories': ['']
     })
+
+    this.selectedTag = "All Categories";
   }
 
   ngOnInit() {
     this.categories = this.productService.getAllCategories();
   }
 
-  onSearch() {
+  onSearch(event) {
     if (this.formModel.valid) {
-      this.productService.searchEvent.emit(this.formModel.value);
+      let selectedType = event.target.text;
+      if(selectedType != null) {
+        this.selectedTag = event.target.text;
+        this.productService.searchEvent.emit(this.formModel.value);
+      }
     }
   }
 }

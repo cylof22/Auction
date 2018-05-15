@@ -3,8 +3,8 @@
       novalidate>
       <div class="input-group">
             <span class="input-group-addon drop-down-sel">
-                  <div class="dropdown" (selected)="onSearch()">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">All Categories<b class="caret"></b></a>
+                  <div class="dropdown" (click)="onSearch($event)">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{selectedTag}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                               <li><a>All Categories</a></li>
                               <li><a *ngFor="let c of categories">{{c}}</a></li>
