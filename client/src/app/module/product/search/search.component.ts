@@ -8,18 +8,13 @@ import { ProductService } from '../service/product.service'
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit{
-  formModel: FormGroup;
   searchTypes: string[];
   selectedType: string;
+  searchText: string;
 
   constructor(private productService: ProductService) {
-
-    const fb = new FormBuilder();
-    this.formModel = fb.group({
-      'searchTypes': ['']
-    })
-
     this.selectedType = "Tag";
+    this.searchText = "";
   }
 
   ngOnInit() {
@@ -27,13 +22,23 @@ export class SearchComponent implements OnInit{
     this.selectedType = this.searchTypes[0];
   }
 
-  onSearch(event) {
-    if (this.formModel.valid) {
-      let selectedType = event.target.text;
+  OnSelecteSearchType(event) {
+    let selectedType = event.target.text;
       if(selectedType != null) {
         this.selectedType = event.target.text;
-        this.productService.searchEvent.emit(this.formModel.value);
-      }
+    }
+  }
+
+  OnSearch() {
+    let searchTextElem = document.getElementById("SearchInfo") as HTMLInputElement;
+    this.searchText = searchTextElem.value;
+    alert(this.searchText)
+    if(this.searchText.length != 0) {
+      let key = this.selectedType as string;
+      let searchParas = {
+        key: this.searchText,
+      } 
+      this.productService.searchEvent.emit(searchParas);
     }
   }
 }

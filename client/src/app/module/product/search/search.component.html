@@ -1,16 +1,13 @@
-<form class="form-inline" [formGroup]="formModel"
-      (ngSubmit)="onSearch()"
-      novalidate>
+<form class="form-inline" novalidate (ngSubmit)="OnSearch()">
       <div class="input-group">
             <span class="input-group-addon drop-down-sel">
-                  <div class="dropdown" (click)="onSearch($event)">
+                  <div class="dropdown" (click)="OnSelecteSearchType($event)">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">{{selectedType}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                               <li><a *ngFor="let c of searchTypes">{{c}}</a></li>
                         </ul>
                   </div>
             </span>
-            <input placeholder="Search Key Words" class="form-control search-txt" type="text">
+            <input id="SearchInfo" placeholder="Search Key Words" class="form-control search-txt" type="text">
       </div>
 </form>
-
