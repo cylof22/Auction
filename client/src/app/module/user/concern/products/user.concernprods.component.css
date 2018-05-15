@@ -3,16 +3,9 @@
     overflow: auto;
 }
 
-.free-wall {
-    margin: 15px;
-}
-
-.brick {
-    width: 221.2px;
-}
-  
-.brick img {
-    margin: 0px;
-    padding: 0px;
-    display: block;
+.grid-item {
+    border-left: 0px;
+    border-right: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
