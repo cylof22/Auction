@@ -17,11 +17,10 @@ export class UserProductsComponent {
   }
 
   ngOnInit() {
-      // get owned products
-    let searchParas = {
-        "owner":this.username,
-    } 
-    this.productService.search(searchParas).subscribe(
+    // get owned products
+    // Todo: insert the authentication information
+    // JWT token
+    this.productService.getProductsByUser(this.username).subscribe(
         params => this.myProducts = params
     );
   }

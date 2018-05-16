@@ -28,10 +28,7 @@ export class ConcernProductsComponent {
     }
 
     test() {
-        let searchParas = {
-            "owner":this.username,
-        }
-        this.productService.search(searchParas).subscribe(
+        this.productService.getProductsByUser(this.username).subscribe(
             res => this.products = res
         )
     }
