@@ -60,7 +60,7 @@ contract PictureBase is PictureAccessControl {
 
     /// @dev An array containing the Picture struct for all Pictures in existence. The ID
     ///  of each cat is actually an index into this array. Note that ID 0 is a negacat,
-    ///  the unKitty, the mythical beast that is the parent of all gen0 cats. A bizarre
+    ///  the unPicture, the mythical beast that is the parent of all gen0 cats. A bizarre
     ///  creature that is both matron and sire... to itself! Has an invalid genetic code.
     ///  In other words, cat ID 0 is invalid... ;-)
     Picture[] pictures;
@@ -106,7 +106,7 @@ contract PictureBase is PictureAccessControl {
     /// @param _hashValue The new picture's hash value which identify the picture in the platform
     /// @param _styleHash The style picture's hash value, could be nil
     /// @param _styleOwnerAdd The style picture's owner, should be stored previously since its owner could be changed.
-    /// @param _owner The inital owner of this picture, must be non-zero (except for the unKitty, ID 0)
+    /// @param _owner The inital owner of this picture, must be non-zero (except for the unPicture, ID 0)
     function _createPictureWithStyle(
         string _hashValue,
         string _styleHash,
@@ -155,7 +155,7 @@ contract PictureBase is PictureAccessControl {
     ///  and a Transfer event.
     /// @param _hashValue The picture's hash value.
     /// @param _styleOwner The style model's owner - artist.
-    /// @param _owner The inital owner of this picture, must be non-zero (except for the unKitty, ID 0)
+    /// @param _owner The inital owner of this picture, must be non-zero (except for the unPicture, ID 0)
     function _createPictureWithArtist(
         string _hashValue,
         address  _styleOwner,
@@ -197,7 +197,7 @@ contract PictureBase is PictureAccessControl {
     ///  input data is known to be valid. Will generate both a Make event
     ///  and a Transfer event.
     /// @param _hashValue The picture's hash value.
-    /// @param _owner The inital owner of this picture, must be non-zero (except for the unKitty, ID 0)
+    /// @param _owner The inital owner of this picture, must be non-zero (except for the unPicture, ID 0)
     function _createPicture(
         string _hashValue,
         address _owner

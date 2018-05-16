@@ -10,7 +10,7 @@ contract SaleClockAuction is ClockAuction {
     //  right auction in our setSaleAuctionAddress() call.
     bool public isSaleClockAuction = true;
 
-    // Tracks last 5 sale price of gen0 kitty sales
+    // Tracks last 5 sale price of gen0 picture sales
     uint256 public gen0SaleCount;
     uint256[5] public lastGen0SalePrices;
 
@@ -31,7 +31,8 @@ contract SaleClockAuction is ClockAuction {
         uint256 _brokerage,
         address _styleOwner,
         uint256 _duration,
-        address _seller
+        address _seller,
+        bool    _isGoods
     )
         external
     {
@@ -55,7 +56,9 @@ contract SaleClockAuction is ClockAuction {
             uint128(_brokerage),
             _styleOwner,
             uint64(_duration),
-            uint64(now)
+            uint64(now),
+            _isGoods,
+            0
         );
 
         _addAuction(_tokenId, auction);

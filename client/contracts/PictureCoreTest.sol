@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 import "./PictureCore.sol";
 
 
-/// @title Kitty core with extra test fn and overrides
+/// @title Picture core with extra test fn and overrides
 contract PictureCoreTest is PictureCore {
     // https://ethereum.stackexchange.com/questions/16318/inherited-constructors
     function PictureCoreTest() public {

@@ -1,4 +1,4 @@
-/// @title Handles creating auctions for sale and siring of kitties.
+/// @title Handles creating auctions for sale of pictures.
 ///  This wrapper of ReverseAuction exists only so that users can create
 ///  auctions with only one transaction.
 pragma solidity ^0.4.16;
@@ -6,10 +6,9 @@ import "./PictureOwnership.sol";
 
 contract PictureAuction is PictureOwnership {
 
-    // @notice The auction contract variables are defined in KittyBase to allow
-    //  us to refer to them in KittyOwnership to prevent accidental transfers.
-    // `saleAuction` refers to the auction for gen0 and p2p sale of kitties.
-    // `siringAuction` refers to the auction for siring rights of kitties.
+    // @notice The auction contract variables are defined in PictureBase to allow
+    //  us to refer to them in PictureOwnership to prevent accidental transfers.
+    // `saleAuction` refers to the auction for gen0 and p2p sale of pictures.
 
     /// @dev Sets the reference to the sale auction.
     /// @param _address - Address of sale contract.
@@ -25,15 +24,24 @@ contract PictureAuction is PictureOwnership {
 
     /// @dev Put a picture up for auction.
     ///  Does some ownership trickery to create auctions in one tx.
-    function createSaleAuction(uint256 _pictureId, uint256 _auctionType, uint256 _Price, uint256 _commission, uint256 _brokerage, address _styleOwner, uint256 _duration) external whenNotPaused {
+    function createSaleAuction(
+        uint256 _pictureId,
+        uint256 _auctionType,
+        uint256 _Price,
+        uint256 _commission,
+        uint256 _brokerage,
+        address _styleOwner,
+        uint256 _duration,
+        bool _isGoods
+        ) external whenNotPaused {
         // Auction contract checks input sizes
-        // If kitty is already on any auction, this will throw
+        // If picture is already on any auction, this will throw
         // because it will be owned by the auction contract.
         require(_owns(msg.sender, _pictureId));
 
         _approve(_pictureId, saleAuction);
         // Sale auction throws if inputs are invalid and clears
-        // transfer and sire approval after escrowing the kitty.
+        // transfer and sire approval after escrowing the picture.
         saleAuction.createAuction(
             _pictureId,
             _auctionType,
@@ -42,7 +50,8 @@ contract PictureAuction is PictureOwnership {
             _brokerage,
             _styleOwner,
             _duration,
-            msg.sender
+            msg.sender,
+            _isGoods
         );
     }
 }

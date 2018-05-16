@@ -52,7 +52,8 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         uint256 _brokerage,
         address _styleOwner,
         uint256 _duration,
-        address _seller
+        address _seller,
+        bool    _isGoods
     )
         external
         whenNotPaused
@@ -75,9 +76,19 @@ contract ClockAuction is Pausable, ClockAuctionBase {
             uint128(_brokerage),
             _styleOwner,
             uint64(_duration),
-            uint64(now)
+            uint64(now),
+            _isGoods,
+            0
         );
         _addAuction(_tokenId, auction);
+    }
+
+    function getExpNumber(uint256 _tokenId) external view whenNotPaused returns(uint256){
+        return _getExpNumber(_tokenId);
+    }
+
+    function setExpNumber(uint256 _tokenId, uint256 _expNumber) external whenNotPaused {
+        return _setExpNumber(_tokenId, _expNumber);
     }
 
     /// @dev Bids on an open auction, completing the auction and transferring

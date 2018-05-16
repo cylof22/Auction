@@ -32,6 +32,9 @@ contract ClockAuctionBase {
         // Time when auction started
         // NOTE: 0 if this auction has been concluded
         uint64 startedAt;
+
+        bool isGoods;
+        uint128 expNumber;
     }
 
     // Reference to contract tracking NFT ownership
@@ -46,6 +49,7 @@ contract ClockAuctionBase {
     event PayBack(uint256 tokenId, uint256 prePrice, address preBidder);
     event WantoToBuy(uint256 tokenId, uint256 price, address buyer);
     event Buy(uint256 tokenId, uint256 price, address buyer, address styleOwner, uint256 brokerage);
+    event SetExpNumber(uint256 tokenId, uint256 expNumber);
     event AuctionCancelled(uint256 tokenId);
 
     /// @dev Returns true if the claimant owns the token.
@@ -71,6 +75,28 @@ contract ClockAuctionBase {
     function _transfer(address _receiver, uint256 _tokenId) internal {
         // it will throw if transfer fails
         nonFungibleContract.transfer(_receiver, _tokenId);
+    }
+
+    function _isGoods(uint256 _tokenId) internal view returns(bool) {
+        Auction auction;
+        tokenIdToAuction[_tokenId] = auction;
+        return auction.isGoods;
+    }
+
+    function _getExpNumber(uint256 _tokenId) internal view returns(uint256) {
+        Auction auction;
+        tokenIdToAuction[_tokenId] = auction;
+        return auction.expNumber;
+    }
+
+    function _setExpNumber(uint256 _tokenId, uint256 _expNumber) internal {
+        Auction auction;
+        tokenIdToAuction[_tokenId] = auction;
+        require(auction.isGoods);
+        auction.expNumber = uint128(_expNumber);
+
+        // tell the world the express number
+        SetExpNumber(_tokenId, _expNumber);
     }
 
     /// @dev Adds an auction to the list of open auctions. Also fires the

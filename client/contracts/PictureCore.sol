@@ -12,7 +12,7 @@ contract PictureCore is PictureMinting {
     // that handle auctions and our super-top-secret genetic combination algorithm. The auctions are
     // seperate since their logic is somewhat complex and there's always a risk of subtle bugs. By keeping
     // them in their own contracts, we can upgrade them without disrupting the main contract that tracks
-    // kitty ownership. The genetic combination algorithm is kept seperate so we can open-source all of
+    // picture ownership. The genetic combination algorithm is kept seperate so we can open-source all of
     // the rest of our code without making it _too_ easy for folks to figure out how the genetics work.
     // Don't worry, I'm sure someone will reverse engineer it soon enough!
     //
@@ -79,8 +79,8 @@ contract PictureCore is PictureMinting {
         require(msg.sender == address(saleAuction));
     }
 
-    /// @notice Returns all the relevant information about a specific kitty.
-    /// @param _id The ID of the kitty of interest.
+    /// @notice Returns all the relevant information about a specific picture.
+    /// @param _id The ID of the picture of interest.
     function getPicture(uint256 _id)
         external
         view

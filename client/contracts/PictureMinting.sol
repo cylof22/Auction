@@ -31,7 +31,7 @@ contract PictureMinting is PictureAuction {
         _createPictureWithArtist(_hash, pictureOwner, pictureOwner);
     }
 
-    /// @dev Creates a new gen0 kitty with the given genes and
+    /// @dev Creates a new gen0 picture with the given genes and
     ///  creates an auction for it.
     function createGen0Auction(string _hash) external onlyCOO {
         require(gen0CreatedCount < GEN0_CREATION_LIMIT);
@@ -47,7 +47,8 @@ contract PictureMinting is PictureAuction {
             0,
             address(this),
             GEN0_AUCTION_DURATION,
-            address(this)
+            address(this),
+            false
         );
 
         gen0CreatedCount++;

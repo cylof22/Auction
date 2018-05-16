@@ -149,8 +149,9 @@ contract('PictureCore', function(accounts) {
       let count;
       count = await picture.balanceOf(seller);
       assert.equal(count, 1, "seller has 1 pictures");
+      let isGoods = false;
       // create 1 fixed price auctions
-      await picture.createSaleAuction(picA, 0, 10000, 1000, 1000, seller, 6000, {from : seller}); // fixed price/10000/10%/10%
+      await picture.createSaleAuction(picA, 0, 10000, 1000, 1000, seller, 6000, isGoods, {from : seller}); // fixed price/10000/10%/10%
 
       count = await picture.balanceOf(seller);
       assert.equal(count, 0, "seller has 0 pictures");
@@ -206,8 +207,9 @@ contract('PictureCore', function(accounts) {
       let count;
       count = await picture.balanceOf(seller);
       assert.equal(count, 1, "coo has 1 pictures");
+      let isGoods = false;
       // create 1 auctions
-      await picture.createSaleAuction(picA, 1, 20000, 1000, 1000, seller, 6000, {from : seller}); // auction/20000/10%/10%
+      await picture.createSaleAuction(picA, 1, 20000, 1000, 1000, seller, 6000, isGoods, {from : seller}); // auction/20000/10%/10%
 
       count = await picture.balanceOf(seller);
       assert.equal(count, 0, "seller has 0 pictures");
