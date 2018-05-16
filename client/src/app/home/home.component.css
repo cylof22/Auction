@@ -11,6 +11,10 @@
   margin-bottom: 10px;
 }
 
+.nav-pills li a {
+  color: black;
+}
+
 .nav-pills a {
   padding-top: 5px;
   padding-bottom: 5px;

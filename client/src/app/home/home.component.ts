@@ -55,11 +55,12 @@ export class HomeComponent {
     var tagTypes = tagBar.getElementsByTagName("li");
     for (let i = 0; i < tagTypes.length; i++) {
       var tagElem = tagTypes.item(i);
+      var anchorElem = tagElem.getElementsByTagName("a")[0];
       if(tagElem.textContent == selectedTag) {
-        tagElem.style.textDecoration = 'underline';
+        anchorElem.style.color = '#0000EE';
       } else {
         // unselected black color
-        tagElem.style.textDecoration = '';
+        anchorElem.style.color = '#000000';
       }
     }
   }
