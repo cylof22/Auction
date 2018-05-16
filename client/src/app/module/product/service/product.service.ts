@@ -30,15 +30,23 @@ export class ProductService {
   }
   
   getProductsByUser(usrid: string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiProductsUrl + `/${usrid}`)
+    return this.http.get<Product[]>(this.apiProductsUrl + '?usrid=' + usrid)
   }
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiProductsUrl);
   }
 
+  getProductsByHotest(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiProductsUrl + "/hotest");
+  }
+  
+  getProductsByTag(tag: string) : Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiProductsUrl + '?tags=' + tag);
+  }
+
   getProductById(productId: string): Observable<Product> {
-    return this.http.get<Product>(this.apiProductsUrl + `/${productId}`);
+    return this.http.get<Product>(this.apiProductsUrl + '?id=' + productId);
   }
 
   getReviewsForProduct(productId: number): Observable<Review[]> {
