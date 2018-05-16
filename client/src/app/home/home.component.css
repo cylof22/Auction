@@ -1,3 +1,21 @@
+.center-pills {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.nav-pills li {
+  height: 20px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.nav-pills a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .slide-image {
   width: 100%;
 }
