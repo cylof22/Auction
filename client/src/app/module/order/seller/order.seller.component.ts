@@ -104,9 +104,9 @@ export class OrderSellerComponent {
     let expressIdCtrl = <HTMLInputElement>document.getElementById('express');
     let courierCtrl = <HTMLInputElement>document.getElementById('courier');
 
-    let expressInfo = new Express(courierCtrl.value, expressIdCtrl.value);
+    let expressInfo = new Express(courierCtrl.value, expressIdCtrl.value, '');
     this.orderService.shipProductBySeller(this.activeOrderId, expressInfo).subscribe(
-      result => this.handleRequestResult(result, 'Shipping is failed. Please try again!')
+      result => this.handleRequestResult(result)
     )
 
     this.activeOrderId = '';
@@ -120,28 +120,28 @@ export class OrderSellerComponent {
 
   cancelOrderBySeller(orderId: string) {
     this.orderService.cancelOrderBySeller(orderId).subscribe(
-      result => this.handleRequestResult(result, 'Order is failed to cancel. Please try again!')
+      result => this.handleRequestResult(result)
     );
   }
 
   agreeReturn(orderId: string) {
     this.orderService.agreeReturnBySeller(orderId).subscribe(
-      result => this.handleRequestResult(result, 'Failed to agree return. Please try again!')
+      result => this.handleRequestResult(result)
     );
   }
 
   confirmReturn(orderId: string) {
     this.orderService.confirmReturnBySeller(orderId).subscribe(
-      result => this.handleRequestResult(result, 'Failed to agree return. Please try again!')
+      result => this.handleRequestResult(result)
     );
   }
 
-  handleRequestResult(error: any, showMsg: string) {
+  handleRequestResult(error: any) {
     if (error == null) {
       location.reload(true);
     } else {
       if (error.hasOwnProperty('error')) {
-        this.failedValue = showMsg;
+        this.failedValue = error['error'];
       }
     }
   }
