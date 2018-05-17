@@ -92,7 +92,6 @@ export class StyleTransferComponent {
         reader.readAsDataURL(output);
         reader.onload = function(e) {
             let img = document.getElementById("resultPreview");
-            alert(this.result)
             img.setAttribute("src", this.result);
         }
 

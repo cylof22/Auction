@@ -1,6 +1,6 @@
 <div *ngIf="order" class="row container">
     <div>
-        <img [src]="order.productUrl" class="image" (click)="showProduct()">
+        <img [src]="order.product.url" class="image" (click)="showProduct()">
     </div>
     <div class="time">
         <h5 *ngIf="isBuyer=='true'">Order time: {{ order.buyInfo.startTime }}</h5>
@@ -11,7 +11,7 @@
         <h5>$ {{ order.buyInfo.priceValue }}</h5>
     </div>
     <div *ngIf="isBuyer!='true'" class="infoItem">
-        <h5>$ {{ order.priceValue }}</h5>
+        <h5>$ {{ order.product.priceValue }}</h5>
     </div>
     <div class="infoItem">
         <h5>{{ statusValue }}</h5>
@@ -19,6 +19,9 @@
 
     <div class="buttons">
         <div *ngIf="order.status == '1' && isBuyer=='true'" class="middle-btn">
+            <button (click)="testSystemConfirm()">systemConfirm</button>
+        </div>
+        <div *ngIf="order.status == '2' && isBuyer=='true'" class="middle-btn">
             <button (click)="testSystemConfirm()">systemConfirm</button>
         </div>
         <div *ngIf="order.status == '5' && isBuyer=='true'" class="middle-btn">

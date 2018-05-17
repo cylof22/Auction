@@ -147,7 +147,7 @@ export class OrderItemComponent {
   }
 
   showProduct() {
-    this.route.navigate(["/products/" + this.order.productId]);
+    this.route.navigate(["/products/" + this.order.product.id]);
   }
 
 

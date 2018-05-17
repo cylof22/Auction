@@ -14,16 +14,23 @@
     failed                  // transaction fails
   }
 
+  export class ProductInfo {
+    constructor(
+      public id: string,
+      public owner: string,
+      public url: string,
+      public type: string,
+      public priceType: string,
+      public priceValue: string,
+    ){
+    }
+  }
+
   export class SellInfo {
     constructor(
-      public productId: string,   
-      public productOwner: string, 
-      public productUrl: string,
-      public productType: string,
+      public product: ProductInfo,
       public startTime: string,            // start time when selling
       public duration: string,             // valid time for the order
-      public priceValue: string,
-      public priceType: string,
     ){
     }
   }
@@ -40,19 +47,16 @@
   export class Order {
     constructor(
       public id: string,
+      public product: ProductInfo,
       public chainId: string,
       public status: string,
-      public productId: string,   
-      public productOwner: string, 
-      public productUrl: string,
-      public productType: string,
-      public priceType: string,
-      public priceValue: string,
       public startTime: string,            // start time when selling
+      public serverStartTime: string,
       public duration: string,             // valid time for the order
       public express: Express,
       public returnInfo: ReturnInfo,
       public buyInfo: BuyInfo,
+      public completeTime: string,
     ) {
     }
   }
@@ -61,6 +65,7 @@
     constructor(
       public company: string,
       public number: string,
+      public startTime: string      // server will save this value so needn't pass it
     ){
     }
   }
@@ -69,6 +74,9 @@
     constructor(
       public description: string,
       public images: Array<string>,
+      public askTime: string,         // the following three time parameters are from server
+      public agreeTime: string,
+      public confirmTime: string,
       public express: Express,
     ) {
     }

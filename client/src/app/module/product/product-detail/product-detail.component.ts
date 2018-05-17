@@ -8,7 +8,7 @@ import { Review } from './../product.model/review';
 import { ProductService } from './../service/product.service';
 import { AuthenticationService } from './../../authentication/services/authentication.service'
 import { OrderService } from './../../order/service/order.service'
-import { Order, SellInfo, Express, ReturnInfo, BuyInfo } from './../../order/order.model/order'
+import { Order, SellInfo, Express, ReturnInfo, BuyInfo, ProductInfo } from './../../order/order.model/order'
 import { BidService } from './bid.service';
 import { DatePipe } from '@angular/common';
 
@@ -25,7 +25,7 @@ export class ProductDetailComponent implements OnDestroy {
   priceType: string;
   hasStory: boolean;
   hasStoryPic: boolean;
-  hasError: boolean;
+  errorInfo: string;
 
   constructor(private productService: ProductService,
               private bidService: BidService,
@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnDestroy {
               private orderService: OrderService,
               router: ActivatedRoute) {
 
-    this.hasError = false;
+    this.errorInfo = '';
 
     const productId = router.snapshot.params['productId'];
     this.getCurrentProduct(productId);
@@ -123,22 +123,24 @@ export class ProductDetailComponent implements OnDestroy {
           location.reload(true);
         } else {
           if (result.hasOwnProperty('error')) {
-            this.hasError = true;
+            this.errorInfo = result['error'];
           }
         }
       }
     )
   }
 
-  sell(data) {
-    let sellInfo = new SellInfo('', '', '', '', '', '', '', '')   
+  sell(data) {  
+    let productInfo = new ProductInfo('', '', '', '', '', '');
+    productInfo.priceValue = this.product.price.value;
+    productInfo.priceType = this.product.price.type;
+    productInfo.id = this.product.id;
+    productInfo.owner = this.product.owner;
+    productInfo.type = this.product.type;
+    productInfo.url = this.product.url;
+
+    let sellInfo = new SellInfo(productInfo, '', '') 
     sellInfo.duration = this.product.price.duration;
-    sellInfo.priceValue = this.product.price.value;
-    sellInfo.priceType = this.product.price.type;
-    sellInfo.productId = this.product.id;
-    sellInfo.productOwner = this.product.owner;
-    sellInfo.productType = this.product.type;
-    sellInfo.productUrl = this.product.url;
     sellInfo.startTime = this.getNowFormatDate();
 
     this.orderService.sell(sellInfo).subscribe(
@@ -147,7 +149,7 @@ export class ProductDetailComponent implements OnDestroy {
           location.reload(true);
         } else {
           if (result.hasOwnProperty('error')) {
-            this.hasError = true;
+            this.errorInfo = result['error'];
           }
         }
       }

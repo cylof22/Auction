@@ -9,3 +9,7 @@ label {
 .fail {
     color: red;
 }
+
+.disabled {
+    color: grey;
+}

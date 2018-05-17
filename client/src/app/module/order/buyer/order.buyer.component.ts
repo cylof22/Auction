@@ -73,11 +73,11 @@ export class OrderBuyerComponent {
     inreturn['active'] = 'true';
   }
 
-  // onClickOthers(others) {
-  //   this.currentType = [OrderStatus.inFix.toString(),
-  //                       OrderStatus.dispatchConfirmed.toString(),
-  //                       OrderStatus.returnConfirmed.toString()];
-  // }
+  onClickOthers(others) {
+    this.currentType = [OrderStatus.inFix.toString(),
+                        OrderStatus.dispatchConfirmed.toString(),
+                        OrderStatus.returnConfirmed.toString()];
+  }
 
   handleOrderEvent(date) {
     if ( !(date.hasOwnProperty('id') && date.hasOwnProperty('type')) ) {
@@ -113,7 +113,7 @@ export class OrderBuyerComponent {
       'description': cancelInfoCtrl.value
     }
     this.orderService.cancelOrderByBuyer(this.activeOrderId, cancelOrderInfo).subscribe(
-      result => this.handleRequestResult(result, "It's failed to ask return. Please try again!")
+      result => this.handleRequestResult(result)
     );
 
     this.activeOrderId = '';
@@ -129,9 +129,9 @@ export class OrderBuyerComponent {
     let expressIdCtrl = <HTMLInputElement>document.getElementById('express');
     let courierCtrl = <HTMLInputElement>document.getElementById('courier');
 
-    let expressInfo = new Express(courierCtrl.value, expressIdCtrl.value);
+    let expressInfo = new Express(courierCtrl.value, expressIdCtrl.value, '');
     this.orderService.shipReturnByBuyer(this.activeOrderId, expressInfo).subscribe(
-      result => this.handleRequestResult(result, "It's filed to upload express info. Please try again!")
+      result => this.handleRequestResult(result)
     );
 
     this.activeOrderId = '';
@@ -145,16 +145,16 @@ export class OrderBuyerComponent {
 
   confirmOrder(orderId: string) {
     this.orderService.confirmOrderByBuyer(orderId).subscribe(
-      result => this.handleRequestResult(result, "Confirm is failed. Please try again!")
+      result => this.handleRequestResult(result)
     );
   }
 
-  handleRequestResult(error: any, showMsg: string) {
+  handleRequestResult(error: any) {
     if (error == null) {
       location.reload(true);
     } else {
       if (error.hasOwnProperty('error')) {
-        this.failedValue = showMsg;
+        this.failedValue = error['error'];
       }
     }
   }

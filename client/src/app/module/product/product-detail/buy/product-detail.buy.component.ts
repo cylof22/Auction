@@ -17,7 +17,6 @@ export class ProductDetailBuyComponent{
   @Output() handleBuyEvent: EventEmitter<any> = new EventEmitter;
 
   canBeBought: boolean;
-  hasError: boolean;
   isBtnDisabled: boolean;
 
   constructor(private authService: AuthenticationService) {
@@ -48,13 +47,13 @@ export class ProductDetailBuyComponent{
     if (logined && !fromItsOwner && isInSelling) {
         let iPriceType = parseInt(this.priceType);
         if (iPriceType == EPriceType.Fix) {
+            this.isBtnDisabled = false;
             this.initForFixPrice();
         } else if (iPriceType == EPriceType.Auction) {
+            this.isBtnDisabled = true;
             this.initForAuctionPrice();
         }
     }
-
-    this.isBtnDisabled = true;
   }
 
   initForFixPrice() {
@@ -88,16 +87,19 @@ export class ProductDetailBuyComponent{
     this.handleBuyEvent.emit(buyInfo);
   }
 
-  beginPrice(priceInput: HTMLInputElement) {
-    this.hasError = false;
+  onPriceChange(priceInput: HTMLInputElement) {
+      this.updatePriceStatus(priceInput);
   }
 
-  endPrice(priceInput: HTMLInputElement) {
-    if (parseFloat(priceInput.value) < parseFloat(this.priceValue)) {
-      this.hasError = true;
-      this.isBtnDisabled = true;
+  updatePriceStatus(priceInput: HTMLInputElement) {
+    if (priceInput.value == '') {
+        this.isBtnDisabled = true;
     } else {
-        this.isBtnDisabled = false;
+        if (parseFloat(priceInput.value) < parseFloat(this.priceValue)) {
+            this.isBtnDisabled = true;
+        } else {
+            this.isBtnDisabled = false;
+        }
     }
   }
 

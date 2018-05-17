@@ -50,8 +50,8 @@
       <p>{{ priceType }}</p>
     </div>
       
-    <div *ngIf="hasError">
-      <p class="fail">Current operation is failed. Please try again! </p>
+    <div *ngIf="errorInfo != ''">
+      <p class="fail">{{errorInfo}}</p>
     </div>  
 
     <div *ngIf="order">
