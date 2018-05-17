@@ -31,6 +31,8 @@ contract PictureAccessControl {
 
     // @dev Keeps track whether the contract is paused. When that is true, most actions are blocked
     bool public paused = false;
+    bool public bidPaused = false;
+    bool public uploadPaused = false;
 
     /// @dev Access modifier for CEO-only functionality
     modifier onlyCEO() {
@@ -111,5 +113,63 @@ contract PictureAccessControl {
     function unpause() public onlyCEO whenPaused {
         // can't unpause if contract was upgraded
         paused = false;
+    }
+
+
+    /// @dev Modifier to allow upload only when the contract IS NOT paused
+    modifier whenUploadNotPaused() {
+        require(!uploadPaused);
+        _;
+    }
+
+    /// @dev Modifier to allow upload only when the contract IS paused
+    modifier whenUploadPaused {
+        require(uploadPaused);
+        _;
+    }
+
+    /// @dev Called by any "C-level" role to pause upload action. Used only when
+    ///  a bug or exploit is detected and we need to limit damage.
+    function pauseUpload() external onlyCLevel whenUploadNotPaused {
+        uploadPaused = true;
+    }
+
+    /// @dev Unpauses the smart contract. Can only be called by the CEO, since
+    ///  one reason we may pause upload is when CFO or COO accounts are
+    ///  compromised.
+    /// @notice This is public rather than external so it can be called by
+    ///  derived contracts.
+    function unpauseUpload() public onlyCEO whenUploadPaused {
+        // can't unpause if contract was upgraded
+        uploadPaused = false;
+    }
+
+
+    /// @dev Modifier to allow upload only when the contract IS NOT paused
+    modifier whenBidNotPaused() {
+        require(!bidPaused);
+        _;
+    }
+
+    /// @dev Modifier to allow upload only when the contract IS paused
+    modifier whenBidPaused {
+        require(bidPaused);
+        _;
+    }
+
+    /// @dev Called by any "C-level" role to pause upload action. Used only when
+    ///  a bug or exploit is detected and we need to limit damage.
+    function pauseBid() external onlyCLevel whenBidNotPaused {
+        bidPaused = true;
+    }
+
+    /// @dev Unpauses the smart contract. Can only be called by the CEO, since
+    ///  one reason we may pause upload is when CFO or COO accounts are
+    ///  compromised.
+    /// @notice This is public rather than external so it can be called by
+    ///  derived contracts.
+    function unpauseBid() public onlyCEO whenBidPaused {
+        // can't unpause if contract was upgraded
+        bidPaused = false;
     }
 }

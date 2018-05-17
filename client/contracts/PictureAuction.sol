@@ -54,4 +54,22 @@ contract PictureAuction is PictureOwnership {
             _isGoods
         );
     }
+
+    // upload the picture of owner, not handle with AI from platform
+    function uploadPicture(string _hashValue, address _owner) external whenUploadNotPaused returns(uint256 tokenId)
+    {
+        return _createPicture(_hashValue, _owner);
+    }
+
+    // upload the picture of owner, handled with AI artist mode from platform
+    function uploadPictureWithArtist(string _hashValue, address _styleOwner, address _owner) external whenUploadNotPaused returns(uint256 tokenId)
+    {
+        return _createPictureWithArtist(_hashValue, _styleOwner, _owner);
+    }
+
+    // upload the picture of owner, handled with AI style picture mode from platform
+    function uploadPictureWithArtist(string _hashValue, string _styleHash,address _styleOwner, address _owner) external whenUploadNotPaused returns(uint256 tokenId)
+    {
+        return _createPictureWithStyle(_hashValue, _styleHash, _styleOwner, _owner);
+    }
 }

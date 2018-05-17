@@ -101,24 +101,6 @@ contract PictureCore is PictureMinting {
         hashValue = pic.hashValue;
     }
 
-    // upload the picture of owner, not handle with AI from platform
-    function uploadPicture(string _hashValue, address _owner) external returns(uint256 tokenId)
-    {
-        return _createPicture(_hashValue, _owner);
-    }
-
-    // upload the picture of owner, handled with AI artist mode from platform
-    function uploadPictureWithArtist(string _hashValue, address _styleOwner, address _owner) external returns(uint256 tokenId)
-    {
-        return _createPictureWithArtist(_hashValue, _styleOwner, _owner);
-    }
-
-    // upload the picture of owner, handled with AI style picture mode from platform
-    function uploadPictureWithArtist(string _hashValue, string _styleHash,address _styleOwner, address _owner) external returns(uint256 tokenId)
-    {
-        return _createPictureWithStyle(_hashValue, _styleHash, _styleOwner, _owner);
-    }
-
     /// @dev Override unpause so it requires all external contract addresses
     ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.

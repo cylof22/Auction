@@ -98,6 +98,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         external
         payable
         whenNotPaused
+        whenBidNotPaused
     {
         // _bid will throw if the bid or funds transfer fails
         _confirmBid(_tokenId);
@@ -113,6 +114,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         external
         payable
         whenNotPaused
+        whenBidNotPaused
     {
         // _bid will throw if the bid or funds transfer fails
         _bid(_tokenId, msg.value);
