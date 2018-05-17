@@ -1,38 +1,48 @@
 <div>
     <div class="row">
-        <order-state-page id="auction" 
-                          class="order-state" 
+        <order-status-page id="auction" 
+                          class="order-status" 
                           title="In Auction" 
                           active="true" 
                           (click)="onClickAuction(auction, unshipped, dispatched, inreturn)" #auction>
-        </order-state-page>
+        </order-status-page>
 
-        <order-state-page id="unshipped" 
-                          class="order-state" 
+        <order-status-page id="unshipped" 
+                          class="order-status" 
                           title="Not Yet Shipped" 
                           active="false" 
                           (click)="onClickUnshipped(auction, unshipped, dispatched, inreturn)" #unshipped>
-        </order-state-page>
+        </order-status-page>
 
-        <order-state-page id="dispatched" 
-                          class="order-state" 
+        <order-status-page id="dispatched" 
+                          class="order-status" 
                           title="Dispatched" 
                           active="false" 
                           (click)="onClickDispatched(auction, unshipped, dispatched, inreturn)" #dispatched>
-        </order-state-page>
+        </order-status-page>
 
-        <order-state-page id="return" 
-                          class="order-state" 
+        <order-status-page id="return" 
+                          class="order-status" 
                           title="In Return" 
                           active="false" 
                           (click)="onClickReturn(auction, unshipped, dispatched, inreturn)" #inreturn>
-        </order-state-page>
+        </order-status-page>
+
+        <!-- <order-status-page id="others" 
+                            class="order-status" 
+                            title="Others" 
+                            active="false" 
+                            (click)="onClickOthers(others)" #others>
+        </order-status-page> -->
 
     </div>
     <div class="orders">
+        <div *ngIf="failedValue != ''">
+            <p class="fail">{{failedValue}}</p>
+        </div>
         <div *ngFor="let order of orders" class="row col-sm-12 col-lg-12 col-md-12">
             <order-item-page [order]="order" isBuyer="true"
-                             *ngIf="currentType.includes(order.state)" 
+                             *ngIf="currentType.includes(order.status)" 
                              class="item thumbnail" 
                              (handleOrderEvent)="handleOrderEvent($event)">
             </order-item-page>
@@ -42,7 +52,7 @@
 
 <!-- a dialog to input info for cancelling the order -->
 <div class="modal fade" id="cancelDig" role="dialog" tabindex="-1"
-    [ngStyle]="{'display': activeOrderEventType == 1 ? 'block' : 'none', 'opacity': 1}">
+    [ngStyle]="{'display': activeOrderEventType == 5 ? 'block' : 'none', 'opacity': 1}">
     <div class="cancel-dialog">
         <div class="modal-content">
             <div id="test" class="modal-body">
@@ -76,7 +86,7 @@
                     </div>
                     <div class="express-div">
                         <label class="express-number">tracking number</label>
-                        <input id="expressId" type="text" placeholder="please input tracking number">
+                        <input id="express" type="text" placeholder="please input tracking number">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -1,0 +1,14 @@
+<div *ngIf="canBeBought">
+    <div *ngIf="priceType == '1'">
+        <label>bid</label>
+        <input id="priceInput"
+               type="number" 
+               placeholder="Please input your price" 
+               (blur)="endPrice(bid)"
+               (focus)="beginPrice(bid)" #bid>
+    </div>
+    <div *ngIf="hasError">
+        <p class="fail">Your price must be larger than current price!</p>
+    </div> 
+    <button class="submit-button" (click)="onBuyWithDigitalCash()" [disabled]="getBtnStatus()">Buy</button>
+</div> 

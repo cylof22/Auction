@@ -1,48 +1,55 @@
-.tag-container {
-    position: relative;
-    height: 80px;
+.Test {
+    width: 100%;
 }
 
-.tag-container .tags {
-    position: absolute;
-    top: 3px;
-    left: 10px;
-    width: 20%;
+.container {
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    width: 100%;
+    overflow: auto;
 }
 
-.tag-container .tag {
+.next {
+    margin-top: 20px;
+}
+
+.defaultTag-container {
+    margin-top: 5px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    overflow: auto;
+}
+
+.defaultTag-container .recommend {
+    margin-left: 2px;
+    padding-left: 2px;
+}
+
+.defaultTag-container .tag {
    margin-bottom: 2px;
-   margin-left: 2px;
-   margin-right: 2px;
+   margin-left: 4px;
+   margin-right: 4px;
    font-size: 12px;
 }
 
-.tag-container .default-tags {
-    position: absolute;
-    top: 5px;
-    left: 90px;
-    max-height: 50px;
+.defaultTag-container .default-tags {
+    margin-left: 2px;
     overflow: auto;
-    width: 80%;
  }
 
- .tag-container .default-tags .blue{
-    color: blue;
- }
-
- .story-container {
-    margin-top: 30px;
- }
-
- .story-container .description {
+ .story-description {
      height: 60px;
  }
 
- .story-container .addGroup {
+ .story-addGroup {
     margin-top: 10px;
 }
 
- .story-container .addGroup .addBtn {
+ .story-addGroup .addBtn {
     height: 60px;
     width: 100%;
     background-color: transparent;
@@ -50,110 +57,67 @@
     outline: none;
 }
 
- .property-container {
-    position: relative;
-    height: 20px;
-    margin-top: 10px;
+ .property-notice {
+    margin-left: 0px;
+    margin-right: 22px;
  }
 
- .property-container .notice {
-    position: absolute;
-    left: 1px;
+ .price-notice {
+    margin-right: 45px;
  }
 
- .property-container .digital {
-    position: absolute;
-    left: 80px;
+ .price-exb {
+    margin-right: 25px;
  }
 
- .property-container .material {
-    position: absolute;
-    left: 200px;
+ .priceGroup {
+    margin-left: 100px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
  }
 
- .price-container {
-    position: relative;
-    margin-top: 30px;
-    height: 50px;
+ .priceGroup .fix {
+    margin-left: 0px;
+    margin-bottom: 5px;
  }
 
- .price-container .notice {
-    position: absolute;
-    left: 1px;
+ .priceGroup .auction {
+    margin-left: 41px;
  }
 
- .price-container .fix {
-    position: absolute;
-    left: 80px;
- }
-
- .price-container .auction {
-    position: absolute;
-    left: 140px;
- }
-
- .price-container .exb {
-    position: absolute;
-    left: 210px;
- }
-
- .price-container .price-input-box {
-    position: absolute;
-    top: 30px;
-    left: 85px;
- }
-
- .price-container .price-input-box .price-input {
+.priceGroup .price-input {
     height: 25px;
+    margin-bottom: 5px;
  }
 
- .price-container .poundage-box {
-    position: absolute;
-    top: 60px;
-    left: 85px;
+ .priceGroup .poundage-box {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
  }
 
- .price-container .poundage-box .poundage {
-    float: left;
-    margin-right: 20px;
+ .priceGroup .poundage-box .poundage {
+    margin-right: 0px;
  }
 
- .copyright-container {
-     margin-top: 20px;
-     height: 50px;
-     position: relative;
- }
-
- .copyright-container .check {
-    position: absolute;
-    top: 8px;
-    left: 0px;
-}
-
-.copyright-container .condition-text {
-    position: absolute;
-    left: 15px;
-}
-
-.maker-container {
-    position: relative;
-    margin-top: 50px;
-    height: 30px;
-}
-
-.maker-container .labelText {
-    position: absolute;
-    left: 1px;
-}
-
-.maker-container .maker {
-    position: absolute;
-    left: 85px;
+.maker-input {
+    margin-left: 43px;
     height: 25px;
     width: 160px;
 }
 
-.submit-container .cancelBtn {
+.copyright-condition-text {
+    margin-top: 0px;
+    margin-left: 2px;
+    margin-bottom: 0px;
+}
+
+.Test {
+    margin-bottom: 30px;
+}
+.cancelBtn {
     margin-left: 20px;
  }
 
@@ -161,6 +125,8 @@
     border: none;
     margin-left: 5px;
     margin-right: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
     outline: none;
 }
 

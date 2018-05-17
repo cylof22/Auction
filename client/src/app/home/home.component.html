@@ -7,6 +7,6 @@
   <div class="alert alert-warning" role="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
   
   <ng-masonry-grid-item id="{{'masonry-item-'+i}}" *ngFor="let product of products | async" class="col-sm-3 col-lg-3 col-md-3 grid-item"> 
-    <auction-product-item [product]="product" readonly="true"></auction-product-item>
+    <auction-product-item [product]="product" readonly="true" fromItsOwner="false"></auction-product-item>
   </ng-masonry-grid-item>
 </ng-masonry-grid>
