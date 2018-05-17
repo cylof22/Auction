@@ -2,3 +2,10 @@
     height: 450px;
     overflow: auto;
 }
+
+.grid-item {
+    border-left: 0px;
+    border-right: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+}

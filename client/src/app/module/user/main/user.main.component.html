@@ -1,36 +1,38 @@
-<div class="row">
-    <div class="leftNav">
-        <div>
-            <button class="active first button" id="production" (click)="onClickProducts(products)" #products>My Production</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="leftNav">
+            <div>
+                <button class="active first button" id="production" (click)="onClickProducts(products)" #products>My Production</button>
+            </div>
+            <div>
+                <button class="button" id="favorite" (click)="onClickFavorite(favorite)" #favorite>My Favorite</button>
+            </div>
+            <div>
+                <button class="button" id="concerne" (click)="onClickConcern(concern)" #concern>My Concern</button>
+            </div>
+            <div>
+                <button class="button"  id="order" (click)="onClickOrder(order)" #order>My Order</button>
+            </div>
+            <div>
+                <button class="button"  id="selling" (click)="onClickSelling(selling)" #selling>My Selling</button>
+            </div>
+            <div>
+                <button class="button"  id="wallet" (click)="onClickWallet(wallet)" #wallet>My Wallet</button>
+            </div>
+            <div>
+                <button class="button"  id="profile" (click)="onClickProfile(profile)" #profile>{{ username }}</button>
+            </div>
         </div>
-        <div>
-            <button class="button" id="favorite" (click)="onClickFavorite(favorite)" #favorite>My Favorite</button>
-        </div>
-        <div>
-            <button class="button" id="concerne" (click)="onClickConcern(concern)" #concern>My Concern</button>
-        </div>
-        <div>
-            <button class="button"  id="order" (click)="onClickOrder(order)" #order>My Order</button>
-        </div>
-        <div>
-            <button class="button"  id="selling" (click)="onClickSelling(selling)" #selling>My Selling</button>
-        </div>
-        <div>
-            <button class="button"  id="wallet" (click)="onClickWallet(wallet)" #wallet>My Wallet</button>
-        </div>
-        <div>
-            <button class="button"  id="profile" (click)="onClickProfile(profile)" #profile>{{ username }}</button>
-        </div>
-    </div>
-    <div class="show-area">
-        <div id="content-container">
-            <user-products-page *ngIf="shownElement == 0" [username]="username"></user-products-page>
-            <user-concernprods-page *ngIf="shownElement == 1" [username]="username"></user-concernprods-page>
-            <user-concernusers-page *ngIf="shownElement == 2" [username]="username"></user-concernusers-page>
-            <order-buyer-page *ngIf="shownElement == 3" [username]="username"></order-buyer-page>
-            <order-seller-page *ngIf="shownElement == 4" [username]="username"></order-seller-page>
-            <user-wallet-page *ngIf="shownElement == 5" [username]="username"></user-wallet-page>
-            <user-profile-page *ngIf="shownElement == 6" [username]="username"></user-profile-page>
+        <div class="show-area">
+            <div id="content-container">
+                <user-products-page *ngIf="shownElement == 0" [username]="username"></user-products-page>
+                <user-concernprods-page *ngIf="shownElement == 1" [username]="username"></user-concernprods-page>
+                <user-concernusers-page *ngIf="shownElement == 2" [username]="username"></user-concernusers-page>
+                <order-buyer-page *ngIf="shownElement == 3" [username]="username"></order-buyer-page>
+                <order-seller-page *ngIf="shownElement == 4" [username]="username"></order-seller-page>
+                <user-wallet-page *ngIf="shownElement == 5" [username]="username"></user-wallet-page>
+                <user-profile-page *ngIf="shownElement == 6" [username]="username"></user-profile-page>
+            </div>
         </div>
     </div>
 </div>

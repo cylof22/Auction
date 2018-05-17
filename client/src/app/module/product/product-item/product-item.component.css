@@ -1,3 +1,7 @@
+.thumbnail {
+  margin-bottom: 5px;
+}
+
 .not-readonly-container {
   position: relative;
   top: -35px;
@@ -42,8 +46,13 @@
   padding-right: 10px;
 }
 
+.text-container {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
 .image {
   width: 100%;
   padding-bottom: 0px;
-  margin-bottom: 0px;
+  padding-bottom: 0px;
 }

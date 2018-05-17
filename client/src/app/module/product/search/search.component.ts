@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from '../service/product.service'
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'auction-search',
@@ -8,24 +9,34 @@ import { ProductService } from '../service/product.service'
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit{
-  formModel: FormGroup;
-  categories: string[];
+  searchTypes: string[];
+  selectedType: string;
+  searchText: string;
 
   constructor(private productService: ProductService) {
-
-    const fb = new FormBuilder();
-    this.formModel = fb.group({
-      'categories': ['']
-    })
+    this.selectedType = "Tag";
+    this.searchText = "";
   }
 
   ngOnInit() {
-    this.categories = this.productService.getAllCategories();
+    this.searchTypes = this.productService.getSearchTypes();
+    this.selectedType = this.searchTypes[0];
   }
 
-  onSearch() {
-    if (this.formModel.valid) {
-      this.productService.searchEvent.emit(this.formModel.value);
+  OnSelecteSearchType(event) {
+    let selectedType = event.target.text;
+      if(selectedType != null) {
+        this.selectedType = event.target.text;
+        this.OnSearch();
+    }
+  }
+
+  OnSearch() {
+    let searchTextElem = document.getElementById("SearchInfo") as HTMLInputElement;
+    this.searchText = searchTextElem.value;
+    if(this.searchText.length != 0) {
+      let params = new HttpParams().append(this.selectedType.toLowerCase(), this.searchText);
+      this.productService.searchEvent.emit(params);
     }
   }
 }
