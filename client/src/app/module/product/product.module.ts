@@ -6,7 +6,10 @@ import { RouterModule } from "@angular/router";
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductInputComponent } from './input/product.input.component'
+import { StoryImageComponent } from './input/storyimage/story.image.component'
 import { ProductEditComponent } from './edit/product.edit.component'
+import { ProductDetailBuyComponent } from './product-detail/buy/product-detail.buy.component'
+import { ProductDetailSellComponent } from './product-detail/sell/product-detail.sell.component'
 import { ONLINE_AUCTION_SERVICES } from './service/services';
 import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
@@ -22,6 +25,9 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
         FootScrollBarComponent,
         ProductInputComponent,
         ProductEditComponent,
+        StoryImageComponent,
+        ProductDetailBuyComponent,
+        ProductDetailSellComponent
     ],
     exports: [
         ProductDetailComponent,

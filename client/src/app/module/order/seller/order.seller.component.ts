@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Order, OrderState, OrderEvent } from './../order.model/order'
+import { Order, OrderStatus, OrderEvent, Express } from './../order.model/order'
 import { OrderService } from './../service/order.service'
 
 // product related is ony for test
@@ -17,68 +17,58 @@ import { Product } from './../../product/product.model/product';
 export class OrderSellerComponent {
   @Input("username") username: string;
   orders: Order[];
-  currentType: OrderState[];
+  currentType: string[];
+  failedValue: string;
 
   activeOrderId: string;
   activeOrderEventType: OrderEvent;
 
   constructor(private productService: ProductService,
               private orderService: OrderService) {
-    this.currentType = [OrderState.unshipped];
+    this.currentType = [OrderStatus.none.toString()];
+    this.failedValue = '';
   }
 
   ngOnInit() {
-/*     this.orderService.getCancelledOrders(this.username).subscribe(
-      res => this.orders = res
-    ); */
-    
-    // test showing for this page
-    //this.test();
-  }
-
-  test() {
-    let searchParas = {
-      "owner":this.username,
-    } 
-
-    this.productService.search(searchParas).subscribe(
-      params => {
-        this.orders = new Array<Order>();
-        for (let i = 0; i < params.length; i++) {
-          let product = params[i];
-          if (product.url == "") {
-            continue;
-          }
-
-            let test = new Order('', '', 0, '2018-05-05 11:22:32', '', '', '');
-
-            test.id = (i + 70241740609).toString() ;
-            test.state = i % 6 + 1;
-
-            test.price = product.price.value;
-            if (test.price == '') {
-              test.price = '2868';
-            }
-            test.productId = product.id;
-            test.productUrl = product.url;
-            this.orders.push(test);
-        }
-      }
+    this.orderService.getMySellings(this.username).subscribe(
+      orders => this.orders = orders
     )
   }
 
-  onClickUnshipped(unshipped, inreturn) {
-    this.currentType = [OrderState.unshipped];
+  onClickNoBuyer(nobuyer, auction, unshipped, inreturn) {
+    this.currentType = [OrderStatus.none.toString()];
 
+    nobuyer['active'] = 'true';
+    auction['active'] = 'false';
+    unshipped['active'] = 'false';
+    inreturn['active'] = 'false';
+  }
+
+  onClickAuction(nobuyer, auction, unshipped, inreturn) {
+    this.currentType = [OrderStatus.inAuction.toString()];
+
+    nobuyer['active'] = 'false';
+    auction['active'] = 'true';
+    unshipped['active'] = 'false';
+    inreturn['active'] = 'false';
+  }
+
+  onClickUnshipped(nobuyer, auction, unshipped, inreturn) {
+    this.currentType = [OrderStatus.unshipped.toString()];
+
+    nobuyer['active'] = 'false';
+    auction['active'] = 'false';
     unshipped['active'] = 'true';
     inreturn['active'] = 'false';
   }
 
-  onClickInReturn(unshipped, inreturn) {
-    this.currentType = [OrderState.returnInAgree, 
-                        OrderState.returnAgreed, 
-                        OrderState.returnReturned];
+  onClickInReturn(nobuyer, auction, unshipped, inreturn) {
+    this.currentType = [OrderStatus.returnInAgree.toString(), 
+                        OrderStatus.returnAgreed.toString(), 
+                        OrderStatus.returnDispatched.toString()];
 
+    nobuyer['active'] = 'false';
+    auction['active'] = 'false';
     unshipped['active'] = 'false';
     inreturn['active'] = 'true';
   }
@@ -92,25 +82,32 @@ export class OrderSellerComponent {
     this.activeOrderEventType = date['type'];
     switch (this.activeOrderEventType) {
       case OrderEvent.uploadOrderExpress:
-      this.onUploadExpress(orderId);
+      this.uploadProductExpress(orderId);
+      break;
+      case OrderEvent.cancelOrderBySeller:
+      this.cancelOrderBySeller(orderId);
+      break;
+      case OrderEvent.agreeReturn:
+      this.agreeReturn(orderId);
+      break;
+      case OrderEvent.confirmReturn:
+      this.confirmReturn(orderId);
       break;
     }
   }
 
-  onUploadExpress(orderId) {
+  uploadProductExpress(orderId) {
     this.activeOrderId = orderId;
   }
 
   submitExpress() {
-    let expressIdCtrl = <HTMLInputElement>document.getElementById("dispatchId");
-    let courierCtrl = <HTMLInputElement>document.getElementById("courier");
+    let expressIdCtrl = <HTMLInputElement>document.getElementById('express');
+    let courierCtrl = <HTMLInputElement>document.getElementById('courier');
 
-    let expressInfo = {
-      "id": this.activeOrderId,
-      'courier': courierCtrl.value,
-      'expressId': expressIdCtrl.value
-    }
-    this.orderService.shipProductBySeller(this.activeOrderId, expressInfo);
+    let expressInfo = new Express(courierCtrl.value, expressIdCtrl.value);
+    this.orderService.shipProductBySeller(this.activeOrderId, expressInfo).subscribe(
+      result => this.handleRequestResult(result, 'Shipping is failed. Please try again!')
+    )
 
     this.activeOrderId = '';
     this.activeOrderEventType = OrderEvent.none;
@@ -119,6 +116,34 @@ export class OrderSellerComponent {
   cancelExpress() {
     this.activeOrderId = '';
     this.activeOrderEventType = OrderEvent.none;
+  }
+
+  cancelOrderBySeller(orderId: string) {
+    this.orderService.cancelOrderBySeller(orderId).subscribe(
+      result => this.handleRequestResult(result, 'Order is failed to cancel. Please try again!')
+    );
+  }
+
+  agreeReturn(orderId: string) {
+    this.orderService.agreeReturnBySeller(orderId).subscribe(
+      result => this.handleRequestResult(result, 'Failed to agree return. Please try again!')
+    );
+  }
+
+  confirmReturn(orderId: string) {
+    this.orderService.confirmReturnBySeller(orderId).subscribe(
+      result => this.handleRequestResult(result, 'Failed to agree return. Please try again!')
+    );
+  }
+
+  handleRequestResult(error: any, showMsg: string) {
+    if (error == null) {
+      location.reload(true);
+    } else {
+      if (error.hasOwnProperty('error')) {
+        this.failedValue = showMsg;
+      }
+    }
   }
 }
 

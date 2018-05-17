@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Order, OrderState, OrderEvent } from './../order.model/order'
+import { Order, OrderStatus, OrderEvent, Express } from './../order.model/order'
 import { OrderService } from './../service/order.service'
 
 // product related is ony for test
@@ -16,59 +16,27 @@ import { Product } from './../../product/product.model/product';
 export class OrderBuyerComponent {
   @Input("username") username: string;
   orders: Order[];
-  currentType: OrderState[];
+  currentType: string[];
   activeOrderId: string;
+  failedValue: string;
   activeOrderEventType: OrderEvent;
 
   constructor(private productService: ProductService,
               private orderService: OrderService) {
-    this.currentType = [OrderState.auction];
+    this.currentType = [OrderStatus.inAuction.toString()];
     this.activeOrderId = '';
+    this.failedValue = '';
     this.activeOrderEventType = OrderEvent.none;
   }
 
   ngOnInit() {
-/*     this.orderService.getOrders(this.username).subscribe(
+    this.orderService.getMyOrders(this.username).subscribe(
       res => this.orders = res
-    ); */
-    
-    // test showing for this page
-    //this.test();
-  }
-
-  test() {
-    let searchParas = {
-      "owner":this.username,
-    } 
-
-    this.productService.search(searchParas).subscribe(
-      params => {
-        this.orders = new Array<Order>();
-        for (let i = 0; i < params.length; i++) {
-          let product = params[i];
-          if (product.url == "") {
-            continue;
-          }
-
-            let test = new Order('', '', 0, '2018-05-05 11:22:32', '', '', '');
-
-            test.id = (i + 70241740609).toString() ;
-            test.state = i % 7 + 1;
-
-            test.price = product.price.value;
-            if (test.price == '') {
-              test.price = '2868';
-            }
-            test.productId = product.id;
-            test.productUrl = product.url;
-            this.orders.push(test);
-        }
-      }
-    )
+    );
   }
 
   onClickAuction(auction, unshipped, dispatched, inreturn) {
-    this.currentType = [OrderState.auction];
+    this.currentType = [OrderStatus.inAuction.toString()];
 
     auction['active'] = 'true';
     unshipped['active'] = 'false';
@@ -77,7 +45,7 @@ export class OrderBuyerComponent {
   }
 
   onClickUnshipped(auction, unshipped, dispatched, inreturn) {
-    this.currentType = [OrderState.unshipped];
+    this.currentType = [OrderStatus.unshipped.toString()];
 
     auction['active'] = 'false';
     unshipped['active'] = 'true';
@@ -86,7 +54,7 @@ export class OrderBuyerComponent {
   }
 
   onClickDispatched(auction, unshipped, dispatched, inreturn) {
-    this.currentType = [OrderState.dispatched];
+    this.currentType = [OrderStatus.dispatched.toString()];
 
     auction['active'] = 'false';
     unshipped['active'] = 'false';
@@ -95,16 +63,21 @@ export class OrderBuyerComponent {
   }
 
   onClickReturn(auction, unshipped, dispatched, inreturn) {
-    this.currentType = [OrderState.returnInAgree,
-                        OrderState.returnAgreed,
-                        OrderState.returnReturned,
-                        OrderState.returnCompleted];
+    this.currentType = [OrderStatus.returnInAgree.toString(),
+                        OrderStatus.returnAgreed.toString(),
+                        OrderStatus.returnDispatched.toString()];
 
     auction['active'] = 'false';
     unshipped['active'] = 'false';
     dispatched['active'] = 'false';
     inreturn['active'] = 'true';
   }
+
+  // onClickOthers(others) {
+  //   this.currentType = [OrderStatus.inFix.toString(),
+  //                       OrderStatus.dispatchConfirmed.toString(),
+  //                       OrderStatus.returnConfirmed.toString()];
+  // }
 
   handleOrderEvent(date) {
     if ( !(date.hasOwnProperty('id') && date.hasOwnProperty('type')) ) {
@@ -114,8 +87,11 @@ export class OrderBuyerComponent {
     let orderId = date['id'];
     this.activeOrderEventType = date['type'];
     switch (this.activeOrderEventType) {
-      case OrderEvent.cancelOrder:
+      case OrderEvent.cancelOrderByBuyer:
       this.onCancelOrder(orderId);
+      break;
+      case OrderEvent.confirmOrderByBuyer:
+      this.confirmOrder(orderId);
       break;
       case OrderEvent.uploadReturnExpress:
       this.onShipReturn(orderId);
@@ -134,10 +110,11 @@ export class OrderBuyerComponent {
   applyOrderCancel() {
     let cancelInfoCtrl = <HTMLTextAreaElement>(document.getElementById("cancelInfo"));
     let cancelOrderInfo = {
-      "id": this.activeOrderId,
-      'info': cancelInfoCtrl.value
+      'description': cancelInfoCtrl.value
     }
-    this.orderService.cancelOrderByBuyer(cancelOrderInfo);
+    this.orderService.cancelOrderByBuyer(this.activeOrderId, cancelOrderInfo).subscribe(
+      result => this.handleRequestResult(result, "It's failed to ask return. Please try again!")
+    );
 
     this.activeOrderId = '';
     this.activeOrderEventType = OrderEvent.none;
@@ -149,15 +126,13 @@ export class OrderBuyerComponent {
   }
 
   submitReturnExpress() {
-    let expressIdCtrl = <HTMLInputElement>document.getElementById("expressId");
-    let courierCtrl = <HTMLInputElement>document.getElementById("courier");
+    let expressIdCtrl = <HTMLInputElement>document.getElementById('express');
+    let courierCtrl = <HTMLInputElement>document.getElementById('courier');
 
-    let expressInfo = {
-      "id": this.activeOrderId,
-      'courier': courierCtrl.value,
-      'expressId': expressIdCtrl.value
-    }
-    this.orderService.shipReturnByBuyer(this.activeOrderId, expressInfo);
+    let expressInfo = new Express(courierCtrl.value, expressIdCtrl.value);
+    this.orderService.shipReturnByBuyer(this.activeOrderId, expressInfo).subscribe(
+      result => this.handleRequestResult(result, "It's filed to upload express info. Please try again!")
+    );
 
     this.activeOrderId = '';
     this.activeOrderEventType = OrderEvent.none;
@@ -166,6 +141,22 @@ export class OrderBuyerComponent {
   cancelReturnExpress() {
     this.activeOrderId = '';
     this.activeOrderEventType = OrderEvent.none;
+  }
+
+  confirmOrder(orderId: string) {
+    this.orderService.confirmOrderByBuyer(orderId).subscribe(
+      result => this.handleRequestResult(result, "Confirm is failed. Please try again!")
+    );
+  }
+
+  handleRequestResult(error: any, showMsg: string) {
+    if (error == null) {
+      location.reload(true);
+    } else {
+      if (error.hasOwnProperty('error')) {
+        this.failedValue = showMsg;
+      }
+    }
   }
 }
 

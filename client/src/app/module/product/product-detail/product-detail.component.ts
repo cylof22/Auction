@@ -3,62 +3,70 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Product } from '../product.model/product'
-import { Review } from '../product.model/review';
-import { ProductService } from '../service/product.service';
-
+import { Product } from './../product.model/product'
+import { Review } from './../product.model/review';
+import { ProductService } from './../service/product.service';
+import { AuthenticationService } from './../../authentication/services/authentication.service'
+import { OrderService } from './../../order/service/order.service'
+import { Order, SellInfo, Express, ReturnInfo, BuyInfo } from './../../order/order.model/order'
 import { BidService } from './bid.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'auction-product-page',
+  selector: 'product-detail-page',
   styleUrls: [ './product-detail.component.css' ],
   templateUrl: './product-detail.component.html'
 })
 export class ProductDetailComponent implements OnDestroy {
   product: Product;
-  reviews: Review[];
-
-  newComment: string;
-  newRating: number;
-
-  isReviewHidden: boolean = true;
-  isWatching: boolean = false;
-  imgHtml: SafeHtml;
+  order: Order;
 
   productType: string;
   priceType: string;
-  price: string;
   hasStory: boolean;
   hasStoryPic: boolean;
-
-  private subscription: Subscription;
+  hasError: boolean;
 
   constructor(private productService: ProductService,
               private bidService: BidService,
-              private sanitizer: DomSanitizer,
+              private authService: AuthenticationService,
+              private orderService: OrderService,
               router: ActivatedRoute) {
 
-    this.imgHtml = sanitizer.bypassSecurityTrustHtml(`
-      <img src="http://placehold.it/820x320">`);
+    this.hasError = false;
 
     const productId = router.snapshot.params['productId'];
+    this.getCurrentProduct(productId);
 
-    this.productService
-      .getProductById(productId)
-      .subscribe(
-        product => {
-          this.product = product;
-          if (this.product.maker == "") {
-            this.product.maker = this.product.owner;
-          }
-          this.setProductType(product);
-          this.setPrice(product);
-          this.setStoryInfo(product);
-        },
-        error => console.error(error));
+    this.getCurrentOrder(productId);
   }
 
   ngOnInit() {
+  }
+
+  getCurrentProduct(productId: string) {
+    this.productService
+    .getProductById(productId)
+    .subscribe(
+      product => {
+        this.product = product;
+        if (this.product.maker == "") {
+          this.product.maker = this.product.owner;
+        }
+        if (this.product.price.duration == "") {
+          this.product.price.duration = "30";
+        }
+        this.setProductType(product);
+        this.setPrice(product);
+        this.setStoryInfo(product);
+      },
+      error => console.error(error));
+  }
+
+  getCurrentOrder(productId: string) {
+    this.orderService.getOrderByProductId(productId).subscribe(
+      order => this.order = order
+    )
   }
 
   setProductType(product: Product) {
@@ -73,7 +81,6 @@ export class ProductDetailComponent implements OnDestroy {
   }
 
   setPrice(product: Product) {
-    this.price = product.price.value;
     switch (parseInt(product.price.type)) {
       case 0:
       this.priceType = "Fixed Price";
@@ -101,48 +108,56 @@ export class ProductDetailComponent implements OnDestroy {
     }
   }
 
-  toggleWatchProduct() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-      this.isWatching = false;
-    } else {
-      this.isWatching = true;
-      this.subscription = this.bidService.watchProduct(this.product.id)
-        .subscribe(
-          error => console.log(error));
-    }
-  }
-
   ngOnDestroy(): any {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+  }
+
+  buy(data) {
+    let buyInfo : BuyInfo = data;
+    if (buyInfo.startTime == '') {
+      buyInfo.startTime = this.getNowFormatDate();
     }
 
-    return Promise.resolve(true);
+    this.orderService.buy(this.order.id, buyInfo).subscribe(
+      result => {
+        if (result == null) {
+          location.reload(true);
+        } else {
+          if (result.hasOwnProperty('error')) {
+            this.hasError = true;
+          }
+        }
+      }
+    )
   }
 
-  addReview() {
-    let review = new Review(0, this.product.id, new Date(), 'Anonymous',
-      this.newRating, this.newComment);
-    this.reviews = [...this.reviews, review];
-    this.product.rating = this.averageRating(this.reviews);
+  sell(data) {
+    let sellInfo = new SellInfo('', '', '', '', '', '', '', '')   
+    sellInfo.duration = this.product.price.duration;
+    sellInfo.priceValue = this.product.price.value;
+    sellInfo.priceType = this.product.price.type;
+    sellInfo.productId = this.product.id;
+    sellInfo.productOwner = this.product.owner;
+    sellInfo.productType = this.product.type;
+    sellInfo.productUrl = this.product.url;
+    sellInfo.startTime = this.getNowFormatDate();
 
-    this.resetForm();
+    this.orderService.sell(sellInfo).subscribe(
+      result => {
+        if (result == null) {
+          location.reload(true);
+        } else {
+          if (result.hasOwnProperty('error')) {
+            this.hasError = true;
+          }
+        }
+      }
+    )
   }
 
-  averageRating(reviews: Review[]) {
-    let sum = reviews.reduce((average, review) => average + review.rating, 0);
-    return sum / reviews.length;
-  }
-
-  resetForm() {
-    this.newRating = 0;
-    this.newComment = null;
-    this.isReviewHidden = true;
-  }
-
-  onBuyWithDigitalCash() {
-    //location.href = "/#/wallet";
-  }
+  getNowFormatDate(): string {
+    let dataPipe = new DatePipe("en-US");
+      let date = new Date();
+      let currentdate = dataPipe.transform(date, 'yyyy-MM-dd HH:mm:ss');
+      return currentdate;
+  } 
 }

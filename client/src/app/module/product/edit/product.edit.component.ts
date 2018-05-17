@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductService } from '../../product/service/product.service'
@@ -11,7 +11,7 @@ import { UploadProduct, Product } from '../../product/product.model/product'
 })
 
 export class ProductEditComponent {
-    @Input() product: Product
+    product: Product
 
     constructor(private productService: ProductService,
                 private activeRoute: ActivatedRoute,

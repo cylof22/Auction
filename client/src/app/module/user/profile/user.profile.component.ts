@@ -23,19 +23,13 @@ export class UserProfileComponent {
   }
 
   ngOnInit() {
-    // this.userService.getUserInfo(this.username).subscribe(
-    //   result => this.currentUserInfo = result
-    // )
-
-    //this.test();
+    this.userService.getUserInfo(this.username).subscribe(
+      result => this.currentUserInfo = result
+    )
 
     if (this.currentUserInfo != undefined) {
       this.hasPortrait = (this.currentUserInfo.headPortraitUrl != '');
     }
-  }
-
-  test() {
-    this.currentUserInfo = new UserInfo(this.username, '', '', 'test@test.com');
   }
 
   selectPortrait() {

@@ -3,23 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { ProductService } from './../../product/service/product.service'
-import { BatchProducts, UploadProduct, ProductStory, ProductPrice, Product } from './../../product/product.model/product'
+import { BatchProducts, UploadProduct, ProductStory, ProductPrice, Product, EPriceType, EProdcutType } from './../../product/product.model/product'
 import { AuthenticationService } from './../../authentication/services/authentication.service'
 
 const redColor = "red";
 const blueColor = "cornflowerblue";
 const transparentColor = "transparent";
-
-enum EPriceType {
-    Fix,
-    Auction,
-    OnlyShow
-};
-
-enum EProdcutType {
-    Digit,
-    Entity
-}
 
 @Component({
     selector: 'product-input',
@@ -53,11 +42,12 @@ export class ProductInputComponent {
         this.tags = productService.getAllTags();
         this.selectedTags = [];
         this.productType = EProdcutType.Digit;
-        this.priceType = EPriceType.Fix;
+        this.priceType = EPriceType.OnlyShow;
 
         if (router.snapshot.params['isBatch'] == 'false') {
             this.isBatch = false;
         }
+
     }
 
     ngOnInit() {
@@ -65,7 +55,13 @@ export class ProductInputComponent {
             this.initPageForEdit(this.editProduct);
         } else {
             this.hightlightCtrl("digInput");
-            this.hightlightCtrl("fix");
+            this.hightlightCtrl("onlyShow");
+            this.showPriceGroup(false);
+        }
+
+        if (this.isBatch) {
+            let storyCtrl = document.getElementById("storyArea");
+            storyCtrl.hidden = true;
         }
     }
 
@@ -152,8 +148,10 @@ export class ProductInputComponent {
         switch(priceType) {
             case EPriceType.Fix:
             this.hightlightCtrl('fix');
+            this.hightlightCtrl('forSale');
             break;
             case EPriceType.Auction:
+            this.hightlightCtrl('forSale');
             this.hightlightCtrl('auction');
             break;
             case EPriceType.OnlyShow:
@@ -167,6 +165,8 @@ export class ProductInputComponent {
             let temp = this.productService.getPoundage(price.value);
             this.poundage = temp.toString();
         }
+
+        this.showPriceGroup(priceType != EPriceType.OnlyShow);
     }
 
     initMaker(maker: string) {
@@ -185,17 +185,12 @@ export class ProductInputComponent {
     }
 
     showImage(input) {
+        let imgCtrl = this.addStoryImage('');
+
         let reader = new FileReader();
         reader.readAsDataURL(input.files[0]);
         reader.onload = function(e) {
-            let imageShowArea = document.getElementById("storyImages");
-            let gridItem = document.createElement("div");
-            gridItem.setAttribute("class", "thumbnail col-sm-3 col-lg-3 col-md-3");
-            imageShowArea.appendChild(gridItem); 
-
-            let img = document.createElement("img");
-            img.src = this.result;
-            gridItem.appendChild(img);
+            imgCtrl.src = this.result;
         }
 
         reader.onloadend = () => {
@@ -210,7 +205,7 @@ export class ProductInputComponent {
         }
     }
 
-    addStoryImage(imageSrc: string) {
+    addStoryImage(imageSrc: string): HTMLImageElement {
         let imageShowArea = document.getElementById("storyImages");
         let gridItem = document.createElement("div");
         gridItem.setAttribute("class", "thumbnail col-sm-3 col-lg-3 col-md-3");
@@ -219,6 +214,8 @@ export class ProductInputComponent {
         let img = document.createElement("img");
         img.src = imageSrc;
         gridItem.appendChild(img);
+
+        return img;
     }
 
     onClickTag(ctrl: HTMLElement) {
@@ -263,20 +260,46 @@ export class ProductInputComponent {
         this.selectButton(ctrl, ["digInput"]);
     }
 
-    onClickFix(ctrl: HTMLElement) {
-        this.priceType = EPriceType.Fix;
-        this.selectButton(ctrl, ["auction", "onlyShow"]);
-    }
-
-    onClickAuction(ctrl: HTMLElement) {
-        this.priceType = EPriceType.Auction;
-        this.selectButton(ctrl, ["fix", "onlyShow"]);
+    getPlaceHolder() {
+        if (this.priceType == 0) {
+            return "please input price";
+        } else if (this.priceType == 1) {
+            return "please input starting price"
+        }
     }
 
     onClickOnlyShow(ctrl: HTMLElement) {
         this.priceType = EPriceType.OnlyShow;
-        this.selectButton(ctrl, ["auction", "fix"]);
+        this.selectButton(ctrl, ["forSale"]);
         this.poundage = "";
+
+        this.showPriceGroup(false);
+    }
+
+    onClickForSale(saleElem: HTMLElement, fixElem: HTMLElement) {
+        if (this.priceType != EPriceType.OnlyShow) {
+            return;
+        }
+
+        this.selectButton(saleElem, ["onlyShow"]);
+        this.onClickFix(fixElem);
+
+        this.showPriceGroup(true);
+    }
+
+    showPriceGroup(show: boolean) {
+        let groupCtrl = document.getElementById("priceGroup");
+        groupCtrl.hidden = !show
+    }
+
+    onClickFix(ctrl: HTMLElement) {
+        this.priceType = EPriceType.Fix;
+        this.selectButton(ctrl, ["auction"]);
+    }
+
+    onClickAuction(ctrl: HTMLElement) {
+        this.priceType = EPriceType.Auction;
+        this.selectButton(ctrl, ["fix"]);
     }
 
     beginPrice(priceInput: HTMLElement) {
@@ -306,7 +329,7 @@ export class ProductInputComponent {
             let priceValueCtrl = <HTMLInputElement>document.getElementById('priceValue');
             priceValue = priceValueCtrl.value;
         }
-        let productPrice = new ProductPrice(this.priceType.toString(), priceValue);
+        let productPrice = new ProductPrice(this.priceType.toString(), priceValue, "");
 
         return productPrice;
     }
@@ -355,7 +378,7 @@ export class ProductInputComponent {
             this.onUploadProductData.emit(uploadData);
         } 
         else {
-            let uploadData = new BatchProducts([''], tags, owner, maker, productType.toString(), price);
+            let uploadData = new BatchProducts([], tags, owner, maker, productType.toString(), price);
             this.onUploadProductData.emit(uploadData);
         }
     }
