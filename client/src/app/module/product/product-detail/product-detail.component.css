@@ -67,3 +67,42 @@
 .empty-tag {
     width: 100%;
 }
+
+.owner {
+    float: left;
+    margin-right: 55px;
+}
+
+.maker {
+    float: left;
+    margin-right: 58px;
+}
+
+.tags {
+    float: left;
+    margin-right: 74px;
+}
+
+.property {
+    float: left;
+    margin-right: 44px;
+}
+
+.fix-price {
+    float: left;
+    margin-right: 28px;
+}
+
+.auction-price {
+    float: left;
+    margin-right: 15px;
+}
+
+.duration {
+    float: left;
+    margin-right: 45px;
+}
+
+.fail {
+    color: red;
+}

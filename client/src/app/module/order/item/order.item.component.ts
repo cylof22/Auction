@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Order, OrderState, OrderEvent } from './../order.model/order'
+import { Order, OrderStatus, OrderEvent } from './../order.model/order'
 import { OrderService } from './../service/order.service'
 
 @Component({
@@ -14,9 +15,10 @@ export class OrderItemComponent {
   @Input('isBuyer') isBuyer: string; 
   @Output() handleOrderEvent: EventEmitter<any> = new EventEmitter;
 
-  stateValue: string;
+  statusValue: string;
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService,
+              private route:Router) {
   }
 
   ngOnInit() {
@@ -28,44 +30,57 @@ export class OrderItemComponent {
   }
 
   initStateForBuyer() {
-    switch (this.order.state) {
-      case OrderState.auction:
-      this.stateValue = "in auction";
+    switch (parseInt(this.order.status)) {
+      case OrderStatus.inFix:
+      case OrderStatus.dispatchConfirmed:
+      this.statusValue = "system confirm";
       break;
-      case OrderState.unshipped:
-      this.stateValue = "not yet shipped";
+      case OrderStatus.returnConfirmed:
+      this.statusValue = "system cancel";
       break;
-      case OrderState.dispatched:
-      this.stateValue = "dispatched";
+      case OrderStatus.inAuction:
+      this.statusValue = "in auction";
       break;
-      case OrderState.returnInAgree:
-      this.stateValue = "Waiting for agree";
+      case OrderStatus.unshipped:
+      this.statusValue = "not yet shipped";
       break;
-      case OrderState.returnAgreed:
-      this.stateValue = "agreed";
+      case OrderStatus.dispatched:
+      this.statusValue = "dispatched";
       break;
-      case OrderState.returnReturned:
-      this.stateValue = "product returned";
+      case OrderStatus.returnInAgree:
+      this.statusValue = "Waiting for agree";
       break;
-      case OrderState.returnCompleted:
-      this.stateValue = "completed";
+      case OrderStatus.returnAgreed:
+      this.statusValue = "agreed";
+      break;
+      case OrderStatus.returnDispatched:
+      this.statusValue = "product returned";
+      break;
+      case OrderStatus.returnCompleted:
+      this.statusValue = "completed";
       break;
     }
   }
 
   initStateForSeller() {
-    switch (this.order.state) {
-      case OrderState.unshipped:
-      this.stateValue = "waiting for your dispath"
+    switch (parseInt(this.order.status)) {
+      case OrderStatus.none:
+      this.statusValue = "no buyer"
       break;
-      case OrderState.returnInAgree:
-      this.stateValue = "Waiting for your agree";
+      case OrderStatus.inAuction:
+      this.statusValue = "in auction"
       break;
-      case OrderState.returnAgreed:
-      this.stateValue = "not yet shipped";
+      case OrderStatus.unshipped:
+      this.statusValue = "waiting for your dispatch"
       break;
-      case OrderState.returnReturned:
-      this.stateValue = "dispatched";
+      case OrderStatus.returnInAgree:
+      this.statusValue = "Waiting for your agree";
+      break;
+      case OrderStatus.returnAgreed:
+      this.statusValue = "not yet shipped";
+      break;
+      case OrderStatus.returnDispatched:
+      this.statusValue = "dispatched";
       break;
     }
   }
@@ -76,13 +91,17 @@ export class OrderItemComponent {
   }
 
   confirmOrderByBuyer() {
-    this.orderService.confirmOrderByBuyer(this.order.id);
+    let eventValue = {
+      'id': this.order.id,
+      'type': OrderEvent.confirmOrderByBuyer
+    }
+    this.handleOrderEvent.emit(eventValue);
   }
 
   cancelOrderByBuyer() {
     let eventValue = {
       'id': this.order.id,
-      'type': OrderEvent.cancelOrder
+      'type': OrderEvent.cancelOrderByBuyer
     }
     this.handleOrderEvent.emit(eventValue);
   }
@@ -95,7 +114,15 @@ export class OrderItemComponent {
     this.handleOrderEvent.emit(eventValue);
   }
 
-  shipGoodsBySeller() {
+  cancelOrderBySeller() {
+    let eventValue = {
+      'id': this.order.id,
+      'type': OrderEvent.cancelOrderBySeller
+    }
+    this.handleOrderEvent.emit(eventValue);
+  }
+
+  shipGoodBySeller() {
     let eventValue = {
       'id': this.order.id,
       'type': OrderEvent.uploadOrderExpress
@@ -104,11 +131,38 @@ export class OrderItemComponent {
   }
 
   agreeReturnBySeller() {
-    this.orderService.agreeReturnBySeller(this.order.id);
+    let eventValue = {
+      'id': this.order.id,
+      'type': OrderEvent.agreeReturn
+    }
+    this.handleOrderEvent.emit(eventValue);
   }
 
   confirmReturnBySeller() {
-    this.orderService.confirmReturnBySeller(this.order.id);
+    let eventValue = {
+      'id': this.order.id,
+      'type': OrderEvent.confirmReturn
+    }
+    this.handleOrderEvent.emit(eventValue);
+  }
+
+  showProduct() {
+    this.route.navigate(["/products/" + this.order.productId]);
+  }
+
+
+  testSystemConfirm() {
+    let result = {"result": "success"};
+    this.orderService.testSystemConfirm(this.order.id, result).subscribe(
+
+    )
+  }
+
+  testSystemCancel() {
+    let result = {"result": "success"};
+    this.orderService.testSystemCancel(this.order.id, result).subscribe(
+
+    )
   }
 }
 

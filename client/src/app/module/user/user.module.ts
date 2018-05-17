@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
-import { UserService } from './service/user.service'
+import { UserService, USER_SERVICE_URL } from './service/user.service'
 import { UserProfileComponent } from './profile/user.profile.component'
 import { UserMainComponent } from './main/user.main.component'
 import { ConcernUsersComponent } from './concern/users/user.concernusers.component'
@@ -40,6 +41,7 @@ import { ProductModule } from './../product/product.module';
 
     providers:[
         UserService,
+        { provide: USER_SERVICE_URL, useValue: environment.productionURL + "/api/v1" },
     ],
 })
 
