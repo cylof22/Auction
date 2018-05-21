@@ -1,4 +1,4 @@
-.order-state {
+.order-status {
     float: left;
     margin-right: 20px;
 }
@@ -38,4 +38,8 @@
     float: left;
     margin-right: 10px;
     width: 120px;
+}
+
+.fail {
+    color: red;
 }

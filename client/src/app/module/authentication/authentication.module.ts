@@ -33,7 +33,7 @@ import { environment } from '../../../environments/environment';
 
     providers:[
         AuthenticationService,
-        { provide: AUTHETICATION_SERVICE_URL, useValue: environment.productionURL + "/api/" },
+        { provide: AUTHETICATION_SERVICE_URL, useValue: environment.productionURL + "/api/v1/" },
     ],
 })
 

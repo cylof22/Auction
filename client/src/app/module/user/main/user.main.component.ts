@@ -21,10 +21,6 @@ enum ShownElement {
 
 export class UserMainComponent {
     username: string;
-
-    showShop: boolean;
-    showProfile: boolean;
-    showConUsers: boolean;
     shownElement: ShownElement;
     activeClassName: string;
 

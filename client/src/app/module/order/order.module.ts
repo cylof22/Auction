@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { environment } from './../../../environments/environment';
 import { OrderBuyerComponent } from './buyer/order.buyer.component'
 import { OrderSellerComponent } from './seller/order.seller.component'
 import { OrderItemComponent } from './item/order.item.component'
-import { OrderStateComponent } from './state/order.state.component'
-import { OrderService } from './service/order.service'
+import { OrderStatusComponent } from './status/order.status.component'
+import { OrderService, API_ORDER_SERVICE_URL } from './service/order.service'
 
 @NgModule({
     declarations: [
         OrderBuyerComponent,
         OrderItemComponent,
-        OrderStateComponent,
+        OrderStatusComponent,
         OrderSellerComponent,
     ],
     exports: [
@@ -25,6 +26,7 @@ import { OrderService } from './service/order.service'
 
     providers:[
         OrderService,
+        {provide: API_ORDER_SERVICE_URL, useValue: environment.productionURL},
     ],
 })
 

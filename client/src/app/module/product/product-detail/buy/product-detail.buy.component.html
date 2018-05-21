@@ -1,0 +1,10 @@
+<div *ngIf="canBeBought">
+    <div *ngIf="priceType == '1'">
+        <label>bid</label>
+        <input id="priceInput"
+               type="number" 
+               placeholder="Please input your price" 
+               (keyup)="onPriceChange(bid)" #bid>
+    </div>
+    <button [ngClass]="{'disabled': isBtnDisabled}" (click)="onBuyWithDigitalCash()" [disabled]="getBtnStatus()">Buy</button>
+</div> 

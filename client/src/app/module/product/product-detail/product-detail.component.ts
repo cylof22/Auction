@@ -3,62 +3,70 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Product } from '../product.model/product'
-import { Review } from '../product.model/review';
-import { ProductService } from '../service/product.service';
-
+import { Product } from './../product.model/product'
+import { Review } from './../product.model/review';
+import { ProductService } from './../service/product.service';
+import { AuthenticationService } from './../../authentication/services/authentication.service'
+import { OrderService } from './../../order/service/order.service'
+import { Order, SellInfo, Express, ReturnInfo, BuyInfo, ProductInfo } from './../../order/order.model/order'
 import { BidService } from './bid.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'auction-product-page',
+  selector: 'product-detail-page',
   styleUrls: [ './product-detail.component.css' ],
   templateUrl: './product-detail.component.html'
 })
 export class ProductDetailComponent implements OnDestroy {
   product: Product;
-  reviews: Review[];
-
-  newComment: string;
-  newRating: number;
-
-  isReviewHidden: boolean = true;
-  isWatching: boolean = false;
-  imgHtml: SafeHtml;
+  order: Order;
 
   productType: string;
   priceType: string;
-  price: string;
   hasStory: boolean;
   hasStoryPic: boolean;
-
-  private subscription: Subscription;
+  errorInfo: string;
 
   constructor(private productService: ProductService,
               private bidService: BidService,
-              private sanitizer: DomSanitizer,
+              private authService: AuthenticationService,
+              private orderService: OrderService,
               router: ActivatedRoute) {
 
-    this.imgHtml = sanitizer.bypassSecurityTrustHtml(`
-      <img src="http://placehold.it/820x320">`);
+    this.errorInfo = '';
 
     const productId = router.snapshot.params['productId'];
+    this.getCurrentProduct(productId);
 
-    this.productService
-      .getProductById(productId)
-      .subscribe(
-        product => {
-          this.product = product;
-          if (this.product.maker == "") {
-            this.product.maker = this.product.owner;
-          }
-          this.setProductType(product);
-          this.setPrice(product);
-          this.setStoryInfo(product);
-        },
-        error => console.error(error));
+    this.getCurrentOrder(productId);
   }
 
   ngOnInit() {
+  }
+
+  getCurrentProduct(productId: string) {
+    this.productService
+    .getProductById(productId)
+    .subscribe(
+      product => {
+        this.product = product;
+        if (this.product.maker == "") {
+          this.product.maker = this.product.owner;
+        }
+        if (this.product.price.duration == "") {
+          this.product.price.duration = "30";
+        }
+        this.setProductType(product);
+        this.setPrice(product);
+        this.setStoryInfo(product);
+      },
+      error => console.error(error));
+  }
+
+  getCurrentOrder(productId: string) {
+    this.orderService.getOrderByProductId(productId).subscribe(
+      order => this.order = order
+    )
   }
 
   setProductType(product: Product) {
@@ -73,7 +81,6 @@ export class ProductDetailComponent implements OnDestroy {
   }
 
   setPrice(product: Product) {
-    this.price = product.price.value;
     switch (parseInt(product.price.type)) {
       case 0:
       this.priceType = "Fixed Price";
@@ -101,48 +108,58 @@ export class ProductDetailComponent implements OnDestroy {
     }
   }
 
-  toggleWatchProduct() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-      this.isWatching = false;
-    } else {
-      this.isWatching = true;
-      this.subscription = this.bidService.watchProduct(this.product.id)
-        .subscribe(
-          error => console.log(error));
-    }
-  }
-
   ngOnDestroy(): any {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+  }
+
+  buy(data) {
+    let buyInfo : BuyInfo = data;
+    if (buyInfo.startTime == '') {
+      buyInfo.startTime = this.getNowFormatDate();
     }
 
-    return Promise.resolve(true);
+    this.orderService.buy(this.order.id, buyInfo).subscribe(
+      result => {
+        if (result == null) {
+          location.reload(true);
+        } else {
+          if (result.hasOwnProperty('error')) {
+            this.errorInfo = result['error'];
+          }
+        }
+      }
+    )
   }
 
-  addReview() {
-    let review = new Review(0, this.product.id, new Date(), 'Anonymous',
-      this.newRating, this.newComment);
-    this.reviews = [...this.reviews, review];
-    this.product.rating = this.averageRating(this.reviews);
+  sell(data) {  
+    let productInfo = new ProductInfo('', '', '', '', '', '');
+    productInfo.priceValue = this.product.price.value;
+    productInfo.priceType = this.product.price.type;
+    productInfo.id = this.product.id;
+    productInfo.owner = this.product.owner;
+    productInfo.type = this.product.type;
+    productInfo.url = this.product.url;
 
-    this.resetForm();
+    let sellInfo = new SellInfo(productInfo, '', '') 
+    sellInfo.duration = this.product.price.duration;
+    sellInfo.startTime = this.getNowFormatDate();
+
+    this.orderService.sell(sellInfo).subscribe(
+      result => {
+        if (result == null) {
+          location.reload(true);
+        } else {
+          if (result.hasOwnProperty('error')) {
+            this.errorInfo = result['error'];
+          }
+        }
+      }
+    )
   }
 
-  averageRating(reviews: Review[]) {
-    let sum = reviews.reduce((average, review) => average + review.rating, 0);
-    return sum / reviews.length;
-  }
-
-  resetForm() {
-    this.newRating = 0;
-    this.newComment = null;
-    this.isReviewHidden = true;
-  }
-
-  onBuyWithDigitalCash() {
-    //location.href = "/#/wallet";
-  }
+  getNowFormatDate(): string {
+    let dataPipe = new DatePipe("en-US");
+      let date = new Date();
+      let currentdate = dataPipe.transform(date, 'yyyy-MM-dd HH:mm:ss');
+      return currentdate;
+  } 
 }

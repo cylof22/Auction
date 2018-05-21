@@ -19,32 +19,57 @@
 
   <div id="detailBox" class="col-sm-4 col-lg-4 col-md-4">
     <div>
-      <p class="col-sm-4 col-lg-4 col-md-4">Owner</p>
-      <p class="col-sm-8 col-lg-8 col-md-8">{{ product.owner }}</p>
+      <p class="owner">Owner</p>
+      <p >{{ product.owner }}</p>
     </div>
     <div>
-      <p class="col-sm-4 col-lg-4 col-md-4">Maker</p>
-      <p class="col-sm-8 col-lg-8 col-md-8">{{ product.maker }}</p>
+      <p class="maker">Maker</p>
+      <p>{{ product.maker }}</p>
+    </div>
+    <div *ngIf="product.tags != ''">
+      <p class="tags">Tag</p>
+      <p>{{ product.tags }}</p>
     </div>
     <div>
-      <p class="col-sm-4 col-lg-4 col-md-4">Tag</p>
-      <p *ngIf="product.tags" class="col-sm-8 col-lg-8 col-md-8">{{ product.tags }}</p>
-      <p *ngIf="!product.tags" class="col-sm-8 col-lg-8 col-md-8 empty-tag"></p>
+      <p class="property">Property</p>
+      <p>{{ productType }}</p>
     </div>
-    <div>
-      <p class="col-sm-4 col-lg-4 col-md-4">Property</p>
-      <p class="col-sm-8 col-lg-8 col-md-8">{{ productType }}</p>
+    <div *ngIf="product.price.type == '0'">
+      <p class="fix-price">{{ priceType }}</p>
+      <p>{{ product.price.value }}</p>
+    </div>
+    <div *ngIf="product.price.type == '1'">
+      <p class="auction-price">{{ priceType }}</p>
+      <p>{{ product.price.value }}</p>
     </div>
     <div *ngIf="product.price.type != '2'">
-      <p class="col-sm-4 col-lg-4 col-md-4">{{ priceType }}</p>
-      <p class="col-sm-8 col-lg-8 col-md-8">{{ price }}</p>
+      <p class="duration">Duration</p>
+      <p>{{ product.price.duration }}</p>
     </div>
     <div *ngIf="product.price.type == '2'">
-      <p class="col-sm-6 col-lg-6 col-md-6">{{ priceType }}</p>
+      <p>{{ priceType }}</p>
     </div>
       
-    <div class="col-sm-12 col-lg-12 col-md-12">
-      <button class="submit-button" (click)="onBuyWithDigitalCash()">Buy</button>
-    </div>          
+    <div *ngIf="errorInfo != ''">
+      <p class="fail">{{errorInfo}}</p>
+    </div>  
+
+    <div *ngIf="order">
+      <product-detail-buy-page [productOwner]="product.owner"
+                               [priceType]="product.price.type"
+                               [priceValue]="product.price.value"
+                               [orderStatus]="order.status"
+                               (handleBuyEvent)="buy($event)">
+      </product-detail-buy-page> 
+    </div>
+
+    <div *ngIf="order">
+      <product-detail-sell-page
+                                       [productOwner]="product.owner"
+                                       [priceType]="product.price.type"
+                                       [orderStatus]="order.status"
+                                       (handleSellEvent)="sell($event)">
+      </product-detail-sell-page> 
+    </div>    
   </div>
 </div>

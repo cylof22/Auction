@@ -1,7 +1,7 @@
 <div class="thumbnail" (mouseenter)="showEditCtrls()" (mouseleave)="removeEditCtrls()">
   <div>
     <img [src] = "product.url" (click)="showProduct()" class="image">
-    <div *ngIf="isShowEditCtrls" class="not-readonly-container">
+    <div *ngIf="canShowEditCtrls" class="not-readonly-container">
       <button class="edit" (click)="onEdit()">edit</button>
       <button class="delete" (click)="onDelete()">delete</button>
     </div>

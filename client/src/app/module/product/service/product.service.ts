@@ -30,7 +30,7 @@ export class ProductService {
   }
   
   getProductsByUser(usrid: string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiProductsUrl + '?usrid=' + usrid)
+    return this.http.get<Product[]>(this.apiProductsUrl + `/user/${usrid}`)
   }
 
   getProducts(): Observable<Product[]> {
@@ -42,7 +42,7 @@ export class ProductService {
   }
   
   getProductsByTag(tag: string) : Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiProductsUrl + '?tags=' + tag);
+    return this.http.get<Product[]>(this.apiProductsUrl + `/tags/${tag}`);
   }
 
   getProductById(productId: string): Observable<Product> {
@@ -83,7 +83,6 @@ export class ProductService {
  * Encodes the object into a valid query string.
  */
 function encodeParams(params: any): HttpParams {
-  alert(JSON.stringify(params))
   return Object.getOwnPropertyNames(params)
     .reduce((p, key) =>
       p.append(key, params[key]),new HttpParams());

@@ -1,0 +1,15 @@
+button {
+    width: 100%;
+}
+
+label {
+    margin-right: 75px;
+}
+
+.fail {
+    color: red;
+}
+
+.disabled {
+    color: grey;
+}

@@ -12,11 +12,15 @@ import { ProductService } from '../service/product.service';
 export class ProductItemComponent {
   @Input() product: Product;
   @Input() readonly: string;
-  isShowEditCtrls: boolean;
+  @Input() fromItsOwner: string;
+  canShowEditCtrls: boolean;
 
   constructor(private sanitizer: DomSanitizer,
               private productService: ProductService,
               private route:Router) {
+  }
+
+  ngOnInit() {
   }
 
   showProduct() {
@@ -28,7 +32,7 @@ export class ProductItemComponent {
       return;
     }
 
-    this.isShowEditCtrls = true;
+    this.canShowEditCtrls = true;
   }
 
   removeEditCtrls() {
@@ -36,7 +40,7 @@ export class ProductItemComponent {
       return;
     }
 
-    this.isShowEditCtrls = false;
+    this.canShowEditCtrls = false;
   }
 
   onEdit() {

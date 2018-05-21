@@ -1,24 +1,41 @@
 <div>
     <div class="row">
-        <order-state-page id="unshipped" 
-                            class="order-state" 
-                            title="Not Yet Shipped" 
+        <order-status-page id="noBuyer" 
+                            class="order-status" 
+                            title="No Buyer"
                             active="true" 
-                            (click)="onClickUnshipped(unshipped, inreturn)" #unshipped>
-        </order-state-page>
+                            (click)="onClickNoBuyer(nobuyer, auction, unshipped, inreturn)" #nobuyer>
+        </order-status-page>
 
-        <order-state-page id="inreturn" 
-                            class="order-state" 
+        <order-status-page id="auction" 
+                          class="order-status" 
+                          title="In Auction" 
+                          active="false" 
+                          (click)="onClickAuction(nobuyer, auction, unshipped, inreturn)" #auction>
+        </order-status-page>
+
+        <order-status-page id="unshipped" 
+                            class="order-status" 
+                            title="Not Yet Shipped" 
+                            active="false" 
+                            (click)="onClickUnshipped(nobuyer, auction, unshipped, inreturn)" #unshipped>
+        </order-status-page>
+
+        <order-status-page id="inreturn" 
+                            class="order-status" 
                             title="In Return" 
                             active="false" 
-                            (click)="onClickInReturn(unshipped, inreturn)" #inreturn>
-        </order-state-page>
+                            (click)="onClickInReturn(nobuyer, auction, unshipped, inreturn)" #inreturn>
+        </order-status-page>
 
     </div>
     <div class="orders">
+        <div *ngIf="failedValue != ''">
+            <p class="fail">{{failedValue}}</p>
+        </div>
         <div *ngFor="let order of orders" class="row col-sm-12 col-lg-12 col-md-12">
             <order-item-page [order]="order" 
-                             *ngIf="currentType.includes(order.state)" 
+                             *ngIf="currentType.includes(order.status)" 
                              class="item thumbnail"
                              isBuyer="false"
                              (handleOrderEvent)="handleOrderEvent($event)">
@@ -36,11 +53,11 @@
                 <div>
                     <div class="dispatch-div">
                         <label class="dispatch-courier">courier</label>
-                        <input id="courier" type="text" placeholder="please input courier">
+                        <input id="courier" type="text" placeholder="please input courier firm">
                     </div>
                     <div class="dispatch-div">
                         <label class="dispatch-number">tracking number</label>
-                        <input id="dispatchId" type="text" placeholder="please input tracking number">
+                        <input id="express" type="text" placeholder="please input tracking number">
                     </div>
                 </div>
                 <div class="modal-footer">

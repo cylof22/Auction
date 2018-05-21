@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 
 import { ProductService } from './../../product/service/product.service';
-import { Product } from '../../product/product.model/product';
+import { Product } from './../../product/product.model/product';
+import { OrderService } from './../../order/service/order.service'
+import { Order } from './../../order/order.model/order'
 
 @Component({
   selector: 'user-products-page',
@@ -12,8 +14,10 @@ import { Product } from '../../product/product.model/product';
 export class UserProductsComponent {
   @Input("username") username: string;
   myProducts: Product[];
+  mySellings: Order[];    // use this parameter to judge if one product is edited
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+              private orderService: OrderService) {
   }
 
   ngOnInit() {
@@ -23,6 +27,24 @@ export class UserProductsComponent {
     this.productService.getProductsByUser(this.username).subscribe(
         params => this.myProducts = params
     );
+
+    this.orderService.getMySellings(this.username).subscribe(
+      orders => this.mySellings = orders
+    )
+  }
+
+  isReadonly(productId: string) {
+    if (this.mySellings == null) {
+      return false;
+    }
+
+    for (let i = 0; i < this.mySellings.length; i++) {
+      if (this.mySellings[i].id == productId) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 
