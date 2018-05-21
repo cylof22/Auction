@@ -24,7 +24,7 @@ export class HomeComponent {
       .retryWhen(errors => {
         this.errorMessage = `Please start the server. Retrying to connect.`;
         return errors
-          .delay(2000) // Retry every 2 seconds
+          .delay(10000) // Retry every 2 seconds
           //.take(3)   // Max number of retries
           .do(() => this.errorMessage += '.'); // Update the UI
       })
@@ -40,16 +40,31 @@ export class HomeComponent {
 
   OnClickHotest(event) {
     let target = event.target;
-    this.underlineTag(target.text);
+    this.colorTag(target.text);
+    this.products = this.productService.getProductsByHotest().retryWhen(errors => {
+      this.errorMessage = `Please start the server. Retrying to connect.`;
+      return errors
+        .delay(10000) // Retry every 2 seconds
+        //.take(3)   // Max number of retries
+        .do(() => this.errorMessage += '.'); // Update the UI
+    })
+    .finally(() => this.errorMessage = null);
   }
 
   OnClickTag(event) {
     let target = event.target;
-    this.underlineTag(target.text);
-
+    this.colorTag(target.text);
+    this.products = this.productService.getProductsByTag(target.text).retryWhen(errors => {
+      this.errorMessage = `Please start the server. Retrying to connect.`;
+      return errors
+        .delay(10000) // Retry every 2 seconds
+        //.take(3)   // Max number of retries
+        .do(() => this.errorMessage += '.'); // Update the UI
+    })
+    .finally(() => this.errorMessage = null);
   }
 
-  underlineTag(selectedTag: string) {
+  colorTag(selectedTag: string) {
     let tagBar = document.getElementById("tag-nav") as HTMLUListElement;
     
     var tagTypes = tagBar.getElementsByTagName("li");
