@@ -24,7 +24,7 @@ export class HomeComponent {
       .retryWhen(errors => {
         this.errorMessage = `Please start the server. Retrying to connect.`;
         return errors
-          .delay(2000) // Retry every 2 seconds
+          .delay(10000) // Retry every 2 seconds
           //.take(3)   // Max number of retries
           .do(() => this.errorMessage += '.'); // Update the UI
       })
@@ -44,7 +44,7 @@ export class HomeComponent {
     this.products = this.productService.getProductsByHotest().retryWhen(errors => {
       this.errorMessage = `Please start the server. Retrying to connect.`;
       return errors
-        .delay(2000) // Retry every 2 seconds
+        .delay(10000) // Retry every 2 seconds
         //.take(3)   // Max number of retries
         .do(() => this.errorMessage += '.'); // Update the UI
     })
@@ -57,7 +57,7 @@ export class HomeComponent {
     this.products = this.productService.getProductsByTag(target.text).retryWhen(errors => {
       this.errorMessage = `Please start the server. Retrying to connect.`;
       return errors
-        .delay(2000) // Retry every 2 seconds
+        .delay(10000) // Retry every 2 seconds
         //.take(3)   // Max number of retries
         .do(() => this.errorMessage += '.'); // Update the UI
     })
