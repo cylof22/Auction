@@ -37,5 +37,32 @@ export class HomeComponent {
         () => console.log('DONE')
       );
   }
+
+  OnClickHotest(event) {
+    let target = event.target;
+    this.underlineTag(target.text);
+  }
+
+  OnClickTag(event) {
+    let target = event.target;
+    this.underlineTag(target.text);
+
+  }
+
+  underlineTag(selectedTag: string) {
+    let tagBar = document.getElementById("tag-nav") as HTMLUListElement;
+    
+    var tagTypes = tagBar.getElementsByTagName("li");
+    for (let i = 0; i < tagTypes.length; i++) {
+      var tagElem = tagTypes.item(i);
+      var anchorElem = tagElem.getElementsByTagName("a")[0];
+      if(tagElem.textContent == selectedTag) {
+        anchorElem.style.color = '#0000EE';
+      } else {
+        // unselected black color
+        anchorElem.style.color = '#000000';
+      }
+    }
+  }
 }
 

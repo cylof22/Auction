@@ -21,13 +21,31 @@
 }
 
 .navbar .nav > li .dropdown-menu {  
-    margin: 0;  
+    margin: 0;
 }  
 .navbar .nav > li:hover .dropdown-menu {  
-    display: block;  
+    display: block;
 } 
 
 .logout {
     border: none;
     float: right;
+}
+
+.dropdown-menu {
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 90px;
+}
+
+.navbar .nav > li .dropdown-menu li a {
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 100px;
+}
+
+.navbar .nav > li .dropdown-menu button {
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 100px;
 }

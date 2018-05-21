@@ -1,3 +1,25 @@
+.center-pills {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.nav-pills li {
+  height: 20px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.nav-pills li a {
+  color: black;
+}
+
+.nav-pills a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .slide-image {
   width: 100%;
 }
@@ -17,6 +39,13 @@
 .grid-item {
   border-left: 0px;
   border-right: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.logout {
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
 }
