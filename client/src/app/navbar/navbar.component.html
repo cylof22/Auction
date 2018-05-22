@@ -7,38 +7,38 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" >Nolder Elforce</a>
+      
+      <img class="logo" src="common/logo.png">
+      <label class="company" >
+        Nolder Elforce
+      </label>
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav">
         <li><a [routerLink]="['/']">Discovery</a></li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="Publish" href="#">Publish<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a [routerLink]="['/style-upload']">Upload</a></li>
-              <li><a [routerLink]="['/batch-upload']">BatchUpload</a></li>
-            </ul>
-        </li>
-        <li><a [routerLink]="">About</a></li>
       </ul>
-      <div class="nav navbar-nav">
-          <auction-search></auction-search>
+      <div class="nav navbar-nav dropdown publish">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="">Publish<b class="caret"></b></a>
+        <ul class="dropdown-menu drop-menu-ctrl">
+          <li><a [routerLink]="['/style-upload']">Upload</a></li>
+          <li><a [routerLink]="['/batch-upload']">BatchUpload</a></li>
+        </ul>
+      </div>
+      <div class="nav navbar-nav search">
+          <auction-search ></auction-search>
       </div>
       <ul class="nav navbar-nav navbar-right" *ngIf="!isAuthenticated">
         <li ><a [routerLink]="['/login']">Login</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right" *ngIf="isAuthenticated">
-        <li class="dropdown">
-          <a href="/#/users/{{userName}}">{{userName}}<b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <button type="button" class="btn btn-default navbar-btn logout" (click)="onLogout()">
+      <div class="nav navbar-nav navbar-right dropdown user-group" *ngIf="isAuthenticated">
+          <a href="/#/users/{{userName}}">{{userName}}<b class="caret"></b></a>
+          <ul class="dropdown-menu logout-dropmenu">
+            <button type="button" class="btn btn-default logout" (click)="onLogout()">
               Logout
             </button>
           </ul>
-        </li>
-      </ul>
+        </div>
     </div>
   </div>
 </nav>
