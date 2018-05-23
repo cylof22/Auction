@@ -4,6 +4,10 @@
     padding-right: 10px;
 }
 
+.detail-container {
+    padding-top: 5px;
+}
+
 .picture-container {
     text-align: center;
 }
@@ -55,6 +59,10 @@
     text-align: center;
 }
 
+.detail-info {
+    padding-top: 40px;
+}
+
 .left {
     float:left;
 }
@@ -68,41 +76,27 @@
     width: 100%;
 }
 
-.owner {
-    float: left;
-    margin-right: 55px;
+.info-item-group {
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 0;
 }
 
-.maker {
-    float: left;
-    margin-right: 58px;
+.info-item-group .title {
+    font-weight: bold;
 }
 
-.tags {
-    float: left;
-    margin-right: 74px;
-}
-
-.property {
-    float: left;
-    margin-right: 44px;
-}
-
-.fix-price {
-    float: left;
-    margin-right: 28px;
-}
-
-.auction-price {
-    float: left;
-    margin-right: 15px;
-}
-
-.duration {
-    float: left;
-    margin-right: 45px;
+.info-item-group .tags-value {
+    word-wrap: break-word;
 }
 
 .fail {
     color: red;
+}
+
+.button-group {
+    margin-top: 40px;
+    text-align: center;
 }

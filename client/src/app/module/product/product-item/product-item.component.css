@@ -10,13 +10,26 @@
   margin-bottom: 0px;
 }
 
-.not-readonly-container .edit {
+.not-readonly-container .commonBtn {
   position: absolute;
+
+  width: 90px;
+  height: 25px;
+  color: white;
+  background-color: cornflowerblue;
+  border: none;
+
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.not-readonly-container .edit {
   left: 15px;
 }
 
 .not-readonly-container .delete {
-  position: absolute;
   right: 15px;
 }
 

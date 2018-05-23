@@ -4,7 +4,7 @@
             <ng-masonry-grid class="grid-style"
                 [masonryOptions]="{ transitionDuration: '0.8s'}" 
                 [useAnimation]="false"
-                [useImagesLoaded]="false"
+                [useImagesLoaded]="true"
                 [scrollAnimationOptions]="{ animationEffect: 'effect-4', minDuration : 0.4, maxDuration : 0.7 }">
                         
                 <ng-masonry-grid-item id="{{'masonry-my-product-'+i}}" *ngFor="let product of myProducts" class="col-sm-3 col-lg-3 col-md-3 grid-item"> 
@@ -13,7 +13,7 @@
             </ng-masonry-grid>
         </div>
     </div>
-    <div *ngIf="!myProducts">
+    <!-- <div *ngIf="!myProducts">
         <h3>No products</h3>
-    </div>
+    </div> -->
 </div>

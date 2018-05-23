@@ -1,16 +1,63 @@
 .image-container {
     width: 100%;
-    height: 600px;
+    height: 500px;
     margin-bottom: 0px;
+
+    overflow: auto;
+}
+
+.image-container .selectBtn{
+    margin-left: 47%;
+    margin-top: 220px;
+    margin-bottom: 0px;
+    
+    width: 60px;
+    height: 60px;
+
+    line-height: 5px;
+    color: white;
+    font-size: 60px;
+    background-color: cornflowerblue;
+    border: none;
+    outline: none;
+
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.image-container .reselect-container {
+    position: relative;
+    top: 50%;
+}
+
+.image-container .reselect-container .reselect-Btn {
+    position: absolute;
+    left: 43%;
+
+    width: 100px;
+    height: 30px;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+    outline: none;
+
+    margin-top: -30px;
+
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .image-container .image {
     width: auto;
-    height: 100%;
+    max-height: 500px;
 }
 
 .style-transfer-panel {
-    background-color: dodgerblue;
+    background-color: cornflowerblue;
     text-align: center;
     margin-top: 0px;
  }
