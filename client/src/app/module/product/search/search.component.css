@@ -1,30 +1,36 @@
-.div-container {
-	position:relative;
-}
-
-.search-click-btn {
-	background: transparent;
-	border: none;
-	outline: none;
-	background-image: url('image/search.png');
-	background-repeat: no-repeat;
-	width: 32px;
-	height: 32px;
-	position: absolute;
-	top: 5px;
-	right: 12px;
-}
-
-.drop-down-sel {
+.drop-down-group {
     border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
 	border-top-right-radius: 0%;
 	border-bottom-right-radius: 0%;
 }
 
+.drop-down-ctrl {
+	height: 0px;
+	padding-top: 0px;
+	margin-top: -8px;
+	padding-bottom: 0px;
+	margin-bottom:0px;
+}
+
 .search-txt {
+	height: 26px;
 	border-top-left-radius: 0%;
 	border-bottom-left-radius: 0%;
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
+}
+
+.drop-down-ctrl:hover .drop-menu-ctrl {  
+    display: block;
+} 
+
+.drop-menu-ctrl {
+	min-width: 100%;
+	padding: 5px;
+	margin-top: 15px;
+}
+
+.search-term {
+	cursor: pointer;
 }

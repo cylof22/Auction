@@ -1,5 +1,18 @@
+.container {
+    text-align: center;
+}
+
 button {
-    width: 100%;
+    width: 60%;
+    height: 30px;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 label {
@@ -12,4 +25,5 @@ label {
 
 .disabled {
     color: grey;
+    background-color:rgb(197, 191, 191);
 }

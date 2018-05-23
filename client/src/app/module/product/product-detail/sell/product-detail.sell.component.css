@@ -1,3 +1,13 @@
 button {
-    width: 100%;
+    width: 60%;
+    height: 30px;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+
+    
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }

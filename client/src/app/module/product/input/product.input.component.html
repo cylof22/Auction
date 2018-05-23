@@ -1,25 +1,6 @@
 <div class="col-sm-12 col-lg-12 col-md-12">
-    <div class="container">
-        <label>Add Tag</label>
-        <input id="taginput" 
-                type="text"
-                class="form-control" 
-                placeholder="Please input tags, separated by comma">
-
-        <div class="defaultTag-container row col-sm-12 col-lg-12 col-md-12">
-            <button class="recommend tag no-border transparent left">Recommend:</button>
-            <div class="default-tags">
-                <div *ngFor="let tagText of tags">
-                    <button class="left tag no-border"
-                            (click)="onClickTag(tagCtrl)" 
-                            [style.backgroundColor]="initTagColor(tagText)" #tagCtrl>{{ tagText }}</button>
-                </div>
-            </div>
-        </div> 
-    </div>
-
-    <div id="storyArea" class="next container">
-        <label>Writting story and adding auxiliary pictures(max count is 4)</label>
+    <div id="storyArea" class="container">
+        <label>Story and auxiliary pictures(max count is 4)</label>
         <textarea id="description" class="form-control story-description" placeholder="less than 500 words"></textarea>
         <div class="row story-addGroup">
             <div class="col-sm-3 col-lg-3 col-md-3">
@@ -33,13 +14,32 @@
         </div>
     </div>
 
-    <div id="" class="next container">
-        <label class="left property-notice">Property</label>
-        <button id="digInput" class="left no-border transparent" (click)="onClickDigtal(digInput)" #digInput>Digital picture</button>
-        <button id="matInput" class="no-border transparent" (click)="onClickMaterial(matInput)" #matInput>Material object</button>
+    <div class="next container">
+        <label>Tags</label>
+        <input id="taginput" 
+                type="text"
+                class="form-control" 
+                placeholder="Please input tags, separated by comma">
+
+        <div class="defaultTag-container row col-sm-12 col-lg-12 col-md-12">
+            <button class="recommend tag no-border transparent left">Recommended:</button>
+            <div class="default-tags">
+                <div *ngFor="let tagText of tags">
+                    <button class="left tag no-border"
+                            (click)="onClickTag(tagCtrl)" 
+                            [style.backgroundColor]="initTagColor(tagText)" #tagCtrl>{{ tagText }}</button>
+                </div>
+            </div>
+        </div> 
     </div>
 
-    <div class="next container" >
+    <div id="" class="next container">
+        <label class="left property-notice">Property</label>
+        <button id="digInput" class="left property-value" (click)="onClickDigtal(digInput)" #digInput>Digital picture</button>
+        <button id="matInput" class="property-value" (click)="onClickMaterial(matInput)" #matInput>Material object</button>
+    </div>
+
+    <!-- <div class="next container" >
         <label class="left price-notice">Price</label>
         <div class="left price-exb">
             <button id="onlyShow" class="no-border transparent" (click)="onClickOnlyShow(onlyShow)" #onlyShow>Exhibition</button>
@@ -64,7 +64,7 @@
                 <a href="">Poundage explain</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="next container">
         <label class="left">Maker</label>
@@ -74,12 +74,12 @@
     <div class="next container">
         <input class="left" type="checkbox" checked="checked">
         <h6 class="copyright-condition-text">I have copyright of uploaded picture. I agree with the  
-            <a href="">copyright notice</a> and <a href="">other notices</a>
+            <a [routerLink]="['/copyright']">copyright notice</a> and <a href="">other notices</a>
         </h6>
     </div>
 
     <div class="next container">
-        <button class="right cancelBtn" (click)="onCancel()">Cancel</button>
-        <button class="btn-default right" (click)="onSubmit()">Submit</button>
+        <button class="right cancelBtn apply-Btn" (click)="onCancel()">Cancel</button>
+        <button class="btn-default right apply-Btn" (click)="onSubmit()">Submit</button>
     </div>
 </div>

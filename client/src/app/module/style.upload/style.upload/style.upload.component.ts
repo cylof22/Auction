@@ -17,6 +17,7 @@ export class StyleUploadComponent {
     uploadedStyleUrl: string;
 
     showTransferDlg: boolean = false;
+    showReselectCtrl: boolean = false;
 
     constructor(private productService: ProductService,
                 private uploadService: StyleUploadService,
@@ -92,5 +93,29 @@ export class StyleUploadComponent {
             // show image
             this.showUploadedImage(this.uploadedImgUrl);
         }
+    }
+
+    showReselectBtn() {
+        let img = document.getElementById("imagePreview");
+        if (img == null) {
+            this.showReselectCtrl = false;
+            return;
+        }
+        
+        let srcValue = img.getAttribute("src");
+        if (srcValue == null) {
+            this.showReselectCtrl = false;
+            return;
+        }
+
+        if (srcValue != '') {
+            this.showReselectCtrl = true;
+        } else {
+            this.showReselectCtrl = false;
+        }
+    }
+
+    removeReselectBtn() {
+        this.showReselectCtrl = false;
     }
 }

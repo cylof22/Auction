@@ -7,6 +7,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductInputComponent } from './input/product.input.component'
 import { StoryImageComponent } from './input/storyimage/story.image.component'
+import { CopyrightComponent } from './input/copyright/copyright.component'
 import { ProductEditComponent } from './edit/product.edit.component'
 import { ProductDetailBuyComponent } from './product-detail/buy/product-detail.buy.component'
 import { ProductDetailSellComponent } from './product-detail/sell/product-detail.sell.component'
@@ -27,7 +28,8 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
         ProductEditComponent,
         StoryImageComponent,
         ProductDetailBuyComponent,
-        ProductDetailSellComponent
+        ProductDetailSellComponent,
+        CopyrightComponent
     ],
     exports: [
         ProductDetailComponent,
@@ -47,6 +49,7 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
         RouterModule.forChild([
             {path: 'products/:productId', component: ProductDetailComponent},
             {path: 'products/:productId/edit', component: ProductEditComponent},
+            {path: 'copyright', component: CopyrightComponent},
           ]),
     ],
     providers:[
