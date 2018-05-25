@@ -1,64 +1,92 @@
 .container {
-    width:400px;
-    margin:0 auto;
+    background-image:url('/assets/login_bg.png');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 517px;
+    padding-top: 100px;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0;
 }
 
 .login-box {
-    height: 350px;
+    width:320px;
+    height: 290px;
+
+    margin:0 auto;
+    padding: 0;
+
+    background-color: rgb(246, 246, 248);
+    opacity: 0.9;
+}
+
+.login-box .item-width {
+    width: 260px;
 }
 
 .user-box {
-    position: relative;
+    margin: 30px;
+    padding: 0;
 }
 
 .user-box .lable-item {
-    position: absolute;
-    top: 20px;
-    left: 30px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+
+    padding: 0;
 }
 
 .user-box .account-item {
-    position: absolute;
-    top: 70px;
-    left: 30px;
-    width: 300px;
+    margin-top: 0px;
+    margin-bottom: 15px;
+    margin-right: 0;
+
+    padding-left: 12px;
 }
 
 .user-box .password-item {
-    position: absolute;
-    top: 120px;
-    left: 30px;
-    width: 300px;
-}
-
-.user-box .auto-checkbox-item {
-    position: absolute;
-    top: 170px;
-    left: 30px;
-}
-
-.user-box .auto-text-item{
-    position:absolute;
-    top: 164px;
-    left: 43px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-right: 0;
 }
 
 .user-box .forget-item {
-    position: absolute;
-    top: 170px;
-    left: 225px;
+    width: 94px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-left: 170px;
+    margin-right: 0;
+
+    font-size: 12px;
+
+    padding: 0;
+}
+
+.user-box .forget-item .link {
+    padding: 0;
+    margin: 0;
 }
 
 .user-box .submit-item {
-    position: absolute;
-    width:300px;
     height:30px;
-    top: 230px;
-    left: 30px;
+
+    margin: 0;
+    padding: 0;
+
+    border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    
+    border: none;
+    outline: none;
+
+    background-color: cornflowerblue;
 }
 
 .fenge {
-    position: absolute;
     top: 317px;
     left: 88px;
     padding:10px 6px 0px 6px;
@@ -67,30 +95,50 @@
     font-size: 0;
 }
 
-.user-box .bottom-group {
+.bottom-group {
     background-color:rgb(209, 216, 240);
-    border: none;
-    position: absolute;
-    top: 300px;
-    left: -5px;
-    width:102.8%;
+    width:100%;
     height: 44px;
+
+    margin: 0;
+    padding-top: 12px;
+    padding-right: 0px;
+
+    border-top-left-radius: 0px;
+	border-bottom-left-radius: 4px;
+	border-top-right-radius: 0px;
+    border-bottom-right-radius: 4px;
 }
 
-.user-box .weixin {
-    position: absolute;
-    top: 312px;
-    left: 30px;
+.weixin {
+    margin-top: 15px;
 }
 
-.user-box .zhifubao {
-    position: absolute;
+.zhifubao {
     top: 312px;
     left: 98px;
 }
 
-.user-box .zhuce {
-    position: absolute;
-    top: 312px;
-    left: 235px;
+.zhuce {
+    margin-top: 0px;
+    margin-left: 194px;
+    padding: 0;
+}
+
+.fail-container {
+    position: relative;
+    left: 30px;
+    top: -285px;
+
+    margin: 0;
+    padding: 0;
+
+    text-align: center;
+
+    background-color: red;
+}
+
+.fail-container .fail {
+    margin: 0;
+    padding: 0;
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RegisterInfo } from "../../user/user.model/user"
+import { RegisterInfo } from './../model/authentication'
 import { AuthenticationService } from "../services/authentication.service"
 
 @Component({
@@ -10,8 +10,8 @@ import { AuthenticationService } from "../services/authentication.service"
 })
 
 export class RegisterComponent {
-    errorInfo = {error:""}
     formModel: FormGroup;
+    errorValue: string = '';
 
     constructor(private registerService: AuthenticationService) {
         const fb = new FormBuilder();
@@ -24,15 +24,39 @@ export class RegisterComponent {
     }
 
     submit() {
+        let checkCtrl = <HTMLInputElement>document.getElementById('conditionCheck');
+        if (!checkCtrl.checked) {
+            return;
+        }
+
+
+        // if password and confirm password is inconsistent
+        let repassword = <HTMLInputElement>document.getElementById('repassword');
         let registerInfo = this.formModel.value;
+        if (registerInfo.password != repassword.value) {
+            this.errorValue = 'Password and Confirm Password inconsistent';
+            return;
+        }
+
+        let regEmail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        if (!regEmail.test(registerInfo.email)) {
+            this.errorValue = 'Email invalid';
+            return;
+        }
 
         registerInfo.password = this.registerService.encode(registerInfo.username, registerInfo.password);
         this.registerService.register(registerInfo).subscribe( output => {
             if (output["error"] != undefined &&  output["error"] != "") {
-                alert(JSON.stringify(output["error"]));
+                this.errorValue = output["error"];
             } else {
                 location.href = "/#/login";
             }
         });
+    }
+
+    onInput() {
+        if (this.errorValue != '') {
+            this.errorValue = '';
+        }
     }
 }

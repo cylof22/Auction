@@ -29,7 +29,8 @@
           <auction-search ></auction-search>
       </div>
       <ul class="nav navbar-nav navbar-right" *ngIf="!isAuthenticated">
-        <li ><a [routerLink]="['/login']">Login</a></li>
+        <li class="login"><a [routerLink]="['/login']">Login</a></li>
+        <li><a [routerLink]="['/register']">Register</a></li>
       </ul>
       <div class="nav navbar-nav navbar-right dropdown user-group" *ngIf="isAuthenticated">
           <a href="/#/users/{{userName}}">{{userName}}<b class="caret"></b></a>

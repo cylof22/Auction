@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { AuthenticationService } from "../services/authentication.service"
-import { LoginInfo, User } from "../../user/user.model/user"
-import { $$ } from 'protractor';
+import { User } from "../../user/user.model/user"
+import { LoginInfo } from './../model/authentication'
 
 @Component({
     selector: 'login',
@@ -13,6 +14,7 @@ import { $$ } from 'protractor';
 export class LoginComponent {
     formModel: FormGroup;
     autoLoginFlag: boolean;
+    errorValue: string = '';
 
     constructor(private loginService: AuthenticationService) {
         // clear local data firstly
@@ -34,7 +36,7 @@ export class LoginComponent {
 
         this.loginService.login(loginData).subscribe( user => {
             if (user["error"] != undefined &&  user["error"] != "") {
-                alert(user["error"])
+                this.errorValue = user["error"];
             } else {
                 if (user && user.token) {
                     this.loginService.saveUserAuthentication(JSON.stringify(user))
@@ -46,5 +48,11 @@ export class LoginComponent {
         });
 
         this.formModel.reset();
+    }
+
+    onInput() {
+        if (this.errorValue != '') {
+            this.errorValue = '';
+        }
     }
 }
