@@ -26,11 +26,6 @@ export class ProductInputComponent {
     selectedTags: string[];     // seleted tags from upper tags
     priceType: EPriceType;
     productType: EProdcutType;
-    poundage: string;           // poundage value according to current price
-
-    // the following two is price input related events
-    startInputPrice: boolean = false;
-    priceChanged: boolean = false;
 
     // for edit
     initializedPriceValue: string = '';
@@ -55,8 +50,6 @@ export class ProductInputComponent {
             this.initPageForEdit(this.editProduct);
         } else {
             this.hightlightCtrl("digInput");
-            this.hightlightCtrl("onlyShow");
-            this.showPriceGroup(false);
         }
 
         if (this.isBatch) {
@@ -71,8 +64,6 @@ export class ProductInputComponent {
         this.initUserStory(product.story);
 
         this.initPicType(product.type);
-
-        this.initPrice(product.price);
 
         this.initMaker(product.maker);
     }
@@ -141,32 +132,6 @@ export class ProductInputComponent {
             this.hightlightCtrl('matInput');
             break;
         }
-    }
-
-    initPrice(price: ProductPrice) {
-        let priceType = parseInt(price.type);
-        switch(priceType) {
-            case EPriceType.Fix:
-            this.hightlightCtrl('fix');
-            this.hightlightCtrl('forSale');
-            break;
-            case EPriceType.Auction:
-            this.hightlightCtrl('forSale');
-            this.hightlightCtrl('auction');
-            break;
-            case EPriceType.OnlyShow:
-            this.hightlightCtrl('onlyShow');
-            break;
-        }
-
-        if (priceType != EPriceType.OnlyShow && price.value != '') {
-            this.initializedPriceValue = price.value;
-
-            let temp = this.productService.getPoundage(price.value);
-            this.poundage = temp.toString();
-        }
-
-        this.showPriceGroup(priceType != EPriceType.OnlyShow);
     }
 
     initMaker(maker: string) {
@@ -260,80 +225,6 @@ export class ProductInputComponent {
         this.selectButton(ctrl, ["digInput"]);
     }
 
-    getPlaceHolder() {
-        if (this.priceType == 0) {
-            return "please input price";
-        } else if (this.priceType == 1) {
-            return "please input starting price"
-        }
-    }
-
-    onClickOnlyShow(ctrl: HTMLElement) {
-        this.priceType = EPriceType.OnlyShow;
-        this.selectButton(ctrl, ["forSale"]);
-        this.poundage = "";
-
-        this.showPriceGroup(false);
-    }
-
-    onClickForSale(saleElem: HTMLElement, fixElem: HTMLElement) {
-        if (this.priceType != EPriceType.OnlyShow) {
-            return;
-        }
-
-        this.selectButton(saleElem, ["onlyShow"]);
-        this.onClickFix(fixElem);
-
-        this.showPriceGroup(true);
-    }
-
-    showPriceGroup(show: boolean) {
-        let groupCtrl = document.getElementById("priceGroup");
-        groupCtrl.hidden = !show
-    }
-
-    onClickFix(ctrl: HTMLElement) {
-        this.priceType = EPriceType.Fix;
-        this.selectButton(ctrl, ["auction"]);
-    }
-
-    onClickAuction(ctrl: HTMLElement) {
-        this.priceType = EPriceType.Auction;
-        this.selectButton(ctrl, ["fix"]);
-    }
-
-    beginPrice(priceInput: HTMLElement) {
-        this.startInputPrice = true;
-    }
-
-    endPrice(priceInput: HTMLElement) {
-        if (!this.startInputPrice || !this.priceChanged) {
-            return;
-        }
-
-        let priceValue = <HTMLInputElement>document.getElementById('priceValue');
-        let temp = this.productService.getPoundage(priceValue.value);
-        this.poundage = temp.toString();
-
-        this.startInputPrice = false;
-        this.priceChanged = false;
-    } 
-
-    changePrice() {
-        this.priceChanged = true;
-    }
-
-    getPriceInfo() : ProductPrice { 
-        let priceValue = '';
-        if (this.priceType != EPriceType.OnlyShow) {
-            let priceValueCtrl = <HTMLInputElement>document.getElementById('priceValue');
-            priceValue = priceValueCtrl.value;
-        }
-        let productPrice = new ProductPrice(this.priceType.toString(), priceValue, "");
-
-        return productPrice;
-    }
-
     getTags(): string[] {
         // customized tags
         let tagCtrl = <HTMLInputElement>document.getElementById('taginput');
@@ -363,7 +254,7 @@ export class ProductInputComponent {
     onSubmit() {
         let tags = this.getTags();
         let story = this.getUserStory();
-        let price = this.getPriceInfo();
+        let price = new ProductPrice('', '', '');
         let productType = this.productType;
         let owner = this.authService.currentUser.username;
 

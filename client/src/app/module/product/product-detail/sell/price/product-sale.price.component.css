@@ -1,0 +1,136 @@
+.condition {
+    margin-top: 0;
+    margin-left: 0;
+}
+
+.condition .condition-checkbox {
+    float: left;
+
+    zoom: 1.5;
+    margin-right: 3px;
+    padding: 0;
+}
+
+.condition .condition-text {
+    padding-top: 5px;
+    padding-left: 0;
+    margin: 0;
+
+    text-align: left;
+}
+
+.priceGroup {
+    margin-top: 10px;
+    margin-left: 80px;
+    padding: 0;
+
+    text-align: left;
+}
+
+.priceGroup .fix {
+    float: left;
+    margin-right: 0px;
+ }
+
+.priceGroup .price-type {
+    width: 90px;
+    height: 25px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+
+    margin-left: 0;
+    margin-bottom: 5px;
+
+    background-color: transparent;
+    border: none;
+    outline: none;
+ }
+
+.priceGroup .price-input {
+    height: 25px;
+    width: 240px;
+    margin-bottom: 0;
+    margin-right: 5px;
+ }
+
+ .priceGroup .poundage-box {
+    padding-left: 0px;
+    margin-left: 5px;
+    margin-right: 0;
+    margin-top: 1px;
+    margin-bottom: 0;
+    padding: 0;
+ }
+
+ .priceGroup .poundage-box .calculation {
+    margin-left: 0;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    padding: 0;
+
+    width: 100px;
+    height: 12px;
+
+    color: white;
+    background-color: cornflowerblue;
+
+    float: left;
+    border: none;
+    outline: none;
+
+    font-size: 10px;
+    line-height: 1px;
+    
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+ }
+
+ .priceGroup .poundage-box .poundage {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 10px;
+
+    float: left;
+ }
+
+ .priceGroup .poundage-box .explain {
+    padding: 0;
+
+    margin-top: 0px;
+    margin-bottom: 0;
+    margin-right: 30px;
+
+    font-size: 10px;
+ }
+
+ .priceGroup .duration {
+    margin-top: 10px;
+    margin-bottom: 0;
+ }
+
+ .sell-container {
+    text-align: center;
+ }
+
+ .sell-container .sell {
+    width: 60%;
+    height: 30px;
+
+    margin-top: 30px;
+    color: white;
+    background-color: cornflowerblue;
+    border: none;
+    outline: none;
+    
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}

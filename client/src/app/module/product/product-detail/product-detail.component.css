@@ -9,6 +9,7 @@
 }
 
 .picture-container {
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -92,11 +93,6 @@
     word-wrap: break-word;
 }
 
-.fail {
-    color: red;
-}
-
 .button-group {
-    margin-top: 40px;
-    text-align: center;
+    margin-top: 30px;
 }

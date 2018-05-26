@@ -19,57 +19,47 @@
 
   <div id="detailBox" class="col-sm-4 col-lg-4 col-md-4 detail-info">
     <div class="row info-item-group">
-      <p class="title col-sm-3 col-lg-3 col-md-3">Owner</p>
-      <p class="col-sm-9 col-lg-9 col-md-9">{{ product.owner }}</p>
+      <p class="title col-sm-4 col-lg-4 col-md-4">Owner</p>
+      <p class="col-sm-8 col-lg-8 col-md-8">{{ product.owner }}</p>
     </div>
     <div class="row info-item-group">
-      <p class="title col-sm-3 col-lg-3 col-md-3">Maker</p>
-      <p class="col-sm-9 col-lg-9 col-md-9">{{ product.maker }}</p>
+      <p class="title col-sm-4 col-lg-4 col-md-4">Maker</p>
+      <p class="col-sm-8 col-lg-8 col-md-8">{{ product.maker }}</p>
     </div>
     <div *ngIf="product.tags != ''" class="row info-item-group">
-      <p class="title col-sm-3 col-lg-3 col-md-3">Tag</p>
-      <p class="tags-value col-sm-9 col-lg-9 col-md-9">{{ product.tags }}</p>
+      <p class="title col-sm-4 col-lg-4 col-md-4">Tag</p>
+      <p class="tags-value col-sm-8 col-lg-8 col-md-8">{{ product.tags }}</p>
     </div>
     <div class="row info-item-group">
-      <p class="title col-sm-3 col-lg-3 col-md-3">Property</p>
-      <p class="col-sm-9 col-lg-9 col-md-9">{{ productType }}</p>
+      <p class="title col-sm-4 col-lg-4 col-md-4">Property</p>
+      <p class="col-sm-8 col-lg-8 col-md-8">{{ productType }}</p>
     </div>
-    <div *ngIf="product.price.type == '0'" class="row info-item-group">
-      <p class="title col-sm-3 col-lg-3 col-md-3">{{ priceType }}</p>
-      <p class="col-sm-9 col-lg-9 col-md-9">{{ product.price.value }}</p>
-    </div>
-    <div *ngIf="product.price.type == '1'" class="row info-item-group">
-      <p class="title col-sm-3 col-lg-3 col-md-3">{{ priceType }}</p>
-      <p class="col-sm-9 col-lg-9 col-md-9">{{ product.price.value }}</p>
-    </div>
-    <div *ngIf="product.price.type != '2'" class="row info-item-group">
-      <p class="title col-sm-3 col-lg-3 col-md-3">Duration</p>
-      <p class="col-sm-9 col-lg-9 col-md-9">{{ product.price.duration }}</p>
-    </div>
-    <div *ngIf="product.price.type == '2'" class="info-item-group">
-      <p class="title">{{ priceType }}</p>
+    <div *ngIf="order">
+      <div *ngIf="order.product.priceType != '2' && order.product.priceType != ''" class="row info-item-group">
+        <p class="title col-sm-4 col-lg-4 col-md-4">{{ priceType }}</p>
+        <p class="col-sm-8 col-lg-8 col-md-8">{{ order.product.priceValue }}</p>
+      </div>
+      <div *ngIf="order.product.priceType != '2' && order.product.priceType != ''" class="row info-item-group">
+        <p class="title col-sm-4 col-lg-4 col-md-4">Duration</p>
+        <p class="col-sm-8 col-lg-8 col-md-8">{{ order.duration }}</p>
+      </div>
     </div>
 
     <div class="button-group">
-      <div *ngIf="errorInfo != ''">
-        <p class="fail">{{errorInfo}}</p>
-      </div>  
-
       <div *ngIf="order">
         <product-detail-buy-page [productOwner]="product.owner"
-                                [priceType]="product.price.type"
-                                [priceValue]="product.price.value"
+                                [priceType]="order.product.priceType"
+                                [priceValue]="order.product.priceValue"
                                 [orderStatus]="order.status"
+                                [orderId]="order.id"
                                 (handleBuyEvent)="buy($event)">
         </product-detail-buy-page> 
       </div>
 
       <div *ngIf="order">
         <product-detail-sell-page
-                                  [productOwner]="product.owner"
-                                  [priceType]="product.price.type"
-                                  [orderStatus]="order.status"
-                                  (handleSellEvent)="sell($event)">
+                                  [product]="product"
+                                  [orderStatus]="order.status">
         </product-detail-sell-page> 
       </div> 
     </div>   

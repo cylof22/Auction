@@ -1,3 +1,11 @@
-<div *ngIf="canBeSold">
-    <button class="submit-button" (click)="onSell()">Sell</button>
-</div> 
+<div *ngIf="canBeSold" id="priceGroup" class="price-container">
+    <product-sale-price-page [defaultSaleCheckStatus]="defaultSaleCheckStatus"
+                             showSellButton = "true"
+                             (onSaleSwitchEvent) = "onSaleSwitch($event)"
+                             (onSellEvent)="onSell($event)">
+    </product-sale-price-page>
+
+    <div *ngIf="errorInfo != ''">
+        <p class="fail">{{errorInfo}}</p>
+    </div> 
+</div>

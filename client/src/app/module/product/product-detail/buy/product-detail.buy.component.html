@@ -1,10 +1,16 @@
 <div *ngIf="canBeBought">
-    <div *ngIf="priceType == '1'">
-        <label>bid</label>
+    <div *ngIf="priceType == '1'" class="bid-container">
+        <p class="bid">Bid</p>
         <input id="priceInput"
                type="number" 
-               placeholder="Please input your price" 
+               class="form-control"
+               placeholder="Greater than starting price" 
                (keyup)="onPriceChange(bid)" #bid>
     </div>
-    <button [ngClass]="{'disabled': isBtnDisabled}" (click)="onBuyWithDigitalCash()" [disabled]="getBtnStatus()">Buy</button>
+    <div class="buy-container">
+        <button class="buy" (click)="onBuyWithDigitalCash()" [disabled]="getBtnStatus()">Buy</button>
+    </div>
+    <div *ngIf="errorInfo != ''">
+        <p class="fail">{{errorInfo}}</p>
+    </div>
 </div> 

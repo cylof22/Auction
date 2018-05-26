@@ -73,6 +73,9 @@ export class OrderItemComponent {
       case OrderStatus.unshipped:
       this.statusValue = "waiting for your dispatch"
       break;
+      case OrderStatus.dispatched:
+      this.statusValue = "dispatched";
+      break;
       case OrderStatus.returnInAgree:
       this.statusValue = "Waiting for your agree";
       break;

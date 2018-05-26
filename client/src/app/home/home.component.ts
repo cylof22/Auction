@@ -10,11 +10,11 @@ import 'rxjs/add/operator/take';
 import { ProductService } from '../module/product/service/product.service';
 import { Product } from '../module/product/product.model/product';
 
-import { Masonry, MasonryGridItem } from 'ng-masonry-grid';
+import { Masonry } from 'ng-masonry-grid';
 
 @Component({
   selector: 'auction-home-page',
-  styleUrls: [ './home.component.css', './../../../node_modules/ng-masonry-grid/ng-masonry-grid.css' ],
+  styleUrls: [ './home.component.css'],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {

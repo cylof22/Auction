@@ -11,6 +11,7 @@ import { CopyrightComponent } from './input/copyright/copyright.component'
 import { ProductEditComponent } from './edit/product.edit.component'
 import { ProductDetailBuyComponent } from './product-detail/buy/product-detail.buy.component'
 import { ProductDetailSellComponent } from './product-detail/sell/product-detail.sell.component'
+import { ProductSalePriceComponent } from './product-detail/sell/price/product-sale.price.component'
 import { ONLINE_AUCTION_SERVICES } from './service/services';
 import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
@@ -29,6 +30,7 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
         StoryImageComponent,
         ProductDetailBuyComponent,
         ProductDetailSellComponent,
+        ProductSalePriceComponent,
         CopyrightComponent
     ],
     exports: [

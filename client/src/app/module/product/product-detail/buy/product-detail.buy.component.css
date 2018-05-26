@@ -1,13 +1,39 @@
-.container {
+.bid-container {
+    margin-top: 0;
+    margin-bottom: 30px;
+    margin-left: 0;
+    padding: 0;
+}
+
+.bid-container .bid {
+    float: left;
+    margin-left: 20%;
+    margin-right: 10px;
+    margin-top: 3px;
+
+    padding: 0;
+
+    font-weight: bold;
+}
+
+.bid-container input {
+    width: 200px;
+    height: 25px;
+
+    padding-right: 5px;
+}
+
+.buy-container {
     text-align: center;
 }
 
-button {
+.buy-container .buy {
     width: 60%;
     height: 30px;
     color: white;
     background-color: cornflowerblue;
     border: none;
+    outline: none;
 
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -20,10 +46,9 @@ label {
 }
 
 .fail {
+    position: relative;
+    top: -55px;
     color: red;
-}
 
-.disabled {
-    color: grey;
-    background-color:rgb(197, 191, 191);
+    text-align: center;
 }

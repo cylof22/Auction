@@ -13,11 +13,14 @@
 .not-readonly-container .commonBtn {
   position: absolute;
 
-  width: 90px;
-  height: 25px;
+  width: 60px;
+  height: 20px;
   color: white;
   background-color: cornflowerblue;
   border: none;
+  outline: none;
+
+  opacity: 0.9;
 
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
@@ -26,11 +29,11 @@
 }
 
 .not-readonly-container .edit {
-  left: 15px;
+  left: 12px;
 }
 
 .not-readonly-container .delete {
-  right: 15px;
+  right: 12px;
 }
 
 .text-container {

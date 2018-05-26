@@ -1,8 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { AuthenticationService } from './../../../authentication/services/authentication.service'
 import { OrderStatus, BuyInfo } from '../../../order/order.model/order';
 import { EPriceType, EProdcutType } from './../../../product/product.model/product'
+import { OrderService } from './../../../order/service/order.service'
 
 @Component({
   selector: 'product-detail-buy-page',
@@ -12,14 +14,17 @@ import { EPriceType, EProdcutType } from './../../../product/product.model/produ
 export class ProductDetailBuyComponent{
   @Input() productOwner: string;
   @Input() priceType: string;
-  @Input() orderStatus: string;
   @Input() priceValue: string;
+  @Input() orderStatus: string;
+  @Input() orderId: string;
   @Output() handleBuyEvent: EventEmitter<any> = new EventEmitter;
 
   canBeBought: boolean;
   isBtnDisabled: boolean;
+  errorInfo: string;
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService,
+              private orderService: OrderService) {
     this.canBeBought = false;
   }
 
@@ -83,8 +88,18 @@ export class ProductDetailBuyComponent{
     }
 
     let buyInfo = new BuyInfo(this.authService.currentUser.username,
-                              outputPrice, '');
-    this.handleBuyEvent.emit(buyInfo);
+                              outputPrice, this.getNowFormatDate());
+    this.orderService.buy(this.orderId, buyInfo).subscribe(
+        result => {
+            if (result == null) {
+                    location.href = "/#";
+                } else {
+                if (result.hasOwnProperty('error')) {
+                    this.errorInfo = result['error'];
+                }
+            }
+        }
+    )
   }
 
   onPriceChange(priceInput: HTMLInputElement) {
@@ -105,5 +120,12 @@ export class ProductDetailBuyComponent{
 
   getBtnStatus() : boolean {
       return this.isBtnDisabled;
+  }
+
+  getNowFormatDate(): string {
+    let dataPipe = new DatePipe("en-US");
+      let date = new Date();
+      let currentdate = dataPipe.transform(date, 'yyyy-MM-dd HH:mm:ss');
+      return currentdate;
   }
 }

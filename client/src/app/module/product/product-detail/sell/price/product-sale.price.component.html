@@ -1,0 +1,48 @@
+<form [formGroup]="formModel"
+      (ngSubmit)="f.form.valid && submit()" #f="ngForm">
+    <div class="condition">
+        <input id="saleCheck" type="checkbox" 
+                class="condition-checkbox"
+                (click)="onSwitchSaleCheck()"
+                #saleCheck>
+        <p class="condition-text">sell it now</p>
+    </div>
+    <div *ngIf="saleCheck.checked" class="priceGroup">
+        <button id="fix" 
+                class="fix price-type" 
+                type="button"
+                [style.backgroundColor]="getFixColor()"
+                (click)="onClickFix(fix)" #fix>Fixed
+        </button>
+        <button id="auction" 
+                class="price-type" 
+                type="button"
+                [style.backgroundColor]="getAuctionColor()"
+                (click)="onClickAuction(auction)" #auction>Auction
+        </button>
+        <input id="priceValue" 
+                class="price-input form-control" 
+                type="number" 
+                formControlName="priceValue"
+                [placeholder]="getPlaceHolder()" 
+                required #priceInput>
+
+        <div class="poundage-box">
+            <button class="calculation" (click)="calPoundage()">Calculate Poundage</button>
+            <p class="poundage">{{poundage}}</p>
+            <div class="explain">
+                <a>Poundage explain</a>
+            </div>
+        </div>
+
+        <input id="duration" 
+               class="duration price-input form-control" 
+               formControlName="duration"
+               type="number" placeholder="sale duration(max is 30 days)" required>
+    </div>
+
+    <div class="sell-container">
+        <button *ngIf="saleCheck.checked && showSellButton=='true'" 
+                class="sell" type="submit">Sell</button>
+    </div>
+</form>
