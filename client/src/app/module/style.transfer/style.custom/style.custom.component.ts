@@ -6,7 +6,7 @@ import { ActivatedRoute } from "@angular/router";
 @Component({
     selector: 'style-custom',
     templateUrl: './style.custom.component.html',
-    styleUrls: ['/style.custom.component.css'],
+    styleUrls: ['./style.custom.component.css'],
 })
 
 export class StyleCustomComponent {
