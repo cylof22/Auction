@@ -20,19 +20,25 @@ export class StyleTransferService {
             this.uploadurl = injector.get(STYLE_TRANSFER_UPLOAD_SERVICE_URL);
         }
 
-    transfer(content : string, style : string): Observable<Blob> {
-        let contentQueryParams = "content=" + btoa(content);
+    transfer(contentFile : File, style : string): Observable<Blob> {
         let styleQueryParams = "style=" + btoa(style);
 
-        return this.http.get(this.transferURL + "?" + contentQueryParams + "&" + styleQueryParams + 
-            "&" + "iterations=100", { responseType: 'blob' });
+        let transferURL = this.transferURL + "?" + styleQueryParams + "&" + "iterations=100";
+        const formData = new FormData();
+        formData.append('content', contentFile);
+
+        const formHeaders = { 'enctype': 'multipart/form-data'};
+        return this.http.post(transferURL, formData, {headers: formHeaders, responseType: 'blob'})
     }
 
-    transferByArtist(contentURL : string, artist : string) : Observable<Blob> {
-        let contentQueryParams = "content=" + btoa(contentURL);
-        let artistQueryParams = "artist=" + artist;
-        return this.http.get(this.transferByArtistURL + "?" + contentQueryParams + 
-            "&" + artistQueryParams, { responseType: 'blob' });
+    transferByArtist(artist : string, contentFile: File) : Observable<Blob> {
+        let transferURL = this.transferByArtistURL + "/" + artist;
+        
+        const formData = new FormData();
+        formData.append('content', contentFile);
+
+        const formHeaders = { 'enctype': 'multipart/form-data'};
+        return this.http.post(transferURL, formData, {headers: formHeaders, responseType: 'blob'})
     }
     
     preview(content : string, style : string): Observable<string> {
@@ -43,42 +49,5 @@ export class StyleTransferService {
         var outputFile : string;
 
         return this.http.get<string>(previewURL + "?" + contentQueryParams + "&" + styleQueryParams);
-    }
-
-    contentUploadURL() : string {
-        return this.uploadurl + "/content";
-    }
-
-    styleUploadURL() : string {
-        return this.uploadurl + "/style";
-    }
-    
-    uploadContent(postedData : any) : Observable<Product> {
-
-        let body = postedData;
-
-        return this.http.post<Product>(this.uploadurl + "/content", body);
-    }
-
-    private uploadFile(url : string, files: Array<File>) {
-        return new Promise((resolve, reject) => {
-            var formData: any = new FormData();
-            formData.set("enctype", "multipart/form-data");
-            var xhr = new XMLHttpRequest();
-            for(var i = 0; i < files.length; i++) {
-                formData.append("files", files[i], files[i].name);
-            }
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
-                        resolve(JSON.parse(xhr.response));
-                    } else {
-                        reject(xhr.response);
-                    }
-                }
-            }
-            xhr.open("POST", url, true);
-            xhr.send(formData);
-        });
     }
 }
