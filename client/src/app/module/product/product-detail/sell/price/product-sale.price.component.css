@@ -48,11 +48,16 @@
     outline: none;
  }
 
-.priceGroup .price-input {
+.priceGroup .value-input {
     height: 25px;
     width: 240px;
     margin-bottom: 0;
     margin-right: 5px;
+    float: left;
+ }
+
+ .priceGroup .days-label {
+    margin-top: 17px;
  }
 
  .priceGroup .poundage-box {

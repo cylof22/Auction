@@ -7,7 +7,7 @@
             [useImagesLoaded]="true">
                     
             <ng-masonry-grid-item id="{{'masonry-my-product-'+i}}" *ngFor="let product of shownProducts; let i = index;" class="col-sm-2 col-lg-2 col-md-2 grid-item"> 
-                <auction-product-item [product]="product" readonly="false" fromItsOwner="true"></auction-product-item>
+                <auction-product-item [product]="product" [readonly]="isReadonly(product.id)" fromItsOwner="true"></auction-product-item>
             </ng-masonry-grid-item>
         </ng-masonry-grid>
     </div>

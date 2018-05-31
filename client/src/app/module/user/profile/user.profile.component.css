@@ -1,35 +1,44 @@
-.modify-btn {
+.container {
+    width: 40%;
+    float: left;
+
+    padding: 0;
+}
+
+.container .modify-btn {
     border: none;
     color: cornflowerblue;
     background-color: transparent;
+
+    outline: none;
 }
 
-.username-group {
+.container .username-group {
     margin-bottom: 20px;
 }
 
-.username-group .title {
+.container .username-group .title {
     float: left;
     margin-right: 30px;
 }
 
-.password-group {
+.container .password-group {
     margin-bottom: 20px;
     padding-bottom: 0px;
     padding-top: 0px;
 }
 
-.password-group .title {
+.container .password-group .title {
     float: left;
     margin-right: 30px;
 }
 
-.password-group .value {
+.container .password-group .value {
     margin-top: -3px;
     margin-right: 30px;
 }
 
-.email-group {
+.container .email-group {
     padding-left: 30px;
     margin-top: -20px;
     margin-bottom: 20px;
@@ -37,17 +46,17 @@
     padding-top: 0px;
 }
 
-.email-group .title {
+.container .email-group .title {
     float: left;
     margin-right: 30px;
 }
 
-.email-group .value {
+.container .email-group .value {
     float: left;
     margin-right: 30px;
 }
 
-.portrait-group {
+.container .portrait-group {
     padding-left: 17px;
     margin-top: -20px;
     margin-bottom: 20px;
@@ -55,26 +64,29 @@
     padding-top: 0px;
 }
 
-.portrait-group .title {
+.container .portrait-group .title {
     float: left;
     margin-right: 30px;
 }
 
-.portrait-group .value {
+.container .portrait-group .value {
     float: left;
     width: 60px;
     height: 60px;
     margin-right: 30px;
+
+    border-radius: 30px;
 }
 
-.portrait-group button {
+.container .portrait-group button {
     border: none;
     color: cornflowerblue;
+    outline: none;
     background-color: transparent;
     margin-top: 15px;
 }
 
-.hobby-group {
+.container .hobby-group {
     overflow: auto;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -82,12 +94,12 @@
     padding-bottom: 0px;
 }
 
-.hobby-group .title {
+.container .hobby-group .title {
     float: left;
     margin-right: 30px;
 }
 
-.hobby-group .tags {
+.container .hobby-group .tags {
     margin-left: 0px;
     padding-left: 0px;
     width: 50%;
@@ -95,7 +107,7 @@
     overflow: auto;
 }
 
-.hobby-group .tags .tag {
+.container .hobby-group .tags .tag {
     float: left;
     border: none;
     outline: none;
@@ -105,12 +117,26 @@
     background-color: transparent;
 }
 
-.submit-group {
-    margin-top: 10px;
-    padding-left: 200px;
+.container .submit-group {
+    margin-top: 50px;
+    padding-left: 150px;
 }
 
-.submit-group .submit {
-    background-color: transparent;
-    color: cornflowerblue;
+.container .submit-group .submit {
+    width: 100px;
+    height: 30px;
+    border-radius: 30px;
+
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    outline: none;
+}
+
+.fail {
+    position: relative;
+    top: -55px;
+    color: red;
+
+    text-align: center;
 }

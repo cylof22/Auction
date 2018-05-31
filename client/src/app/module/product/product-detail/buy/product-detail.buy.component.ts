@@ -5,6 +5,7 @@ import { AuthenticationService } from './../../../authentication/services/authen
 import { OrderStatus, BuyInfo } from '../../../order/order.model/order';
 import { EPriceType, EProdcutType } from './../../../product/product.model/product'
 import { OrderService } from './../../../order/service/order.service'
+import { MetaMaskService } from './../../../wallet/services/metamask.service'
 
 @Component({
   selector: 'product-detail-buy-page',
@@ -24,7 +25,8 @@ export class ProductDetailBuyComponent{
   errorInfo: string;
 
   constructor(private authService: AuthenticationService,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private metaMaskService: MetaMaskService) {
     this.canBeBought = false;
   }
 
@@ -80,6 +82,11 @@ export class ProductDetailBuyComponent{
   }
 
   onBuyWithDigitalCash() {
+    if (this.metaMaskService.isMetaMaskLocked()) {
+        location.href = '/#/wallet-info';
+        return;
+    }
+
     let outputPrice = this.priceValue;
 
     let priceInputCtrl = <HTMLInputElement>document.getElementById('priceInput');

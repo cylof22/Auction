@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   isAuthenticated : boolean;
   userName:string;
   userId:string;
+  userPortrait:string;
 
   constructor(private authService: AuthenticationService) { 
     this.isAuthenticated = false;
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
       this.isAuthenticated = true;
       this.userName = this.authService.currentUser.username;
       this.userId = this.authService.currentUser.id;
+      this.userPortrait = this.authService.currentUser.headPortraitUrl;
     }
   }
 

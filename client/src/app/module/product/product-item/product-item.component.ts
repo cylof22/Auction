@@ -13,7 +13,7 @@ export class ProductItemComponent {
   @Input() product: Product;
   @Input() readonly: string;
   @Input() fromItsOwner: string;
-  canShowEditCtrls: boolean;
+  canShowEditCtrls: boolean = false;
 
   constructor(private sanitizer: DomSanitizer,
               private productService: ProductService,
@@ -27,20 +27,20 @@ export class ProductItemComponent {
     this.route.navigate(["/products/" + this.product.id]);
   }
 
-  showEditCtrls() {
+  showCtrls(imageCtrl: HTMLElement) {
     if (this.readonly == 'true') {
-      return;
+      imageCtrl.style.filter = 'brightness(0.8)';
+    } else {
+      this.canShowEditCtrls = true;
     }
-
-    this.canShowEditCtrls = true;
   }
 
-  removeEditCtrls() {
+  removeCtrls(imageCtrl: HTMLElement) {
     if (this.readonly == 'true') {
-      return;
+      imageCtrl.style.filter = 'brightness(1)';
+    } else {
+      this.canShowEditCtrls = false;
     }
-
-    this.canShowEditCtrls = false;
   }
 
   onEdit() {

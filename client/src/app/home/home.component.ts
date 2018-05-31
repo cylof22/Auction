@@ -25,7 +25,7 @@ export class HomeComponent {
   _masonry: Masonry;
 
   currentIndex: number = 0;
-  stepCount: number = 20;
+  stepCount: number = 8;
   isAddingIterms: boolean = false;
 
   constructor(private productService: ProductService) {
@@ -70,7 +70,7 @@ export class HomeComponent {
     this.allProducts = inputs;
     this.currentIndex = 0;
 
-    this.products = this.allProducts.splice(this.currentIndex, this.stepCount);
+    this.products = this.allProducts.slice(this.currentIndex, this.stepCount);
     this.currentIndex = this.currentIndex + this.stepCount;
   }
 

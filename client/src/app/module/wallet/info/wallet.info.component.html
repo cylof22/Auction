@@ -1,0 +1,68 @@
+<div class="container">
+    <div *ngIf="!metaMaskInstalled" class="common-container title-container">
+        <p class="title">Continue Transaction?</p>
+        <p class="detail-info">We need keep transaction safe and MetaMask is perfect for this. 
+                               Please make sure that your current browser supports MetaMask.</p>
+        <a target="_blank" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en">
+            <button type="button" class="install">Install MetaMask</button>
+        </a>
+    </div>
+    <div *ngIf="metaMaskInstalled && metaMaskLocked" class="common-container title-container">
+        <h1 class="title">MetaMask Locked</h1>
+        <p class="detail-info">Please login MetaMask.</p>
+    </div>
+    <div class="info-container common-container">
+        <p class="title">Newcomers</p>
+        <div class="fenge"></div>
+        <button class="item-group" (click)="onClickInstallInfo(installBtn, installExpand)" #installBtn>
+            Install MetaMask, Your digital wallet
+            <p class="expand" #installExpand>+</p>
+        </button>
+        <p *ngIf="installExpand.innerHTML == '-'" class="item-detail">
+            You need install MetaMask if you going to do transaction in elforce. You can get 
+            detail info from https://metamask.io/.
+           <br>
+           <label>Notice:</label>please make sure that you don't forget your password or seed phrase.
+        </p>
+        <div class="fenge"></div>
+
+        <button class="item-group" (click)="onClickLockInfo(lockBtn, lockExpand)" #lockBtn>
+                Why MetaMask locked?
+                <p class="expand" #lockExpand>+</p>
+        </button>
+        <div *ngIf="lockExpand.innerHTML == '-'">
+            <p class="item-detail">
+                It's because that MetaMask will lock your account after some time. You only need click on MetaMask plugin and then input your password if you are going to unlock it.
+            </p>
+            <div class="lock-image">
+                <img class="image" src="static/assets/metaMask.png">
+            </div>
+        </div>
+        <div class="fenge"></div>
+
+        <button class="item-group" (click)="onClickObtainInfo(obtainBtn, obtainExpand)" #obtainBtn>
+                Obtain ETH, your digital currency
+                <p class="expand" #obtainExpand>+</p>
+        </button>
+        <p class="item-detail" *ngIf="obtainExpand.innerHTML == '-'">
+                <label>American citizens:</label>You can buy ETH in MetaMask.
+                <br>
+                <label>Others:</label>You need buy ETH from exchange. And then transferring
+                them from your exchange wallet to MetaMask.
+        </p>
+        <div class="fenge"></div>
+
+        <button class="item-group" (click)="onClickTransferInfo(transferBtn, transferExpand)" #transferBtn>
+                How to transfer ETH to MetaMask
+                <p class="expand" #transferExpand>+</p>
+        </button>
+        <p class="item-detail" *ngIf="transferExpand.innerHTML == '-'">
+                <label>American citizens:</label>You can buy ETH from Coinbase in MetaMask directly.
+                <br>
+                <label>Others:</label> You need buy ETH from exchange. Openning your account in Coinbase
+                and then selecting your ETH wallet and clicking on "Send". Copying your MetaMask address 
+                and paste it in inputbox and then input your transfer amount.
+        </p>
+        <div class="fenge"></div>
+    </div>
+</div>

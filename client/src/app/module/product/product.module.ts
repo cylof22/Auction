@@ -17,6 +17,7 @@ import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
 import { FootScrollBarComponent } from './scrollBar/scrollBar.component'
 import { NgMasonryGridModule } from 'ng-masonry-grid';
+import { WalletModule } from './../wallet/wallet.module'
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        WalletModule,
         RouterModule.forChild([
             {path: 'products/:productId', component: ProductDetailComponent},
             {path: 'products/:productId/edit', component: ProductEditComponent},

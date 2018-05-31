@@ -37,7 +37,7 @@ export class AuthenticationService {
 
     logout() {
         localStorage.removeItem(this.localKey);
-        this.currentUser = new User("", "", "");
+        this.currentUser = new User("", "", "", "");
     }
 
     login(loginInfo: LoginInfo) : Observable<User> {

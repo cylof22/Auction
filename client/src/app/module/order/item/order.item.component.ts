@@ -31,13 +31,6 @@ export class OrderItemComponent {
 
   initStateForBuyer() {
     switch (parseInt(this.order.status)) {
-      case OrderStatus.inFix:
-      case OrderStatus.dispatchConfirmed:
-      this.statusValue = "system confirm";
-      break;
-      case OrderStatus.returnConfirmed:
-      this.statusValue = "system cancel";
-      break;
       case OrderStatus.inAuction:
       this.statusValue = "in auction";
       break;

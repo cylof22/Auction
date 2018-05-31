@@ -41,23 +41,23 @@ export class UserProductsComponent {
 
   isReadonly(productId: string) {
     if (this.mySellings == null) {
-      return false;
+      return 'false';
     }
 
     for (let i = 0; i < this.mySellings.length; i++) {
-      if (this.mySellings[i].id == productId) {
-        return true;
+      if (this.mySellings[i].product.id == productId) {
+        return 'true';
       }
     }
 
-    return false;
+    return 'false';
   }
 
   initProducts(inputs: Product[]) {
     this.allProducts = inputs;
     this.currentIndex = 0;
 
-    this.shownProducts = this.allProducts.splice(this.currentIndex, this.stepCount);
+    this.shownProducts = this.allProducts.slice(this.currentIndex, this.stepCount);
     this.currentIndex = this.currentIndex + this.stepCount;
   }
   

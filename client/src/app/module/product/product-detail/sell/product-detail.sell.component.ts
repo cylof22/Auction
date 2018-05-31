@@ -22,7 +22,7 @@ export class ProductDetailSellComponent{
   constructor(private authService: AuthenticationService,
               private orderService: OrderService) {
       this.canBeSold = false;
-      this.defaultSaleCheckStatus = 'true';
+      this.defaultSaleCheckStatus = 'false';
   }
 
   ngOnInit() {

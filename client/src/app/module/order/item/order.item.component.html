@@ -8,10 +8,10 @@
         <h5>Order number: <a>{{ order.id }}</a></h5>
     </div>
     <div *ngIf="isBuyer=='true'" class="infoItem">
-        <h5>$ {{ order.buyInfo.priceValue }}</h5>
+        <h5>{{ order.buyInfo.priceValue }} ETH</h5>
     </div>
     <div *ngIf="isBuyer!='true'" class="infoItem">
-        <h5>$ {{ order.product.priceValue }}</h5>
+        <h5>{{ order.product.priceValue }} ETH</h5>
     </div>
     <div class="infoItem">
         <h5>{{ statusValue }}</h5>

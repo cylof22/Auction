@@ -1,4 +1,4 @@
-<div *ngIf="currentUserInfo">
+<div *ngIf="currentUserInfo" class="container ">
     <div class="username-group">
         <label class="title">Username</label>
         <p>{{ username }}</p>
@@ -6,20 +6,20 @@
 
     <div class="password-group">
         <label class="title">Password</label>
-        <input class="value" type="password" placeholder="********">
+        <input id="password" class="value" type="password" placeholder="********">
     </div>
 
     <br>
     <div class="email-group">
         <label class="title">Email</label>
-        <p class="value">{{ currentUserInfo.email }}</p>
+        <p id="email" class="value">{{ currentUserInfo.email }}</p>
         <button class="modify-btn">Modify</button>
     </div>
 
     <br>
     <div class="portrait-group">
         <label class="title">Portrait</label>
-        <img id="portraitImg" *ngIf="!hasPortrait" class="value" #portraitImg>
+        <img id="portraitImg" *ngIf="!hasPortrait" src="static/assets/defaultProfile.png" class="value" #portraitImg>
         <img id="portraitImg" *ngIf="hasPortrait" [src]="currentUserInfo.headPortraitUrl" class="value" #portraitImg>
         <button *ngIf="!hasPortrait" (click)="selectPortrait()">Add</button>
         <button *ngIf="hasPortrait" (click)="selectPortrait()">Modify</button>
@@ -28,7 +28,7 @@
     </div> 
 
 
-    <br>
+    <!-- <br>
     <div class="hobby-group">
         <div class="title">
             <label>hobbies</label>
@@ -38,9 +38,12 @@
                 <button class="tag" (click)="onClickTag(tagCtrl)" #tagCtrl>{{ tag }}</button>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="submit-group">
-        <button class="submit">Save</button>
+        <button class="submit" (click)="onUpdate()">Save</button>
+    </div>
+    <div *ngIf="errorInfo != ''">
+        <p class="fail">{{errorInfo}}</p>
     </div>
 </div>

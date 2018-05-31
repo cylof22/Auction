@@ -5,7 +5,7 @@
                 class="condition-checkbox"
                 (click)="onSwitchSaleCheck()"
                 #saleCheck>
-        <p class="condition-text">sell it now</p>
+        <p class="condition-text">Sell it now</p>
     </div>
     <div *ngIf="saleCheck.checked" class="priceGroup">
         <button id="fix" 
@@ -21,11 +21,12 @@
                 (click)="onClickAuction(auction)" #auction>Auction
         </button>
         <input id="priceValue" 
-                class="price-input form-control" 
+                class="value-input form-control" 
                 type="number" 
                 formControlName="priceValue"
                 [placeholder]="getPlaceHolder()" 
                 required #priceInput>
+        <p>ETH</p>
 
         <div class="poundage-box">
             <button class="calculation" (click)="calPoundage()">Calculate Poundage</button>
@@ -36,9 +37,10 @@
         </div>
 
         <input id="duration" 
-               class="duration price-input form-control" 
+               class="duration value-input form-control" 
                formControlName="duration"
                type="number" placeholder="sale duration(max is 30 days)" required>
+        <p class="days-label">Days</p>
     </div>
 
     <div class="sell-container">

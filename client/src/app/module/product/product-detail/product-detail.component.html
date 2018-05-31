@@ -37,11 +37,11 @@
     <div *ngIf="order">
       <div *ngIf="order.product.priceType != '2' && order.product.priceType != ''" class="row info-item-group">
         <p class="title col-sm-4 col-lg-4 col-md-4">{{ priceType }}</p>
-        <p class="col-sm-8 col-lg-8 col-md-8">{{ order.product.priceValue }}</p>
+        <p class="col-sm-8 col-lg-8 col-md-8">{{ order.product.priceValue }} ETH</p>
       </div>
       <div *ngIf="order.product.priceType != '2' && order.product.priceType != ''" class="row info-item-group">
         <p class="title col-sm-4 col-lg-4 col-md-4">Duration</p>
-        <p class="col-sm-8 col-lg-8 col-md-8">{{ order.duration }}</p>
+        <p class="col-sm-8 col-lg-8 col-md-8">{{ order.duration }} days</p>
       </div>
     </div>
 

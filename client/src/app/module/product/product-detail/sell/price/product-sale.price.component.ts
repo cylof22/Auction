@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 import { EPriceType, ProductPrice } from './../../../product.model/product';
 import { ProductService } from './../../../../product/service/product.service'
+import { MetaMaskService } from './../../../../wallet/services/metamask.service'
 
 const blueColor = "cornflowerblue";
 const transparentColor = "transparent";
@@ -23,7 +24,10 @@ export class ProductSalePriceComponent{
 
     poundage: string = '';           // poundage value according to current price
 
-    constructor(private productService: ProductService) {
+    showWalletDlg: boolean = false;
+
+    constructor(private productService: ProductService,
+                private metaMaskService: MetaMaskService) {
         const fb = new FormBuilder();
         this.formModel = fb.group({
         'priceValue': '',
@@ -43,6 +47,13 @@ export class ProductSalePriceComponent{
     onSwitchSaleCheck() {
         let saleCheckCtrl = <HTMLInputElement>document.getElementById('saleCheck');
         this.onSaleSwitchEvent.emit(saleCheckCtrl.checked);
+
+        if (saleCheckCtrl.checked) {
+            if (this.metaMaskService.isMetaMaskLocked()) {
+                saleCheckCtrl.checked = false;
+                location.href = '/#/wallet-info';
+            }
+        }
     }
 
     getPlaceHolder() {
@@ -87,7 +98,7 @@ export class ProductSalePriceComponent{
         }
 
         let temp = this.productService.getPoundage(priceValue.value);
-        this.poundage = temp.toString();
+        this.poundage = temp.toString() + 'ETH';
     }
 
     getPriceInfo() : ProductPrice { 
@@ -100,6 +111,11 @@ export class ProductSalePriceComponent{
     }
 
     submit() {
+        if (this.metaMaskService.isMetaMaskLocked()) {
+            location.href = '/#/wallet-info';
+            return;
+        }
+
         if (parseInt(this.priceType) == EPriceType.OnlyShow) {
             return;
         }

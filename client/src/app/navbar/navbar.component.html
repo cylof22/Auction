@@ -33,6 +33,7 @@
         <li><a [routerLink]="['/register']">Register</a></li>
       </ul>
       <div class="nav navbar-nav navbar-right dropdown user-group" *ngIf="isAuthenticated">
+          <img *ngIf="userPortrait && userPortrait != ''" class="portrait" [src]="userPortrait">
           <a href="/#/users/{{userName}}">{{userName}}<b class="caret"></b></a>
           <ul class="dropdown-menu logout-dropmenu">
             <button type="button" class="btn btn-default logout" (click)="onLogout()">
