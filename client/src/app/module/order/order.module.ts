@@ -6,7 +6,11 @@ import { OrderBuyerComponent } from './buyer/order.buyer.component'
 import { OrderSellerComponent } from './seller/order.seller.component'
 import { OrderItemComponent } from './item/order.item.component'
 import { OrderStatusComponent } from './status/order.status.component'
+import { ShopComponent } from './shop/shop.component'
+import { ShopItemComponent } from './shop/item/shop.item.component'
 import { OrderService, API_ORDER_SERVICE_URL } from './service/order.service'
+
+import { NgMasonryGridModule } from 'ng-masonry-grid';
 
 @NgModule({
     declarations: [
@@ -14,6 +18,8 @@ import { OrderService, API_ORDER_SERVICE_URL } from './service/order.service'
         OrderItemComponent,
         OrderStatusComponent,
         OrderSellerComponent,
+        ShopComponent,
+        ShopItemComponent,
     ],
     exports: [
         OrderBuyerComponent,
@@ -22,6 +28,11 @@ import { OrderService, API_ORDER_SERVICE_URL } from './service/order.service'
     imports: [
         CommonModule,
         RouterModule,
+        NgMasonryGridModule,
+        RouterModule.forChild([
+            {path: 'shop', component: ShopComponent},
+            {path: 'shop/:orderId', component: ShopItemComponent},
+          ]),
     ],
 
     providers:[

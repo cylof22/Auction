@@ -4,28 +4,35 @@
                             class="order-status" 
                             title="No Buyer"
                             active="true" 
-                            (click)="onClickNoBuyer(nobuyer, auction, unshipped, inreturn)" #nobuyer>
+                            (click)="onClickNoBuyer(nobuyer, auction, unshipped, dispatched, inreturn)" #nobuyer>
         </order-status-page>
 
         <order-status-page id="auction" 
                           class="order-status" 
                           title="In Auction" 
                           active="false" 
-                          (click)="onClickAuction(nobuyer, auction, unshipped, inreturn)" #auction>
+                          (click)="onClickAuction(nobuyer, auction, unshipped, dispatched, inreturn)" #auction>
         </order-status-page>
 
         <order-status-page id="unshipped" 
                             class="order-status" 
                             title="Not Yet Shipped" 
                             active="false" 
-                            (click)="onClickUnshipped(nobuyer, auction, unshipped, inreturn)" #unshipped>
+                            (click)="onClickUnshipped(nobuyer, auction, unshipped, dispatched, inreturn)" #unshipped>
+        </order-status-page>
+
+        <order-status-page id="dispatched" 
+                          class="order-status" 
+                          title="Dispatched" 
+                          active="false" 
+                          (click)="onClickDispatched(nobuyer, auction, unshipped, dispatched, inreturn)" #dispatched>
         </order-status-page>
 
         <order-status-page id="inreturn" 
                             class="order-status" 
                             title="In Return" 
                             active="false" 
-                            (click)="onClickInReturn(nobuyer, auction, unshipped, inreturn)" #inreturn>
+                            (click)="onClickInReturn(nobuyer, auction, unshipped, dispatched, inreturn)" #inreturn>
         </order-status-page>
 
     </div>
@@ -53,11 +60,11 @@
                 <div>
                     <div class="dispatch-div">
                         <label class="dispatch-courier">courier</label>
-                        <input id="courier" type="text" placeholder="please input courier firm">
+                        <input id="courier" class="dispatch-input" type="text" placeholder="please input courier firm">
                     </div>
                     <div class="dispatch-div">
                         <label class="dispatch-number">tracking number</label>
-                        <input id="express" type="text" placeholder="please input tracking number">
+                        <input id="express" class="dispatch-input" type="text" placeholder="please input tracking number">
                     </div>
                 </div>
                 <div class="modal-footer">

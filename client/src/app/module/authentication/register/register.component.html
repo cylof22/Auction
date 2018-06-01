@@ -1,30 +1,46 @@
 <form [formGroup]="formModel"
-      (ngSubmit)="submit()">
+      (ngSubmit)="f.form.valid && submit()" #f="ngForm">
       <div class="container">
-        <div>
-            <h1 > Join Tulian for Free</h1>
-        </div>
-        <div class="register">
+        <div class="register thumbnail">
             <label class="name-label">Username</label>
-            <input formControlName="username" id="username" class="form-control name-input" type="text" placeholder="Enter name" required>
+            <input formControlName="username" 
+                   id="username" type="text"
+                   class="form-control name-input" 
+                   placeholder="Enter name(min length is 3)" 
+                   [minlength]="3"
+                   (keyup)="onInput()" required>
 
             <label class="password-label">Password</label>
-            <input formControlName="password" id="password" class="form-control password-input " type="password" placeholder="Enter password" required>
-            <input class="form-control repassword-input" type="password" placeholder="Re-enter password" required>
-
-            <label class="phone-label">Phone</label>
-            <input formControlName="phone" id="phone" class="form-control phone-input" type="text" placeholder="Enter phone number" required>
+            <input formControlName="password" 
+                   id="password" type="password" 
+                   class="form-control password-input" 
+                   placeholder="Enter password" 
+                   (keyup)="onInput()" required>
+            <input class="form-control repassword-input" 
+                   id="repassword" type="password" 
+                   placeholder="Re-enter password" 
+                   (keyup)="onInput()">
 
             <label class="email-label">Email</label>
-            <input formControlName="email" id="email" class="form-control email-input" type="email" placeholder="Enter email" required>
+            <input formControlName="email" 
+                   id="email" type="email"
+                   class="form-control email-input" 
+                   placeholder="Enter email" 
+                   (keyup)="onInput()" required>
 
-            <div>
-                <input class="condition-checkbox" type="checkbox" checked="checked">
+            <div class="condition">
+                <input id="conditionCheck" type="checkbox" 
+                       class="condition-checkbox"
+                       checked="checked">
                 <h6 class="condition-text">I agree with the  
-                    <a [routerLink]="['/terms']">terms & conditions</a> of Tulian.com
+                    <a [routerLink]="['/terms']">terms & conditions</a> of elforce.net
                 </h6>
             </div>
             <button type="submit" class="submit-btn">Sign up</button>
+
+            <div class="thumbnail fail-container" *ngIf="errorValue != ''">
+                <p class="fail"> {{errorValue}} </p>
+            </div>
         </div>
     </div>  
 </form>

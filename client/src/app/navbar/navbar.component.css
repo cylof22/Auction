@@ -86,6 +86,10 @@
     display: block;
 } 
 
+.login {
+    margin-right: -10px;
+}
+
 .logout-dropmenu {
     min-width: 100%;
     padding: 5px;
@@ -99,4 +103,12 @@
     padding-right: 20px;
     padding-top: 2px;
     padding-bottom: 2px;
+}
+
+.portrait {
+    margin-top: 2px;
+    width: 20px;
+    height: 20px;
+
+    border-radius: 10px;
 }

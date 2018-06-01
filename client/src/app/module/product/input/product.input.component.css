@@ -75,46 +75,6 @@
     outline: none;
  }
 
- .price-notice {
-    margin-right: 45px;
- }
-
- .price-exb {
-    margin-right: 25px;
- }
-
- .priceGroup {
-    margin-left: 100px;
-    margin-top: 5px;
-    margin-bottom: 0px;
-    padding-left: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
- }
-
- .priceGroup .fix {
-    margin-left: 0px;
-    margin-bottom: 5px;
- }
-
- .priceGroup .auction {
-    margin-left: 41px;
- }
-
-.priceGroup .price-input {
-    height: 25px;
-    margin-bottom: 5px;
- }
-
- .priceGroup .poundage-box {
-    margin-bottom: 0px;
-    padding-bottom: 0px;
- }
-
- .priceGroup .poundage-box .poundage {
-    margin-right: 0px;
- }
-
 .maker-input {
     margin-left: 43px;
     height: 25px;

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from './../service/user.service';
+import { AuthenticationService } from './../../authentication/services/authentication.service'
 
 enum ShownElement {
     Products,       // all owned products
@@ -25,10 +26,19 @@ export class UserMainComponent {
     activeClassName: string;
 
   constructor(private router: ActivatedRoute,
-              private userService: UserService) {
+              private userService: UserService,
+              private authService: AuthenticationService) {
     this.shownElement = ShownElement.Products;
     this.activeClassName = "active";
     this.username = router.snapshot.params['username'];
+  }
+
+  ngOnInit() {
+    if (this.username != this.authService.currentUser.username) {
+      this.authService.logout();
+      location.href = "/#/login";
+      location.reload(true);
+    }
   }
 
   clearActiveClass(currentCtrl: HTMLElement) {

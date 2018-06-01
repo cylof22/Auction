@@ -30,14 +30,18 @@
 .dispatch-courier {
     float: left;
     padding-left: 60px;
-    margin-right: 10px;
+    margin-right: 5px;
     width: 120px;
 }
 
 .dispatch-number {
     float: left;
-    margin-right: 10px;
+    margin-right: 5px;
     width: 120px;
+}
+
+.dispatch-input {
+    width: 185px;
 }
 
 .fail {

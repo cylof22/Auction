@@ -1,0 +1,7 @@
+<div class="item-container thumbnail" (mouseenter)="showCtrls(imageCon)" (mouseleave)="removeCtrls(imageCon)" #imageCon>
+    <img [src]="order.product.url" (click)="showProduct()" class="image" #image>
+    <div class="info-container">
+        <label class="price">{{ order.product.priceValue }} ETH</label>
+    </div>
+</div>
+  

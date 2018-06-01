@@ -10,7 +10,6 @@ import { AuthenticationService } from './../../authentication/services/authentic
 import { OrderService } from './../../order/service/order.service'
 import { Order, SellInfo, Express, ReturnInfo, BuyInfo, ProductInfo } from './../../order/order.model/order'
 import { BidService } from './bid.service';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'product-detail-page',
@@ -34,6 +33,7 @@ export class ProductDetailComponent implements OnDestroy {
               router: ActivatedRoute) {
 
     this.errorInfo = '';
+    this.priceType = 'Only Exhibition';
 
     const productId = router.snapshot.params['productId'];
     this.getCurrentProduct(productId);
@@ -57,7 +57,6 @@ export class ProductDetailComponent implements OnDestroy {
           this.product.price.duration = "30";
         }
         this.setProductType(product);
-        this.setPrice(product);
         this.setStoryInfo(product);
       },
       error => console.error(error));
@@ -65,7 +64,10 @@ export class ProductDetailComponent implements OnDestroy {
 
   getCurrentOrder(productId: string) {
     this.orderService.getOrderByProductId(productId).subscribe(
-      order => this.order = order
+      order => {
+        this.order = order;
+        this.setPrice(order);
+      }
     )
   }
 
@@ -80,13 +82,13 @@ export class ProductDetailComponent implements OnDestroy {
     }
   }
 
-  setPrice(product: Product) {
-    switch (parseInt(product.price.type)) {
+  setPrice(order: Order) {
+    switch (parseInt(order.product.priceType)) {
       case 0:
       this.priceType = "Fixed Price";
       break;
       case 1:
-      this.priceType = "Auction Price";
+      this.priceType = "Starting Price";
       break;
       case 2:
       this.priceType = "Only Exhibition"
@@ -110,56 +112,4 @@ export class ProductDetailComponent implements OnDestroy {
 
   ngOnDestroy(): any {
   }
-
-  buy(data) {
-    let buyInfo : BuyInfo = data;
-    if (buyInfo.startTime == '') {
-      buyInfo.startTime = this.getNowFormatDate();
-    }
-
-    this.orderService.buy(this.order.id, buyInfo).subscribe(
-      result => {
-        if (result == null) {
-          location.reload(true);
-        } else {
-          if (result.hasOwnProperty('error')) {
-            this.errorInfo = result['error'];
-          }
-        }
-      }
-    )
-  }
-
-  sell(data) {  
-    let productInfo = new ProductInfo('', '', '', '', '', '');
-    productInfo.priceValue = this.product.price.value;
-    productInfo.priceType = this.product.price.type;
-    productInfo.id = this.product.id;
-    productInfo.owner = this.product.owner;
-    productInfo.type = this.product.type;
-    productInfo.url = this.product.url;
-
-    let sellInfo = new SellInfo(productInfo, '', '') 
-    sellInfo.duration = this.product.price.duration;
-    sellInfo.startTime = this.getNowFormatDate();
-
-    this.orderService.sell(sellInfo).subscribe(
-      result => {
-        if (result == null) {
-          location.reload(true);
-        } else {
-          if (result.hasOwnProperty('error')) {
-            this.errorInfo = result['error'];
-          }
-        }
-      }
-    )
-  }
-
-  getNowFormatDate(): string {
-    let dataPipe = new DatePipe("en-US");
-      let date = new Date();
-      let currentdate = dataPipe.transform(date, 'yyyy-MM-dd HH:mm:ss');
-      return currentdate;
-  } 
 }

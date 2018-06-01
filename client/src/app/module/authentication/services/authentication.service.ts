@@ -1,10 +1,12 @@
-import { Injectable, Injector, InjectionToken } from "@angular/core";
-import { Http,Response,RequestOptions,Headers } from "@angular/http";
-import { Observable } from "rxjs/Observable";
+import { Injectable, Injector, InjectionToken } from '@angular/core';
+import { Http,Response,RequestOptions,Headers } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import { Md5 } from 'ts-md5/dist/md5'
-import { LoginInfo, RegisterInfo, User } from "./../../user/user.model/user"
-import { HttpClient } from "@angular/common/http";
-export const AUTHETICATION_SERVICE_URL = new InjectionToken<string>("authentication-service-url");
+import { User } from './../../user/user.model/user'
+import { LoginInfo, RegisterInfo } from './../model/authentication'
+
+export const AUTHETICATION_SERVICE_URL = new InjectionToken<string>('authentication-service-url');
 
 @Injectable()
 export class AuthenticationService {
@@ -35,7 +37,7 @@ export class AuthenticationService {
 
     logout() {
         localStorage.removeItem(this.localKey);
-        this.currentUser = new User("", "", "");
+        this.currentUser = new User("", "", "", "");
     }
 
     login(loginInfo: LoginInfo) : Observable<User> {

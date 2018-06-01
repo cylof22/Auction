@@ -6,15 +6,18 @@
 
 .detail-container {
     padding-top: 5px;
+
+    width: 100%;
 }
 
 .picture-container {
+    margin-top: 10px;
     text-align: center;
 }
 
 .picture-container .picArea {
     width: 100%;
-    height: 450px;
+    height: 500px;
 }
 
 .picture-container .picArea .picture {
@@ -54,11 +57,6 @@
     width: 25%;
 }
 
-.image-background {
-    background-color:rgb(235, 232, 232);
-    text-align: center;
-}
-
 .detail-info {
     padding-top: 40px;
 }
@@ -92,11 +90,6 @@
     word-wrap: break-word;
 }
 
-.fail {
-    color: red;
-}
-
 .button-group {
-    margin-top: 40px;
-    text-align: center;
+    margin-top: 30px;
 }

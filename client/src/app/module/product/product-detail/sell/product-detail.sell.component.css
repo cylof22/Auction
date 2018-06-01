@@ -1,6 +1,8 @@
 button {
     width: 60%;
     height: 30px;
+
+    margin-top: 20px;
     color: white;
     background-color: cornflowerblue;
     border: none;
@@ -10,4 +12,16 @@ button {
     border-bottom-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+}
+
+.price-container {
+    padding: 0;
+}
+
+.fail {
+    position: relative;
+    top: -55px;
+    color: red;
+
+    text-align: center;
 }

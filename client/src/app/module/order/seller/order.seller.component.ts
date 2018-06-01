@@ -35,34 +35,47 @@ export class OrderSellerComponent {
     )
   }
 
-  onClickNoBuyer(nobuyer, auction, unshipped, inreturn) {
+  onClickNoBuyer(nobuyer, auction, unshipped, dispatched, inreturn) {
     this.currentType = [OrderStatus.none.toString()];
 
     nobuyer['active'] = 'true';
     auction['active'] = 'false';
     unshipped['active'] = 'false';
+    dispatched['active'] = 'false';
     inreturn['active'] = 'false';
   }
 
-  onClickAuction(nobuyer, auction, unshipped, inreturn) {
+  onClickAuction(nobuyer, auction, unshipped, dispatched, inreturn) {
     this.currentType = [OrderStatus.inAuction.toString()];
 
     nobuyer['active'] = 'false';
     auction['active'] = 'true';
     unshipped['active'] = 'false';
+    dispatched['active'] = 'false';
     inreturn['active'] = 'false';
   }
 
-  onClickUnshipped(nobuyer, auction, unshipped, inreturn) {
+  onClickUnshipped(nobuyer, auction, unshipped, dispatched, inreturn) {
     this.currentType = [OrderStatus.unshipped.toString()];
 
     nobuyer['active'] = 'false';
     auction['active'] = 'false';
     unshipped['active'] = 'true';
+    dispatched['active'] = 'false';
     inreturn['active'] = 'false';
   }
 
-  onClickInReturn(nobuyer, auction, unshipped, inreturn) {
+  onClickDispatched(nobuyer, auction, unshipped, dispatched, inreturn) {
+    this.currentType = [OrderStatus.dispatched.toString()];
+
+    nobuyer['active'] = 'false';
+    auction['active'] = 'false';
+    unshipped['active'] = 'false';
+    dispatched['active'] = 'true';
+    inreturn['active'] = 'false';
+  }
+
+  onClickInReturn(nobuyer, auction, unshipped, dispatched, inreturn) {
     this.currentType = [OrderStatus.returnInAgree.toString(), 
                         OrderStatus.returnAgreed.toString(), 
                         OrderStatus.returnDispatched.toString()];
@@ -70,6 +83,7 @@ export class OrderSellerComponent {
     nobuyer['active'] = 'false';
     auction['active'] = 'false';
     unshipped['active'] = 'false';
+    dispatched['active'] = 'false';
     inreturn['active'] = 'true';
   }
 

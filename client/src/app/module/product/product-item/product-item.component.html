@@ -1,18 +1,18 @@
-<div class="thumbnail" (mouseenter)="showEditCtrls()" (mouseleave)="removeEditCtrls()">
-  <div>
-    <img [src] = "product.url" (click)="showProduct()" class="image">
-    <div *ngIf="canShowEditCtrls" class="not-readonly-container">
-      <button class="edit commonBtn" (click)="onEdit()">edit</button>
-      <button class="delete commonBtn" (click)="onDelete()">delete</button>
+<div class="item-container thumbnail">
+  <img [src] = "product.url" (click)="showProduct()" class="image">
+
+  <div class="info-container">
+    <div class="left info-group">
+        <img class="left lover icon" src="static/assets/lover.png">
+        <p class="left value">{{loverCount}}</p>
+    </div>
+    <div class="middle-item info-group">
+        <img class="left comment icon" src="static/assets/comment.png">
+        <p class="left value">{{commentCount}}</p>
+    </div>
+    <div class="right info-group">
+        <p class="right value">{{shareCount}}</p>
+        <img class="right share icon" src="static/assets/share.png">
     </div>
   </div>
-  <div class="text-container">
-    <label class="label-left item-label">{{ product.owner }}</label>
-    <label class="label-right item-label">{{ product.price.value }}</label>
-  </div>
-    <!-- <h4><a [routerLink]="['/products', product.id]">{{ product.title }}</a></h4>
-    <p>{{ product.description }}</p> -->
-  <!-- <div class="ratings">
-    <auction-stars [rating]="product.rating"></auction-stars>
-  </div>-->
 </div>
