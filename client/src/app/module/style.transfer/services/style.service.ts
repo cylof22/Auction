@@ -27,7 +27,7 @@ export class StyleTransferService {
         const formData = new FormData();
         formData.append('content', contentFile);
 
-        const formHeaders = { 'enctype': 'multipart/form-data', 'timeout': '20000'};
+        const formHeaders = { 'enctype': 'multipart/form-data', 'timeout': '200000'};
         return this.http.post(transferURL, formData, {headers: formHeaders, responseType: 'blob'})
     }
 
