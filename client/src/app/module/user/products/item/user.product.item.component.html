@@ -1,0 +1,8 @@
+<div class="item-container thumbnail" (mouseenter)="showCtrls(imageCon)" (mouseleave)="removeCtrls(imageCon)" #imageCon>
+    <img [src]="product.url" (click)="showProduct()" class="image" #image>
+    <div *ngIf="canShowEditCtrls" class="float-container">
+        <button class="edit commonBtn" (click)="onEdit()">edit</button>
+        <button class="delete commonBtn" (click)="onDelete()">delete</button>
+    </div>
+</div>
+  

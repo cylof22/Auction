@@ -24,6 +24,10 @@ export class OrderService {
     return this.http.get<Order>(this.apiUrl + '/api/v1/order', {params: encodeParams(params)});
   }
 
+  getOrdersInTransaction(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.apiUrl + `/api/v1/transactionorders`);
+  }
+
   getMyOrders(userId: string): Observable<Order[]> {
     return this.http.get<Order[]>(this.apiUrl + `/api/v1/orders/${userId}`);
   }

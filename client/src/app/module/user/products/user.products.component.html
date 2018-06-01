@@ -1,17 +1,17 @@
-<div class="row">
-    <div *ngIf="shownProducts" id="products" class="container col-sm-12 col-lg-12 col-md-12" (scroll)="onScroll()">
-        <ng-masonry-grid class="grid-style"
-            [masonryOptions]="{ transitionDuration: '0.8s'}" 
-            (onNgMasonryInit)="onNgMasonryInit($event)"
-            [useAnimation]="false"
-            [useImagesLoaded]="true">
-                    
-            <ng-masonry-grid-item id="{{'masonry-my-product-'+i}}" *ngFor="let product of shownProducts; let i = index;" class="col-sm-2 col-lg-2 col-md-2 grid-item"> 
-                <auction-product-item [product]="product" [readonly]="isReadonly(product.id)" fromItsOwner="true"></auction-product-item>
-            </ng-masonry-grid-item>
-        </ng-masonry-grid>
-    </div>
-    <!-- <div *ngIf="!myProducts">
-        <h3>No products</h3>
-    </div> -->
+<div *ngIf="shownProducts" id="products" class="container" (scroll)="onScroll()">
+    <ng-masonry-grid class="grid-style"
+        [masonryOptions]="{ transitionDuration: '0.8s'}" 
+        (onNgMasonryInit)="onNgMasonryInit($event)"
+        [useAnimation]="false"
+        [useImagesLoaded]="true">
+                
+        <ng-masonry-grid-item id="{{'masonry-my-product-'+i}}" 
+                              *ngFor="let product of shownProducts; let i = index;" 
+                              class="col-sm-2 col-lg-2 col-md-2 grid-item product-item"> 
+            <user-product-item-page [product]="product" [readonly]="isReadonly(product.id)"></user-product-item-page>
+        </ng-masonry-grid-item>
+    </ng-masonry-grid>
 </div>
+<!-- <div *ngIf="!myProducts">
+    <h3>No products</h3>
+</div> -->

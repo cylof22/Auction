@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Product } from '../product.model/product';
 import { Router } from '@angular/router';
-import { ProductService } from '../service/product.service';
+
+import { DomSanitizer } from '@angular/platform-browser';
+import { Product } from './../product.model/product';
+import { ProductService } from './../service/product.service';
 
 @Component({
   selector: 'auction-product-item',
@@ -11,45 +12,28 @@ import { ProductService } from '../service/product.service';
 })
 export class ProductItemComponent {
   @Input() product: Product;
-  @Input() readonly: string;
-  @Input() fromItsOwner: string;
-  canShowEditCtrls: boolean = false;
+
+  loverCount: string;
+  shareCount: string;
+  commentCount: string;
 
   constructor(private sanitizer: DomSanitizer,
               private productService: ProductService,
               private route:Router) {
+
+    this.loverCount = this.createRandomNumber(5);
+    this.shareCount = this.createRandomNumber(5);
+    this.commentCount = this.createRandomNumber(5);
   }
 
-  ngOnInit() {
-  }
+  createRandomNumber(n){
+    let rnd="";
+    for(let i=0; i<n; i++)
+        rnd += Math.floor(Math.random()*10);
+    return rnd;
+}
 
   showProduct() {
     this.route.navigate(["/products/" + this.product.id]);
-  }
-
-  showCtrls(imageCtrl: HTMLElement) {
-    if (this.readonly == 'true') {
-      imageCtrl.style.filter = 'brightness(0.8)';
-    } else {
-      this.canShowEditCtrls = true;
-    }
-  }
-
-  removeCtrls(imageCtrl: HTMLElement) {
-    if (this.readonly == 'true') {
-      imageCtrl.style.filter = 'brightness(1)';
-    } else {
-      this.canShowEditCtrls = false;
-    }
-  }
-
-  onEdit() {
-    this.route.navigate(["/products/" + this.product.id + "/edit"]);
-  }
-
-  onDelete() {
-    this.productService.deleteProduct(this.product.id).subscribe(
-      res => location.reload(true)
-    );
   }
 }
