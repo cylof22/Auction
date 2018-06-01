@@ -1,14 +1,20 @@
-.image-selected{
-    outline: midnightblue;
-}
-
 .modal {
     background: rgba(0,0,0,0.6);
 }
 
-.image {
-    height: 450px;
-    width: 100%;
+.modal-dialog {
+    position: relative;
+    margin: 0 auto;
+    top: 25%;
+
+    width: 1200px;
+    overflow: auto;
+}
+
+.preview-group {
+    margin-top: 5%;
+
+    padding-left: 20px;
 }
 
 #centeredmenu {
@@ -47,21 +53,35 @@
     line-height:1.3em;
  }
 
-.modal-dialog {
-    position: relative;
-    margin: 0 auto;
-    top: 25%;
-}
+ .style-transfer {
+    padding: 10px;
+ }
 
- .model-style {
-     height: 700px;
-     width: 1200px;
+ .body {
+     height: 550px;
      overflow: auto;
  }
 
- .style-transfer {
-    display: block;
-    margin:0 auto;
-    position:relative;
-    padding:0;
+ .style-type {
+    background-color: transparent;
+    margin-right: 30px;
+
+    border: none;
+    outline: none;
  }
+
+ .footer-button {
+    width: 80px;
+    height: 30px;
+    color: white;
+    background-color: cornflowerblue;
+
+    border: none;
+    outline: none;
+
+    border-radius: 20px;
+ }
+
+ .actived {
+    color: cornflowerblue;
+}

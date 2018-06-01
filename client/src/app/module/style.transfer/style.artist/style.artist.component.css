@@ -1,8 +1,17 @@
-.image{
-    width: 100em;
-    height: 10em;
+.artist-style {
+    padding: 0;
 }
 
-.artist-style {
-    height: 13em;
+.image {
+    width: 100em;
+    height: 10em;
+
+    margin-bottom: 0;
+}
+
+h5 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    padding: 0;
 }

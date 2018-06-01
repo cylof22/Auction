@@ -1,21 +1,21 @@
 <!-- pop up a model to show computed picture -->
 <div class="modal fade" id="modelDig" role="dialog" tabindex="-1"
     [ngStyle]="{'display': modelVisible ? 'block' : 'none', 'opacity': 1}">
-    <div class="modal-dialog model-style">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Preview</label>
+                <div class="row body">
+                    <div class="col-md-3 preview-group">
+                        <p>Preview</p>
                         <div class="thumbnail" ng-if="styles">
-                            <img id="resultPreview" ng-src="" width="100%">
+                            <img id="resultPreview" ng-src="" width="100%" (click)="test(testImage)" #testImage>
                         </div>
                     </div>
                     <div class="row col-md-9 style-transfer">
                         <div id="centeredmenu">
                             <ul>
-                                <li><a (click)="OnSelectedArtist()">The Master Style</a></li>
-                                <li><a (click)="OnSelectedCustom()">Custom Style</a></li>
+                                <li><button class="style-type" [ngClass]="{'actived':isArtistStyle}" (click)="OnSelectedArtist()">The Master Style</button></li>
+                                <li><button class="style-type" [ngClass]="{'actived':!isArtistStyle}" (click)="OnSelectedCustom()">Custom Style</button></li>
                             </ul>
                         </div>
                         <style-artist [hidden] = "!isArtistStyle"></style-artist>
@@ -23,9 +23,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="applyTransfer()">Apply</button>
-                    <button type="button" class="btn btn-default" (click)="goToUpload()">Upload</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancel()">Cancel</button>
+                    <button type="button" class="btn btn-primary footer-button" (click)="applyTransfer()">Apply</button>
+                    <button type="button" class="btn btn-default footer-button" (click)="goToUpload()">Upload</button>
+                    <button type="button" class="btn btn-default footer-button" data-dismiss="modal" (click)="cancel()">Cancel</button>
                 </div>
             </div>
         </div>

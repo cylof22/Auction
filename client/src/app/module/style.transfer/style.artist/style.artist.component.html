@@ -1,8 +1,6 @@
 <div *ngFor="let artist of artists | async" class="col-md-3">
     <div class="thumbnail artist-style">
         <img class="image" [src]="artist.masterpiece" (click)=OnSelectedArtist(artist)>
-        <div class="caption" style="text-align:center">
-            <h5>{{ artist.name }}</h5>
-        </div>
+        <h5>{{ artist.name }}</h5>
     </div>
 </div>

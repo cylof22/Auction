@@ -1,40 +1,38 @@
 <div class="container-fluid fill-height">
-    <div class="row">
-        <div class="col-sm-8 col-lg-8 col-md-8">
-            <div id="fileSelGroup">
-                <input type="file" name="imagePath" id="imagePath" style="display: none;"
-                    (change)="showImage(input)" accept="image/png,image/jpg,image/jpeg" #input required/>
-            </div>
-            <div class="thumbnail image-container" 
-                 (mouseenter)="showReselectBtn()"
-                 (mouseleave)="removeReselectBtn()">
-
-                <!-- first selection -->
-                <input class="selectBtn" 
-                       type="button" 
-                       value="+" 
-                       (click)="selectFile()" 
-                       *ngIf="imagePreview.src == ''">
-                
-                <!-- select again -->
-                <div *ngIf="showReselectCtrl" class="reselect-container">
-                    <button class="reselect-Btn" (click)="selectFile()">Reselect
-                    </button>
-                </div>
-
-                <!-- image preview -->
-                <img id="imagePreview" class="image" #imagePreview>
-            </div>
-
-            <div *ngIf="imagePreview.src != ''" class="style-transfer-panel">
-                <h5>Try AI for Style Transfer?</h5>
-                <h6>Only for digital pictures, not for real painting</h6>
-                <button (click)="doTransfer()">Try</button>
-            </div>
+    <div class="col-sm-8 col-lg-8 col-md-8">
+        <div id="fileSelGroup">
+            <input type="file" name="imagePath" id="imagePath" style="display: none;"
+                (change)="showImage(input)" accept="image/png,image/jpg,image/jpeg" #input required/>
         </div>
-        <div class="col-sm-4 col-lg-4 col-md-4">
-            <product-input [isBatch]="false" (onUploadProductData)="onUploadProduct($event)"></product-input>
+        <div class="thumbnail image-container" 
+                (mouseenter)="showReselectBtn()"
+                (mouseleave)="removeReselectBtn()">
+
+            <!-- first selection -->
+            <input class="selectBtn" 
+                    type="button" 
+                    value="+" 
+                    (click)="selectFile()" 
+                    *ngIf="imagePreview.src == ''">
+            
+            <!-- select again -->
+            <div *ngIf="showReselectCtrl" class="reselect-container">
+                <button class="reselect-Btn" (click)="selectFile()">Reselect
+                </button>
+            </div>
+
+            <!-- image preview -->
+            <img id="imagePreview" class="image" #imagePreview>
         </div>
+
+        <div *ngIf="imagePreview.src != ''" class="style-transfer-panel">
+            <h5>Try AI for Style Transfer?</h5>
+            <h6>Only for digital pictures, not for real painting</h6>
+            <button (click)="doTransfer()">Try</button>
+        </div>
+    </div>
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <product-input [isBatch]="false" (onUploadProductData)="onUploadProduct($event)"></product-input>
     </div>
 </div>
 

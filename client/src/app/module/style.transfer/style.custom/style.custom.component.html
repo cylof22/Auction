@@ -1,3 +1,10 @@
-<div *ngFor="let style of styles" style="float: left;">
-    <img class="image" [src]="style.url" (click)="OnStyleChange(style)">
+<div *ngFor="let style of styles" class="col-md-3">
+    <div class="thumbnail custom-style">
+        <div id="imageBox" class="imageBox">
+            <img id="image"
+                 [src]="style.url" (click)="OnStyleChange(style)"
+                 class="image">
+        </div>
+        <h5>{{ style.owner }}</h5>
+    </div>
 </div>

@@ -1,6 +1,29 @@
-.image {
-    width: auto;
+.custom-style {
+    padding: 0;
+}
+
+.imageBox {
+    overflow: hidden;
+    text-align: center;
+
     height: 10em;
-    margin-top: 1em;
-    margin-left: 1em;
+    margin-bottom: 0;
+}
+
+/* .image {
+    position: relative;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%); 
+} */
+
+.image {
+    height: 100%;
+}
+
+h5 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    padding: 0;
 }
