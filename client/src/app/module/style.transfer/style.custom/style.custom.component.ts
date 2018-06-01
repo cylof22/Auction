@@ -36,9 +36,6 @@ export class StyleCustomComponent {
 
     OnStyleChange(style: Product) {
         this.selectedStyle = style;
-
-        let img = document.getElementById("selectedStyle");
-        img.setAttribute("src", style.url);
     }
 
     getSelectedStyle() : string {
