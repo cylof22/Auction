@@ -39,5 +39,5 @@
 </div>
 
 <div *ngIf="showTransferDlg">
-    <style-transfer [ImgSrc]="imagePreview.src" (completeTransfer)="onCompleteTransfer($event)"></style-transfer>
+    <style-transfer [ImgSrc]="imgBlob" (completeTransfer)="onCompleteTransfer($event)"></style-transfer>
 </div>

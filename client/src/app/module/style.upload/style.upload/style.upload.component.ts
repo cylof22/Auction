@@ -19,6 +19,7 @@ export class StyleUploadComponent {
     showTransferDlg: boolean = false;
     showReselectCtrl: boolean = false;
 
+    imgBlob : File = null;
     constructor(private productService: ProductService,
                 private uploadService: StyleUploadService,
                 router: ActivatedRoute) {
@@ -52,6 +53,7 @@ export class StyleUploadComponent {
         // show image
         let reader = new FileReader();
         let file = input.files[0];
+        this.imgBlob = file;
         reader.readAsDataURL(file);
         reader.onload = function(e) {
             let img = document.getElementById("imagePreview");

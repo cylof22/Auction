@@ -11,13 +11,11 @@ import { StyleArtistComponent } from '../style.artist/style.artist.component';
     styleUrls: ['./style.transfer.component.css']
 })
 export class StyleTransferComponent {
-    @Input("ImgSrc") originalImgSrc: string = "";
+    @Input("ImgSrc") originalImgSrc: File = null;
     @Output() completeTransfer: EventEmitter<any> = new EventEmitter;
 
     @ViewChild(StyleArtistComponent) artistComponet : StyleArtistComponent;
     @ViewChild(StyleCustomComponent) customComponent : StyleCustomComponent;
-    
-    contentImageURL: string;
 
     selectedStyleURL : string;
 
@@ -30,24 +28,16 @@ export class StyleTransferComponent {
     }
 
     ngOnInit() {
-        if (this.originalImgSrc != "") {
-
-            let img = document.getElementById("resultPreview");
-            img.style.width = "auto";
-            img.setAttribute("src", this.originalImgSrc);
+        if (this.originalImgSrc != null) {
+            let reader = new FileReader();
+            reader.readAsDataURL(this.originalImgSrc);
+            reader.onload = function(e) {
+                let img = document.getElementById("resultPreview");
+                img.style.width = "auto";
+                img.setAttribute("src", this.result);
+            }
 
             this.modelVisible = true;
-        }
-    }
-
-    private showImage(input, previewID) {
-        let reader = new FileReader();
-        let file = input.files[0];
-        reader.readAsDataURL(file);
-        reader.onload = function(e) {
-            let img = document.getElementById(previewID);
-            img.style.width = "auto";
-            img.setAttribute("src", this.result);
         }
     }
 
@@ -55,25 +45,22 @@ export class StyleTransferComponent {
     {
         // get image data
         let img = document.getElementById("imagePreview");
-        let uploadedData = {
-            "url": img.getAttribute("src")
+
+        // Todo: Need to parse the image data as the form data to the AI server
+        // Todo: Merge the content upload process to the transfer request
+        // Todo: Let the user to decide the final destination of the content image
+     
+        if(this.isArtistStyle) {
+            // transfer the content image by the artist type
+            this.svc.transferByArtist(this.artistComponet.getSelectedArtistModel(), this.originalImgSrc).subscribe( res => {
+                this.showComputeRes(res);
+            })
+        } else {
+            // transfer the content image by the style image
+            this.svc.transfer(this.originalImgSrc, this.customComponent.getSelectedStyle()).subscribe(res => {
+                this.showComputeRes(res);
+            }); 
         }
-        
-        this.svc.uploadContent(uploadedData).subscribe( result =>  {
-            this.contentImageURL = result.url;
-            
-            if(this.isArtistStyle) {
-                // transfer the content image by the artist type
-                this.svc.transferByArtist(this.contentImageURL,  this.artistComponet.getSelectedArtistModel()).subscribe( res => {
-                    this.showComputeRes(res);
-                })
-            } else {
-                // transfer the content image by the style image
-                this.svc.transfer(this.contentImageURL, this.customComponent.getSelectedStyle()).subscribe(res => {
-                    this.showComputeRes(res);
-                }); 
-            }
-        });
     }
 
     Transfer(event) {
