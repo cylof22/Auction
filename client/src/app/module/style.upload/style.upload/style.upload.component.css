@@ -45,10 +45,7 @@
 
     margin-top: -30px;
 
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 20px;
 }
 
 .image-container .image {
@@ -59,17 +56,41 @@
 .style-transfer-panel {
     background-color: cornflowerblue;
     text-align: center;
-    margin-top: 0px;
+    margin-top: -10px;
+
+    padding: 0;
  }
 
  .style-transfer-panel h5 {
     padding-top: 10px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+    color: white;
+ }
+
+ .style-transfer-panel h6 {
+    padding: 0;
+    margin-top: 0px;
+    margin-bottom: 10px;
+
+    color: white;
  }
 
  .style-transfer-panel button {
+    width: 100px;
+    height: 30px;
+    color: white;
     background-color: transparent;
-    width: 60px;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    outline: none;
+
     margin-bottom: 10px;
+
+    border-radius: 20px;
  }
 
  .fill-height {

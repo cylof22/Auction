@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable'
 })
 
 export class StyleArtistComponent {
-    artists: Observable<Artist[]> ;
+    artists: Observable<Artist[]>;
     selectedArtist : Artist;
     errorMessage: string;
     hotest : boolean;
