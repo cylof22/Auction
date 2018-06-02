@@ -2,6 +2,10 @@
     padding: 0;
 }
 
+.custom-style:hover{
+    filter: brightness(0.8);
+}
+
 .imageBox {
     overflow: hidden;
     text-align: center;

@@ -13,6 +13,7 @@ export class StyleCustomComponent {
     styles: Product[];
     selectedStyle: Product;
     hotest : boolean;
+    lastHightlightCtrl: HTMLElement = null;
 
     constructor(private styleService : ProductService, activeRoute: ActivatedRoute) {
         this.hotest = activeRoute.snapshot.params["mode"] == "hotest";
@@ -34,11 +35,21 @@ export class StyleCustomComponent {
         }
     }
 
-    OnStyleChange(style: Product) {
+    OnStyleChange(style: Product, image: HTMLElement) {
         this.selectedStyle = style;
 
-        let img = document.getElementById("selectedStyle");
-        img.setAttribute("src", style.url);
+        if (this.lastHightlightCtrl != image) {
+            if (this.lastHightlightCtrl != null) {
+                this.lastHightlightCtrl.style.borderStyle = image.style.borderStyle;
+                this.lastHightlightCtrl.style.borderColor = image.style.borderColor;
+                this.lastHightlightCtrl.style.borderWidth = image.style.borderWidth;
+            }
+
+            image.style.borderWidth = '3px';
+            image.style.borderStyle = 'solid';
+            image.style.borderColor = 'cornflowerblue';
+            this.lastHightlightCtrl = image;
+        }
     }
 
     getSelectedStyle() : string {
