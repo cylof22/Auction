@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable'
 })
 
 export class StyleArtistComponent {
-    artists: Artist[];
+    artists: Observable<Artist[]>;
     selectedArtist : Artist;
     errorMessage: string;
     hotest : boolean;
@@ -19,35 +19,26 @@ export class StyleArtistComponent {
 
     constructor(private artistService: ArtistService, activeRoute: ActivatedRoute) {
         this.hotest = activeRoute.snapshot.params["mode"] == "hotest";
-        let inputArtist = null
         if(this.hotest) {
-            inputArtist = this.artistService.getHotestArtists()
+            this.artists = this.artistService.getHotestArtists()
                 .retryWhen(errors => {
                 this.errorMessage = `Please start the server. Retrying to connect.`;
                 return errors
-                .delay(10000) // Retry every 2 seconds
+                .delay(2000) // Retry every 2 seconds
                 //.take(3)   // Max number of retries
                 .do(() => this.errorMessage += '.'); // Update the UI
             })
             .finally(() => this.errorMessage = null);
         } else {
-            inputArtist = this.artistService.getArtists()
+            this.artists = this.artistService.getArtists()
                 .retryWhen(errors => {
                 this.errorMessage = `Please start the server. Retrying to connect.`;
                 return errors
-                .delay(10000) // Retry every 2 seconds
+                .delay(2000) // Retry every 2 seconds
                 //.take(3)   // Max number of retries
                 .do(() => this.errorMessage += '.'); // Update the UI
             })
             .finally(() => this.errorMessage = null);
-        }
-
-        if(inputArtist != null) {
-            inputArtist.subscribe(
-                params => { 
-                    this.artists = params;
-                }
-            )
         }
     }
 
