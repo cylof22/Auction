@@ -42,10 +42,8 @@ export class StyleCustomComponent {
             if (this.lastHightlightCtrl != null) {
                 this.lastHightlightCtrl.style.borderStyle = image.style.borderStyle;
                 this.lastHightlightCtrl.style.borderColor = image.style.borderColor;
-                this.lastHightlightCtrl.style.borderWidth = image.style.borderWidth;
             }
 
-            image.style.borderWidth = '3px';
             image.style.borderStyle = 'solid';
             image.style.borderColor = 'cornflowerblue';
             this.lastHightlightCtrl = image;
