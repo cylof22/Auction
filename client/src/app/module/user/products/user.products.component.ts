@@ -56,6 +56,9 @@ export class UserProductsComponent {
   initProducts(inputs: Product[]) {
     this.allProducts = inputs;
     this.currentIndex = 0;
+    if (this.allProducts.length == 0) {
+      return;
+    }
 
     this.shownProducts = this.allProducts.slice(this.currentIndex, this.stepCount);
     this.currentIndex = this.currentIndex + this.stepCount;

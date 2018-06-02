@@ -15,6 +15,7 @@ export class StyleArtistComponent {
     selectedArtist : Artist;
     errorMessage: string;
     hotest : boolean;
+    lastHightlightCtrl: HTMLElement = null;
 
     constructor(private artistService: ArtistService, activeRoute: ActivatedRoute) {
         this.hotest = activeRoute.snapshot.params["mode"] == "hotest";
@@ -45,7 +46,20 @@ export class StyleArtistComponent {
         return this.selectedArtist.modelname;
     }
 
-    OnSelectedArtist(artist: Artist) {
+    OnSelectedArtist(artist: Artist, image: HTMLElement) {
         this.selectedArtist = artist;
+
+        if (this.lastHightlightCtrl != image) {
+            if (this.lastHightlightCtrl != null) {
+                this.lastHightlightCtrl.style.borderStyle = image.style.borderStyle;
+                this.lastHightlightCtrl.style.borderColor = image.style.borderColor;
+                this.lastHightlightCtrl.style.borderWidth = image.style.borderWidth;
+            }
+
+            image.style.borderWidth = '3px';
+            image.style.borderStyle = 'solid';
+            image.style.borderColor = 'cornflowerblue';
+            this.lastHightlightCtrl = image;
+        }
     }
 }

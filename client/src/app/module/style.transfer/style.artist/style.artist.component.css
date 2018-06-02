@@ -2,6 +2,10 @@
     padding: 0;
 }
 
+.artist-style:hover{
+    filter: brightness(0.8);
+}
+
 .image {
     width: 100em;
     height: 10em;
