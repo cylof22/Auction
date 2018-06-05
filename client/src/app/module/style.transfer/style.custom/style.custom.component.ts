@@ -40,17 +40,26 @@ export class StyleCustomComponent {
 
         if (this.lastHightlightCtrl != image) {
             if (this.lastHightlightCtrl != null) {
-                this.lastHightlightCtrl.style.borderStyle = image.style.borderStyle;
-                this.lastHightlightCtrl.style.borderColor = image.style.borderColor;
+                this.lastHightlightCtrl.style.backgroundColor = image.style.backgroundColor;
             }
 
-            image.style.borderStyle = 'solid';
-            image.style.borderColor = 'cornflowerblue';
+            image.style.backgroundColor = 'cornflowerblue';
             this.lastHightlightCtrl = image;
         }
     }
 
     getSelectedStyle() : string {
         return this.selectedStyle.url;
+    }
+
+    onImageLoaded(image: HTMLImageElement) {
+        let baseRatio = 184 / 140;
+        let currentRatio = image.width / image.height;
+
+        if (currentRatio > baseRatio) {
+            image.classList.add('height-style');
+        } else {
+            image.classList.add('width-style');
+        }
     }
 }

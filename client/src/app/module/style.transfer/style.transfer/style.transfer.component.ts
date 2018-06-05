@@ -41,8 +41,13 @@ export class StyleTransferComponent {
         }
     }
 
-    applyTransfer()
+    applyTransfer(currentBtn: HTMLElement)
     {
+        // change background color
+        currentBtn.style.backgroundColor = 'cornflowerblue';
+        currentBtn.style.color = 'white';
+        currentBtn.style.border = 'none';
+
         // get image data
         let img = document.getElementById("imagePreview");
 

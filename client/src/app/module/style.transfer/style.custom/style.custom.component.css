@@ -1,12 +1,16 @@
 .custom-style {
-    padding: 0;
+    padding: 5px;
 }
 
-.custom-style:hover{
+.custom-style .custom-container {
+    padding:3px;
+}
+
+.custom-style .custom-container:hover{
     filter: brightness(0.8);
 }
 
-.imageBox {
+.custom-style .custom-container .imageBox {
     overflow: hidden;
     text-align: center;
 
@@ -14,20 +18,30 @@
     margin-bottom: 0;
 }
 
-/* .image {
+.custom-style .custom-container .imageBox .width-style {
     position: relative;
     width: 100%;
-    top: 50%;
-    transform: translateY(-50%); 
-} */
+    height: auto;
 
-.image {
-    height: 100%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-h5 {
+.custom-style .custom-container .imageBox .height-style {
+    position: relative;
+    width: auto;
+    height: 100%;
+
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.custom-style .custom-container h5 {
     text-align: center;
-    margin-top: 5px;
-    margin-bottom: 2px;
-    padding: 0;
+    margin: 0px;
+
+    padding-top: 5px;
+    padding-bottom: 0px;
+
+    background-color: white;
 }

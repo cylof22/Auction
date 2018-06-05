@@ -51,12 +51,10 @@ export class StyleArtistComponent {
 
         if (this.lastHightlightCtrl != image) {
             if (this.lastHightlightCtrl != null) {
-                this.lastHightlightCtrl.style.borderStyle = image.style.borderStyle;
-                this.lastHightlightCtrl.style.borderColor = image.style.borderColor;
+                this.lastHightlightCtrl.style.backgroundColor = image.style.backgroundColor;
             }
 
-            image.style.borderStyle = 'solid';
-            image.style.borderColor = 'cornflowerblue';
+            image.style.backgroundColor = 'cornflowerblue';
             this.lastHightlightCtrl = image;
         }
     }

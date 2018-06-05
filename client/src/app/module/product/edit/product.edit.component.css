@@ -22,3 +22,11 @@
     width: auto;
     height: 100%;
 }
+
+.fail {
+    position: relative;
+    top: -60px;
+    color: red;
+
+    text-align: center;
+}

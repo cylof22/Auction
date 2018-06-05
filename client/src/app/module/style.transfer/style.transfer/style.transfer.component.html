@@ -7,8 +7,8 @@
                 <div class="row body">
                     <div class="col-md-3 preview-group">
                         <p>Preview</p>
-                        <div class="thumbnail" ng-if="styles">
-                            <img id="resultPreview" ng-src="" width="100%" (click)="test(testImage)" #testImage>
+                        <div class="image-div" ng-if="styles">
+                            <img id="resultPreview" class="image" ng-src="" (click)="test(testImage)" #testImage>
                         </div>
                     </div>
                     <div class="row col-md-9 style-transfer">
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary footer-button" (click)="applyTransfer()">Apply</button>
+                    <button type="button" class="btn btn-primary footer-button" (click)="applyTransfer(applyBtn)" #applyBtn>Apply</button>
                     <button type="button" class="btn btn-default footer-button" (click)="goToUpload()">Upload</button>
                     <button type="button" class="btn btn-default footer-button" data-dismiss="modal" (click)="cancel()">Cancel</button>
                 </div>

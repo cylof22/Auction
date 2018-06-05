@@ -1,21 +1,27 @@
 .artist-style {
-    padding: 0;
+    padding: 5px;
 }
 
-.artist-style:hover{
+.artist-style .artist-container {
+    padding:3px;
+}
+
+.artist-style .artist-container:hover{
     filter: brightness(0.8);
 }
 
-.image {
+.artist-style .artist-container .image {
     width: 100em;
     height: 10em;
-
     margin-bottom: 0;
 }
 
-h5 {
+.artist-style .artist-container h5 {
     text-align: center;
-    margin-top: 5px;
-    margin-bottom: 2px;
-    padding: 0;
+    margin: 0px;
+
+    padding-top: 5px;
+    padding-bottom: 0px;
+
+    background-color: white;
 }
