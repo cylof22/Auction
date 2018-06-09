@@ -19,7 +19,7 @@
     <br>
     <div class="portrait-group">
         <label class="title">Portrait</label>
-        <img id="portraitImg" *ngIf="!hasPortrait" src="static/assets/defaultProfile.png" class="value" #portraitImg>
+        <img id="portraitImg" *ngIf="!hasPortrait" src="assets/defaultProfile.png" class="value" #portraitImg>
         <img id="portraitImg" *ngIf="hasPortrait" [src]="currentUserInfo.headPortraitUrl" class="value" #portraitImg>
         <button *ngIf="!hasPortrait" (click)="selectPortrait()">Add</button>
         <button *ngIf="hasPortrait" (click)="selectPortrait()">Modify</button>

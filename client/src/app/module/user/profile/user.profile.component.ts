@@ -73,7 +73,7 @@ export class UserProfileComponent {
 
     let portrainCtrl = document.getElementById('portraitImg');
     let protraitValue = portrainCtrl.getAttribute('src');
-    if (protraitValue == 'static/assets/defaultProfile.png') {
+    if (protraitValue == 'assets/defaultProfile.png') {
       protraitValue = '';
     }
 
