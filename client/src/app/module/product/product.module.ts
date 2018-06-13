@@ -17,7 +17,8 @@ import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
 import { FootScrollBarComponent } from './scrollBar/scrollBar.component'
 import { NgMasonryGridModule } from 'ng-masonry-grid';
-import { WalletModule } from './../wallet/wallet.module'
+import { WalletModule } from './../wallet/wallet.module';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { WalletModule } from './../wallet/wallet.module'
         ProductDetailBuyComponent,
         ProductDetailSellComponent,
         ProductSalePriceComponent,
-        CopyrightComponent
+        CopyrightComponent,
+        ReviewComponent
     ],
     exports: [
         ProductDetailComponent,

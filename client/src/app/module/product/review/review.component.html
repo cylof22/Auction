@@ -1,0 +1,25 @@
+<div class="well" id="reviews-anchor">
+  <div class="row">
+    <div class="col-md-12"></div>
+  </div>
+  <div class="text-right">
+    <button (click)="isReviewHidden = !isReviewHidden"
+            class="btn btn-success btn-green">Comments</button>
+  </div>
+
+  <div [hidden]="isReviewHidden">
+    <div><auction-stars [(rating)]="newRating" [readonly]="false" class="large"></auction-stars></div>
+    <div><textarea [(ngModel)]="newComment"></textarea></div>
+    <div><button (click)="addReview()" class="btn">Add Comment</button></div>
+  </div>
+
+  <div class="row" *ngFor="let review of reviews">
+    <hr>
+    <div class="col-md-12">
+      <auction-stars class= "ratings" [rating]="review.rating"></auction-stars>
+      <span>{{ review.user }}</span>
+      <span class="pull-right">{{ review.timestamp | date: 'shortDate' }}</span>
+      <p>{{ review.comment }}</p>
+    </div>
+  </div>
+</div>
