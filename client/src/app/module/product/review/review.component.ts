@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Product } from './../product.model/product';
 import { Review } from '../product.model/review';
 import { ProductService } from '../service/product.service';
+import { AuthenticationService } from '../../authentication/services/authentication.service';
 
 @Component({
   selector: 'auction-review',
@@ -18,26 +18,34 @@ export class ReviewComponent implements OnInit {
 
   isReviewHidden: boolean = true;
 
-  constructor(private productService: ProductService, 
-    router: ActivatedRoute) { 
-    const productId = parseInt(router.snapshot.params['productId']);
+  constructor(private productService: ProductService, private authService: AuthenticationService) { 
+    
+  }
 
+  ngOnInit() {
     this.productService
-      .getReviewsForProduct(productId)
+      .getReviewsForProduct(this.product.id)
       .subscribe(
         reviews => this.reviews = reviews,
         error => console.error(error));
   }
 
-  ngOnInit() {
-    
-  }
-
   addReview() {
     // Get user infor
-    let review = new Review(0, this.product.id, new Date(), 'Anonymous',
+    let userName = this.authService.currentUser.username;
+    if(userName.length == 0) {
+      userName = 'Anonymous';
+    }
+
+    let review = new Review(0, this.product.id, new Date(), userName,
       this.newRating, this.newComment);
-    this.reviews = [...this.reviews, review];
+
+    if(this.reviews == null) {
+      this.reviews = [review] 
+    } else {
+      this.reviews = [...this.reviews, review];
+    }
+    
     this.product.rating = this.averageRating(this.reviews);
 
     this.resetForm();

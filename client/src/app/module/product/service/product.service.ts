@@ -49,11 +49,8 @@ export class ProductService {
     return this.http.get<Product>(this.apiProductsUrl + `/${productId}`);
   }
 
-  getReviewsForProduct(productId: number): Observable<Review[]> {
-    return this.http
-    .get<Review[]>(this.apiProductsUrl + `/${productId}/reviews`)
-    .map(reviews => reviews.map(
-      (r: any) => new Review(r.id, r.productId, new Date(r.timestamp), r.user, r.rating, r.comment)));
+  getReviewsForProduct(productId: string): Observable<Review[]> {
+    return this.http.get<Review[]>(this.apiProductsUrl + `/${productId}/reviews`);
 
   }
 
