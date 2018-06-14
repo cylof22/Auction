@@ -21,6 +21,8 @@ export class ReviewComponent implements OnInit {
   newComment: string;
   newRating: number;
 
+  errorMessage: string;
+
   isReviewHidden: boolean = true;
   isFollowee: boolean = false;
 
@@ -31,17 +33,24 @@ export class ReviewComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.productService.getReviewsForProduct(this.product.id)
-      .subscribe(
+    .retryWhen(errors => {
+      return errors
+        .delay(10000) // Retry every 2 seconds
+        //.take(3)   // Max number of retries
+        .do(() => this.errorMessage += '.'); // Update the UI
+    })
+    .finally(() => this.errorMessage = null)
+    .subscribe(
         reviews => { 
           this.reviews = reviews;
-          this.isReviewHidden = this.reviews == null || this.reviews.length == 0;
         },
         error => { 
           this.isReviewHidden = true;
           console.error(error);
         }
-      )
+    )
   }
 
   addReview() {
@@ -49,13 +58,12 @@ export class ReviewComponent implements OnInit {
       this.newRating, this.newComment);
 
     // post the review data
-    var errResp: HttpErrorResponse;
-    this.productService.addReviewForProduct(this.product.id, review).subscribe( resp => errResp = resp);
-    if (errResp.status != 200) {
-      alert(errResp.statusText);
-      return ;
-    }
-    
+    this.productService.addReviewForProduct(this.product.id, review).subscribe( resp => {
+      if (resp != null) {
+        alert(resp.message);
+      }
+    });
+
     if(this.reviews == null) {
       this.reviews = [review] 
     } else {
