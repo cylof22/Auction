@@ -1,5 +1,5 @@
 import {EventEmitter, Injector, Injectable, InjectionToken} from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import { Product, UploadProduct } from '../product.model/product';
 import { Review } from '../product.model/review';
@@ -51,7 +51,10 @@ export class ProductService {
 
   getReviewsForProduct(productId: string): Observable<Review[]> {
     return this.http.get<Review[]>(this.apiProductsUrl + `/${productId}/reviews`);
+  }
 
+  addReviewForProduct(productId: string, review: Review): Observable<HttpErrorResponse> {
+    return this.http.post<HttpErrorResponse>(this.apiProductsUrl + `/${productId}` + "/reviews/add", review);
   }
 
   updateProduct(productId: string, productData: UploadProduct): Observable<string> {

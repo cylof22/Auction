@@ -3,6 +3,7 @@ import { Product } from './../product.model/product';
 import { Review } from '../product.model/review';
 import { ProductService } from '../service/product.service';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'auction-review',
@@ -30,8 +31,7 @@ export class ReviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productService
-      .getReviewsForProduct(this.product.id)
+    this.productService.getReviewsForProduct(this.product.id)
       .subscribe(
         reviews => { 
           this.reviews = reviews;
@@ -40,16 +40,22 @@ export class ReviewComponent implements OnInit {
         error => { 
           this.isReviewHidden = true;
           console.error(error);
-        })
-
-      
+        }
+      )
   }
 
   addReview() {
-    // Get user infor
     let review = new Review(0, this.product.id, new Date(), this.currentUser,
       this.newRating, this.newComment);
 
+    // post the review data
+    var errResp: HttpErrorResponse;
+    this.productService.addReviewForProduct(this.product.id, review).subscribe( resp => errResp = resp);
+    if (errResp.status != 200) {
+      alert(errResp.statusText);
+      return ;
+    }
+    
     if(this.reviews == null) {
       this.reviews = [review] 
     } else {
