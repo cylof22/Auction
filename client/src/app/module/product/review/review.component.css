@@ -2,6 +2,13 @@
     width: 100%;
 }
 
-.comment-detail {
-    padding-top: 10px;
+.review-tools {
+    margin-left: 45%;
+    margin-right: 45%;
+}
+
+.review-tool {
+    padding-left: 10px;
+    padding-right: 10px;
+    float: left;
 }

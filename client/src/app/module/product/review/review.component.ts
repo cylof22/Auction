@@ -21,6 +21,7 @@ export class ReviewComponent implements OnInit {
   newRating: number;
 
   isReviewHidden: boolean = true;
+  isFollowee: boolean = false;
 
   constructor(private productService: ProductService, private authService: AuthenticationService) { 
     this.validUser = true;
@@ -69,5 +70,13 @@ export class ReviewComponent implements OnInit {
     this.newRating = 0;
     this.newComment = null;
     this.isReviewHidden = true;
+  }
+
+  followme() {
+    this.isFollowee = true;
+  }
+
+  unfollow() {
+   this.isFollowee = false;
   }
 }
