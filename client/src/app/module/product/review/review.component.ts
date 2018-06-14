@@ -13,31 +13,40 @@ export class ReviewComponent implements OnInit {
   @Input() product: Product;
   reviews: Review[];
 
+  validUser : boolean;
+
+  currentUser: string;
+
   newComment: string;
   newRating: number;
 
   isReviewHidden: boolean = true;
 
   constructor(private productService: ProductService, private authService: AuthenticationService) { 
-    
+    this.validUser = true;
+    this.currentUser = this.authService.currentUser.username;
+    //this.validUser = this.currentUser == this.product.owner || this.currentUser.length == 0;
   }
 
   ngOnInit() {
     this.productService
       .getReviewsForProduct(this.product.id)
       .subscribe(
-        reviews => this.reviews = reviews,
-        error => console.error(error));
+        reviews => { 
+          this.reviews = reviews;
+          this.isReviewHidden = this.reviews == null || this.reviews.length == 0;
+        },
+        error => { 
+          this.isReviewHidden = true;
+          console.error(error);
+        })
+
+      
   }
 
   addReview() {
     // Get user infor
-    let userName = this.authService.currentUser.username;
-    if(userName.length == 0) {
-      userName = 'Anonymous';
-    }
-
-    let review = new Review(0, this.product.id, new Date(), userName,
+    let review = new Review(0, this.product.id, new Date(), this.currentUser,
       this.newRating, this.newComment);
 
     if(this.reviews == null) {
