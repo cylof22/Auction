@@ -116,7 +116,6 @@ export class ReviewComponent implements OnInit {
   }
 
   followme() {
-    alert(this.userID);
     let followee = new Followee(this.product.id, this.userID, this.currentUser, new Date());
 
      // post the followee data
