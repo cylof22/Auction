@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from './../product.model/product';
 import { Review } from '../product.model/review';
+import { Followee } from '../product.model/followee';
 import { ProductService } from '../service/product.service';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -13,10 +14,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ReviewComponent implements OnInit {
   @Input() product: Product;
   reviews: Review[];
+  followees : Followee[];
 
   validUser : boolean;
-
   currentUser: string;
+  userID : string;
 
   newComment: string;
   newRating: number;
@@ -34,11 +36,13 @@ export class ReviewComponent implements OnInit {
     this.currentUser = this.authService.currentUser.username;
     this.followeeCount = 0;
     this.commentCount = 0;
+    this.userID = this.authService.currentUser.id;
+    alert(this.userID);
+
     //this.validUser = this.currentUser == this.product.owner || this.currentUser.length == 0;
   }
 
   ngOnInit() {
-
     this.productService.getReviewsForProduct(this.product.id)
     .retryWhen(errors => {
       return errors
@@ -57,9 +61,27 @@ export class ReviewComponent implements OnInit {
           console.error(error);
         }
     )
+
+    this.productService.getFolloweeForProduct(this.product.id)
+      .retryWhen(errors => {
+        return errors
+          .delay(2000)
+          .do(() => this.errorMessage += '.');
+      })
+      .finally(() => this.errorMessage = null)
+      .subscribe(
+        followees => {
+          this.followees = followees;
+          this.followeeCount = this.followees.length;
+        },
+        error => {
+          console.error(error)
+        }
+      )
   }
 
   addReview() {
+    // generate random id
     let review = new Review(0, this.product.id, new Date(), this.currentUser,
       this.newRating, this.newComment);
 
@@ -94,12 +116,31 @@ export class ReviewComponent implements OnInit {
   }
 
   followme() {
+    alert(this.userID);
+    let followee = new Followee(this.product.id, this.userID, this.currentUser, new Date());
+
+     // post the followee data
+     this.productService.addFolloweeForProduct(this.product.id, followee).subscribe( resp => {
+      if (resp != null) {
+        alert(resp.status);
+        return ;
+      }
+    });
+
     this.isFollowee = true;
     this.followeeCount += 1;
   }
 
   unfollow() {
-   this.isFollowee = false;
-   this.followeeCount -= 1;
+    // delete the followee data
+    this.productService.deleteFolloweeForProduct(this.product.id, this.userID).subscribe( resp => {
+      if(resp != null) {
+        alert(resp.status);
+        return ;
+      }
+    });
+    
+    this.isFollowee = false;
+    this.followeeCount -= 1;
   }
 }

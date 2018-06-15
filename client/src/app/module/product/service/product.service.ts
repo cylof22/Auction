@@ -6,6 +6,7 @@ import { Review } from '../product.model/review';
 
 import 'rxjs/add/operator/map';
 import { User } from '../../user/user.model/user';
+import { Followee } from '../product.model/followee';
 export const API_PRODUCTS_SERVICE_URL = new InjectionToken<string>("api-products-url");
 export const API_SEARCH_SERVICE_URL = new InjectionToken<string>("api-search-url");
 export const API_SOCIAL_SERVICE_URL = new InjectionToken<string>("api-social-url");
@@ -61,11 +62,15 @@ export class ProductService {
     return this.http.post<HttpErrorResponse>(this.apiSocialURL + `/${productId}` + "/reviews/add", review);
   }
 
-  getFolloweeForProduct(productId: string): Observable<User[]> {
-    return this.http.get<User[]>(this.apiSocialURL + `/${productId}/followees`);
+  getFolloweeForProduct(productId: string): Observable<Followee[]> {
+    return this.http.get<Followee[]>(this.apiSocialURL + `/${productId}/followees`);
   }
 
-  addFolloweeForProduct(productId: string, user: User): Observable<HttpErrorResponse> {
+  deleteFolloweeForProduct(productId: string, userId: string) : Observable<HttpErrorResponse> {
+    return this.http.delete<HttpErrorResponse>(this.apiSocialURL + `/${productId}` + `/${userId}` + "/followees/delete");
+  }
+  
+  addFolloweeForProduct(productId: string, user: Followee): Observable<HttpErrorResponse> {
     return this.http.post<HttpErrorResponse>(this.apiSocialURL + `/${productId}` + "/followees/add", user);
   }
 
