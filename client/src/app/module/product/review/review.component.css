@@ -3,12 +3,17 @@
 }
 
 .review-tools {
-    margin-left: 45%;
-    margin-right: 45%;
+    margin-left: 40%;
+    margin-right: 40%;
 }
 
 .review-tool {
     padding-left: 10px;
+    padding-right: 5px;
+    float: left;
+}
+
+.review-value {
     padding-right: 10px;
     float: left;
 }

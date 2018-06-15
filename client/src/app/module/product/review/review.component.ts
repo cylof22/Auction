@@ -21,6 +21,9 @@ export class ReviewComponent implements OnInit {
   newComment: string;
   newRating: number;
 
+  commentCount: number;
+  followeeCount: number;
+
   errorMessage: string;
 
   isReviewHidden: boolean = true;
@@ -29,6 +32,7 @@ export class ReviewComponent implements OnInit {
   constructor(private productService: ProductService, private authService: AuthenticationService) { 
     this.validUser = true;
     this.currentUser = this.authService.currentUser.username;
+    this.followeeCount = 0;
     //this.validUser = this.currentUser == this.product.owner || this.currentUser.length == 0;
   }
 
@@ -45,6 +49,7 @@ export class ReviewComponent implements OnInit {
     .subscribe(
         reviews => { 
           this.reviews = reviews;
+          this.commentCount = this.reviews.length;
         },
         error => { 
           this.isReviewHidden = true;
@@ -60,7 +65,8 @@ export class ReviewComponent implements OnInit {
     // post the review data
     this.productService.addReviewForProduct(this.product.id, review).subscribe( resp => {
       if (resp != null) {
-        alert(resp.message);
+        alert(resp.status);
+        return ;
       }
     });
 
@@ -71,7 +77,7 @@ export class ReviewComponent implements OnInit {
     }
     
     this.product.rating = this.averageRating(this.reviews);
-
+    this.commentCount += 1;
     this.resetForm();
   }
 
@@ -88,9 +94,11 @@ export class ReviewComponent implements OnInit {
 
   followme() {
     this.isFollowee = true;
+    this.followeeCount += 1;
   }
 
   unfollow() {
    this.isFollowee = false;
+   this.followeeCount -= 1;
   }
 }
