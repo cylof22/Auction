@@ -33,6 +33,7 @@ export class ReviewComponent implements OnInit {
     this.validUser = true;
     this.currentUser = this.authService.currentUser.username;
     this.followeeCount = 0;
+    this.commentCount = 0;
     //this.validUser = this.currentUser == this.product.owner || this.currentUser.length == 0;
   }
 

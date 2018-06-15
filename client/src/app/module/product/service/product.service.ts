@@ -5,8 +5,10 @@ import { Product, UploadProduct } from '../product.model/product';
 import { Review } from '../product.model/review';
 
 import 'rxjs/add/operator/map';
+import { User } from '../../user/user.model/user';
 export const API_PRODUCTS_SERVICE_URL = new InjectionToken<string>("api-products-url");
 export const API_SEARCH_SERVICE_URL = new InjectionToken<string>("api-search-url");
+export const API_SOCIAL_SERVICE_URL = new InjectionToken<string>("api-social-url");
 
 export interface ProductSearchParams {
   title: string;
@@ -18,10 +20,12 @@ export class ProductService {
   searchEvent: EventEmitter<any> = new EventEmitter();
   private apiProductsUrl : string;
   private apiSearchUrL: string;
+  private apiSocialURL: string;
 
   constructor(private http: HttpClient, injector : Injector) {
     this.apiProductsUrl = injector.get(API_PRODUCTS_SERVICE_URL);
     this.apiSearchUrL = injector.get(API_SEARCH_SERVICE_URL);
+    this.apiSocialURL = injector.get(API_SOCIAL_SERVICE_URL);
   }
 
   search(queryParams: any): Observable<Product[]> {
@@ -50,11 +54,19 @@ export class ProductService {
   }
 
   getReviewsForProduct(productId: string): Observable<Review[]> {
-    return this.http.get<Review[]>(this.apiProductsUrl + `/${productId}/reviews`);
+    return this.http.get<Review[]>(this.apiSocialURL + `/${productId}/reviews`);
   }
 
   addReviewForProduct(productId: string, review: Review): Observable<HttpErrorResponse> {
-    return this.http.post<HttpErrorResponse>(this.apiProductsUrl + `/${productId}` + "/reviews/add", review);
+    return this.http.post<HttpErrorResponse>(this.apiSocialURL + `/${productId}` + "/reviews/add", review);
+  }
+
+  getFolloweeForProduct(productId: string): Observable<User[]> {
+    return this.http.get<User[]>(this.apiSocialURL + `/${productId}/followees`);
+  }
+
+  addFolloweeForProduct(productId: string, user: User): Observable<HttpErrorResponse> {
+    return this.http.post<HttpErrorResponse>(this.apiSocialURL + `/${productId}` + "/followees/add", user);
   }
 
   updateProduct(productId: string, productData: UploadProduct): Observable<string> {
