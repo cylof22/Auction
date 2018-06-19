@@ -15,7 +15,7 @@ export class ProductItemComponent implements OnInit {
 
   errorMessage: string;
   loverCount: string;
-  shareCount: string;
+  rating: string;
   commentCount: string;
 
   constructor(private sanitizer: DomSanitizer,
@@ -35,7 +35,7 @@ export class ProductItemComponent implements OnInit {
     .subscribe(
         summary => { 
           this.loverCount = summary.followeeCount.toString();
-          this.shareCount = summary.starRated.toString();
+          this.rating = summary.starRated.toString();
           this.commentCount = summary.commentCount.toString();
         },
         error => {
