@@ -37,3 +37,17 @@ footer {
 .starrating.glyphicon-star {
   margin-right: 4px;
 }
+
+.general-button {
+  width: 100px;
+  height: 30px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  background-color: cornflowerblue;
+  color: white;
+  border: none;
+  outline: none;
+}

@@ -1,0 +1,27 @@
+<div class="col-md-12">
+  <div class="row review-tools" [hidden]="validUser">
+      <p class="review-tool" [hidden]="isFollowee" (click)="followme()"><span class="glyphicon glyphicon-heart-empty"></span></p> 
+      <p class="review-tool" [hidden]="!isFollowee" (click)="unfollow()"><span class="glyphicon glyphicon-heart"></span></p>
+      <p class="review-value">{{ followeeCount }}</p>
+      <p class="review-tool"><span class="glyphicon glyphicon-comment" (click)="isReviewHidden = !isReviewHidden"></span></p>
+      <p class="review-value">{{ commentCount }}</p>
+  </div>
+  
+  <div class="row col-md-12" [hidden]="isReviewHidden">
+    <div><auction-stars [(rating)]="newRating" [readonly]="false" class="large pull-left"></auction-stars></div>
+    <div><textarea class="comment-area" [(ngModel)]="newComment"></textarea></div>
+    <div><button (click)="addReview()" class="btn general-button">Comment</button></div>
+  </div>
+
+  <div class="row col-md-12" *ngFor="let review of reviews">
+    <hr style="height:1px;margin-top: 5px;margin-bottom: 5px">
+    <div><auction-stars class= "ratings pull-left" [rating]="review.rating"></auction-stars></div>
+    <div>
+      <span>{{ review.user }}</span>
+      <span class="pull-right">{{ review.timestamp | date: 'shortDate' }}</span>
+    </div>
+    <div>
+      <p class="pull-left">{{ review.comment }}</p>
+    </div>
+  </div>
+</div>
