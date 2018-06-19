@@ -7,6 +7,7 @@ import { Review } from '../product.model/review';
 import 'rxjs/add/operator/map';
 import { User } from '../../user/user.model/user';
 import { Followee } from '../product.model/followee';
+import { SocialSummary } from '../product.model/socialsummary';
 export const API_PRODUCTS_SERVICE_URL = new InjectionToken<string>("api-products-url");
 export const API_SEARCH_SERVICE_URL = new InjectionToken<string>("api-search-url");
 export const API_SOCIAL_SERVICE_URL = new InjectionToken<string>("api-social-url");
@@ -52,6 +53,10 @@ export class ProductService {
 
   getProductById(productId: string): Observable<Product> {
     return this.http.get<Product>(this.apiProductsUrl + `/${productId}`);
+  }
+
+  getSocialSummaryById(productId: string) : Observable<SocialSummary> {
+    return this.http.get<SocialSummary>(this.apiSocialURL + `/${productId}/summary`)
   }
 
   getReviewsForProduct(productId: string): Observable<Review[]> {

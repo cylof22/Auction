@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DomSanitizer } from '@angular/platform-browser';
@@ -10,9 +10,10 @@ import { ProductService } from './../service/product.service';
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.css']
 })
-export class ProductItemComponent {
+export class ProductItemComponent implements OnInit {
   @Input() product: Product;
 
+  errorMessage: string;
   loverCount: string;
   shareCount: string;
   commentCount: string;
@@ -20,18 +21,28 @@ export class ProductItemComponent {
   constructor(private sanitizer: DomSanitizer,
               private productService: ProductService,
               private route:Router) {
-
-    this.loverCount = this.createRandomNumber(5);
-    this.shareCount = this.createRandomNumber(5);
-    this.commentCount = this.createRandomNumber(5);
   }
 
-  createRandomNumber(n){
-    let rnd="";
-    for(let i=0; i<n; i++)
-        rnd += Math.floor(Math.random()*10);
-    return rnd;
-}
+  ngOnInit() {
+    this.productService.getSocialSummaryById(this.product.id)
+    .retryWhen(errors => {
+      return errors
+        .delay(10000) // Retry every 2 seconds
+        //.take(3)   // Max number of retries
+        .do(() => this.errorMessage += '.'); // Update the UI
+    })
+    .finally(() => this.errorMessage = null)
+    .subscribe(
+        summary => { 
+          this.loverCount = summary.followeeCount.toString();
+          this.shareCount = summary.starRated.toString();
+          this.commentCount = summary.commentCount.toString();
+        },
+        error => {
+          console.error(error);
+        }
+    )
+  }
 
   showProduct() {
     this.route.navigate(["/products/" + this.product.id]);
