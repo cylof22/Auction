@@ -1,5 +1,5 @@
 <div class="col-md-12">
-  <div class="row review-tools" [hidden]="!validUser">
+  <div class="row review-tools" [hidden]="validUser">
       <p class="review-tool" [hidden]="isFollowee" (click)="followme()"><span class="glyphicon glyphicon-heart-empty"></span></p> 
       <p class="review-tool" [hidden]="!isFollowee" (click)="unfollow()"><span class="glyphicon glyphicon-heart"></span></p>
       <p class="review-value">{{ followeeCount }}</p>

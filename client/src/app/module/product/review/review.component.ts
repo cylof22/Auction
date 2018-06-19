@@ -32,13 +32,11 @@ export class ReviewComponent implements OnInit {
   isFollowee: boolean = false;
 
   constructor(private productService: ProductService, private authService: AuthenticationService) { 
-    this.validUser = true;
     this.currentUser = this.authService.currentUser.username;
     this.followeeCount = 0;
     this.commentCount = 0;
     this.userID = this.authService.currentUser.id;
-
-    //this.validUser = this.currentUser == this.product.owner || this.currentUser.length == 0;
+    this.validUser = true;
   }
 
   ngOnInit() {
@@ -53,7 +51,9 @@ export class ReviewComponent implements OnInit {
     .subscribe(
         reviews => { 
           this.reviews = reviews;
-          this.commentCount = this.reviews.length;
+          if(reviews != null) {
+            this.commentCount = this.reviews.length;
+          }
         },
         error => { 
           this.isReviewHidden = true;
@@ -71,12 +71,16 @@ export class ReviewComponent implements OnInit {
       .subscribe(
         followees => {
           this.followees = followees;
-          this.followeeCount = this.followees.length;
+          if(followees != null) {
+            this.followeeCount = this.followees.length;
+          }
         },
         error => {
           console.error(error)
         }
       )
+  
+    this.validUser = this.currentUser == this.product.owner || this.currentUser.length == 0;
   }
 
   addReview() {
