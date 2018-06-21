@@ -19,7 +19,7 @@
 
 .item-container .info-container {
   height: 20px;
-
+  width: 100%;
   margin-top: 5px;
   margin-bottom: 5px;
   margin-left: 20px;
@@ -42,35 +42,31 @@
   margin-right: 0;
 }
 
-.item-container .info-container .middle-item {
-  margin-left: 110px;
+.middle-item {
+  margin-left: 25%;
+  margin-right: 25%;
 }
 
-.item-container .info-container .info-group .value {
+.info-container .info-group .value {
   padding: 0;
   margin: 0;
 }
 
-.item-container .info-container .info-group .icon {
+.info-container .info-group .icon {
   width: 15px;
   height: 15px;
 
   padding: 0;
 }
 
-.item-container .info-container .info-group .lover {
+.info-container .info-group .lover {
   margin-top:3px;
-  margin-left: -2px;
+  margin-left: -20px;
 }
 
-.item-container .info-container .info-group .share {
-  margin-top: 2px;
-  margin-right: 1px;
-}
-
-.item-container .info-container .info-group .comment {
+.info-container .info-group .comment {
   margin-top: 3px;
-  margin-right: 2px;
+  margin-right: 40px;
 }
 
 .left {

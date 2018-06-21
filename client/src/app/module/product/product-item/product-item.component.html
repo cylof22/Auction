@@ -1,18 +1,17 @@
 <div class="item-container thumbnail">
   <img [src] = "product.url" (click)="showProduct()" class="image">
 
-  <div class="info-container">
-    <div class="left info-group">
-        <img class="left lover icon" src="static/assets/lover.png">
-        <p class="left value">{{loverCount}}</p>
+  <div class="info-container row col-md-12">
+    <div class="col-md-4 info-group left">
+        <p class="left value"><span class="glyphicon glyphicon-heart-empty"></span>{{loverCount}}</p>
     </div>
-    <div class="middle-item info-group">
-        <img class="left comment icon" src="static/assets/comment.png">
-        <p class="left value">{{commentCount}}</p>
+
+    <div class="col-md-4 info-group middle-item">
+        <auction-stars class= "ratings" [rating]="rating"></auction-stars>
     </div>
-    <div class="right info-group">
-        <p class="right value">{{shareCount}}</p>
-        <img class="right share icon" src="static/assets/share.png">
+
+    <div class="col-md-4 info-group right">
+        <p class="right value"><img class="right comment icon" src="static/assets/comment.png">{{commentCount}}</p>
     </div>
   </div>
 </div>

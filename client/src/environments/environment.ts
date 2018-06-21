@@ -7,6 +7,7 @@ export const environment = {
   production: false,
   productionURL : "http://localhost:8000",
   productsURL: "http://localhost:8000/api/products",
+  socialURL: "http://localhost:8001/api/social/v1",
   styleTransferURL : "http://localhost:9090/styleTransfer",
   aritstTransferURL : "http://localhost:9090/artistStyle",
 };
