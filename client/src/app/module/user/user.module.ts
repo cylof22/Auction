@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-import { UserService, USER_SERVICE_URL } from './service/user.service'
+import { UserService, USER_SERVICE_URL, SOCIAL_SERVICE_URL } from './service/user.service'
 import { UserProfileComponent } from './profile/user.profile.component'
 import { UserMainComponent } from './main/user.main.component'
 import { ConcernUsersComponent } from './concern/users/user.concernusers.component'
@@ -44,6 +44,7 @@ import { NgMasonryGridModule } from 'ng-masonry-grid';
     providers:[
         UserService,
         { provide: USER_SERVICE_URL, useValue: environment.productionURL + "/api/v1" },
+        { provide: SOCIAL_SERVICE_URL, useValue: environment.socialURL},
     ],
 })
 

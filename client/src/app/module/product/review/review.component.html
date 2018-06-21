@@ -3,7 +3,7 @@
       <p class="review-tool" [hidden]="isFollowee" (click)="followme()"><span class="glyphicon glyphicon-heart-empty"></span></p> 
       <p class="review-tool" [hidden]="!isFollowee" (click)="unfollow()"><span class="glyphicon glyphicon-heart"></span></p>
       <p class="review-value">{{ followeeCount }}</p>
-      <p class="review-tool"><span class="glyphicon glyphicon-comment" (click)="isReviewHidden = !isReviewHidden"></span></p>
+      <p class="review-tool" (click)="onAddReview()"><span class="glyphicon glyphicon-comment"></span></p>
       <p class="review-value">{{ commentCount }}</p>
   </div>
   

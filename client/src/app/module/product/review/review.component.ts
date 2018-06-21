@@ -18,7 +18,6 @@ export class ReviewComponent implements OnInit {
 
   validUser : boolean;
   currentUser: string;
-  userID : string;
 
   newComment: string;
   newRating: number;
@@ -35,7 +34,6 @@ export class ReviewComponent implements OnInit {
     this.currentUser = this.authService.currentUser.username;
     this.followeeCount = 0;
     this.commentCount = 0;
-    this.userID = this.authService.currentUser.id;
     this.validUser = true;
   }
 
@@ -53,6 +51,7 @@ export class ReviewComponent implements OnInit {
           this.reviews = reviews;
           if(reviews != null) {
             this.commentCount = this.reviews.length;
+            this.isReviewHidden = this.reviews != null || this.reviews.find(x => x.user == this.currentUser) == null;
           }
         },
         error => { 
@@ -73,6 +72,9 @@ export class ReviewComponent implements OnInit {
           this.followees = followees;
           if(followees != null) {
             this.followeeCount = this.followees.length;
+            this.isFollowee = this.followees.find(x => x.user == this.currentUser) == null;
+          } else {
+            this.isFollowee = false;
           }
         },
         error => {
@@ -81,6 +83,19 @@ export class ReviewComponent implements OnInit {
       )
   
     this.validUser = this.currentUser == this.product.owner || this.currentUser.length == 0;
+  }
+
+  onAddReview() {
+    // check duplicated user
+    if(this.reviews != null) {
+      let existReview = this.reviews.find(x => x.user == this.currentUser)
+      if(existReview != null) {
+        alert("Don't add duplicated review")
+        return 
+      }
+    }
+    
+    this.isReviewHidden = !this.isReviewHidden;
   }
 
   addReview() {
@@ -119,30 +134,30 @@ export class ReviewComponent implements OnInit {
   }
 
   followme() {
-    let followee = new Followee(this.product.id, this.userID, this.currentUser, new Date());
+    let followee = new Followee(this.product.id, this.currentUser, new Date());
 
      // post the followee data
      this.productService.addFolloweeForProduct(this.product.id, followee).subscribe( resp => {
       if (resp != null) {
-        alert(resp.status);
+        alert(resp.error);
         return ;
+      } else {
+        this.isFollowee = true;
+        this.followeeCount += 1;
       }
     });
-
-    this.isFollowee = true;
-    this.followeeCount += 1;
   }
 
   unfollow() {
     // delete the followee data
-    this.productService.deleteFolloweeForProduct(this.product.id, this.userID).subscribe( resp => {
+    this.productService.deleteFolloweeForProduct(this.product.id, this.currentUser).subscribe( resp => {
       if(resp != null) {
-        alert(resp.status);
+        alert(resp.error);
         return ;
+      } else {
+        this.isFollowee = false;
+        this.followeeCount -= 1;
       }
     });
-    
-    this.isFollowee = false;
-    this.followeeCount -= 1;
   }
 }
