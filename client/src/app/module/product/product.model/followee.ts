@@ -1,8 +1,7 @@
 export class Followee {
     constructor(
         public productid: string,
-	    public userid: string,
-        public name: string,
+	    public user: string,
         public timestamp: Date,
     ) {
     }
