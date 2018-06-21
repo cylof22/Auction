@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { ProductService } from './../../../product/service/product.service';
-import { Product } from './../../../product/product.model/product';
+import {  FolloweeProduct } from './../../../product/product.model/followee';
 import { UserService } from './../../service/user.service'
 
 @Component({
@@ -12,7 +12,7 @@ import { UserService } from './../../service/user.service'
 
 export class ConcernProductsComponent {
   @Input("username") username: string;
-  products: Product[];
+  products: FolloweeProduct[];
 
   constructor(private userService: UserService,
               private productService: ProductService) {
@@ -20,17 +20,11 @@ export class ConcernProductsComponent {
 
   ngOnInit() {
     // get concerned products
-/*     this.userService.getConcernedProducts(this.username).subscribe(
-        res => this.products = res
-    )} */
-
-        //this.test();
-    }
-
-    test() {
-        this.productService.getProductsByUser(this.username).subscribe(
-            res => this.products = res
-        )
-    }
+     this.userService.getConcernedProducts(this.username).subscribe(
+        res => {
+          this.products = res;
+          //alert(this.products.length);
+        }
+    )}
 }
 
