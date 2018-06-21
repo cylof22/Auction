@@ -6,3 +6,11 @@ export class Followee {
     ) {
     }
 }
+
+export class FolloweeProduct {
+    constructor(
+        public id : string,
+        public url : string
+    ){
+    }
+}
