@@ -96,3 +96,11 @@
  .fill-height {
     padding-top: 10px;
  }
+
+ .fail {
+    position: relative;
+    top: -60px;
+    color: red;
+
+    text-align: center;
+}

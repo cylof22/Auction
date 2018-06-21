@@ -33,6 +33,9 @@
     </div>
     <div class="col-sm-4 col-lg-4 col-md-4">
         <product-input [isBatch]="false" (onUploadProductData)="onUploadProduct($event)"></product-input>
+        <div *ngIf="errorInfo != ''">
+            <p class="fail">{{errorInfo}}</p>
+        </div>
     </div>
 </div>
 

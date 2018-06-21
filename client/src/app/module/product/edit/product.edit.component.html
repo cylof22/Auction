@@ -10,5 +10,8 @@
                        [product]="product" 
                        (onUploadProductData)="onUploadProduct($event)">
         </product-input>
+        <div *ngIf="errorInfo != ''">
+            <p class="fail">{{errorInfo}}</p>
+        </div>
     </div>
 </div>

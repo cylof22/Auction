@@ -17,6 +17,21 @@
     padding-left: 20px;
 }
 
+.preview-group p{
+    margin: 0;
+    padding: 0;
+}
+
+.preview-group .image-div {
+    margin-top: 5px;
+    padding: 0;
+}
+
+.preview-group .image-div .image {
+    max-width: 100%;
+    height: auto;
+}
+
 #centeredmenu {
     float:left;
     width:100%;
@@ -73,13 +88,21 @@
  .footer-button {
     width: 80px;
     height: 30px;
-    color: white;
-    background-color: cornflowerblue;
+    color: cornflowerblue;
+    background-color: white;
 
-    border: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: cornflowerblue;
     outline: none;
 
     border-radius: 20px;
+
+    line-height: 5px;
+ }
+
+ .footer-button:focus {
+    outline: none;
  }
 
  .actived {

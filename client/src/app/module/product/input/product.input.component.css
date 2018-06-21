@@ -125,3 +125,7 @@
 .right {
     float: right;
 }
+
+.button-group {
+    margin-top: 40px;
+}

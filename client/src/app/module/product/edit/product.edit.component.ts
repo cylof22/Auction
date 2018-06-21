@@ -12,6 +12,7 @@ import { UploadProduct, Product } from '../../product/product.model/product'
 
 export class ProductEditComponent {
     product: Product
+    errorInfo: string = '';
 
     constructor(private productService: ProductService,
                 private activeRoute: ActivatedRoute,
@@ -26,9 +27,13 @@ export class ProductEditComponent {
         updateProduct.picData = this.product.url;
         this.productService.updateProduct(this.product.id, updateProduct).subscribe(
             output => {
-                // handle error
-
-                this.router.navigate(["/products/" + this.product.id]);
+                if (output == null) {
+                    this.router.navigate(["/products/" + this.product.id]);
+                } else {
+                    if (output.hasOwnProperty('error')) {
+                        this.errorInfo = output['error'];
+                    }
+                }
             }
         );
     }

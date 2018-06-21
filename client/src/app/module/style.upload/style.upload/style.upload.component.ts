@@ -19,6 +19,8 @@ export class StyleUploadComponent {
     showTransferDlg: boolean = false;
     showReselectCtrl: boolean = false;
 
+    errorInfo: string = '';
+
     imgBlob : File = null;
     constructor(private productService: ProductService,
                 private uploadService: StyleUploadService,
@@ -45,6 +47,10 @@ export class StyleUploadComponent {
     }
 
     selectFile() {
+        if (this.errorInfo != '') {
+            this.errorInfo = '';
+        }
+        
         var selectCtrl = document.getElementById("imagePath");
         selectCtrl.click();
     }
@@ -76,7 +82,11 @@ export class StyleUploadComponent {
         let img = document.getElementById("imagePreview");
         uploadProduct.picData = img.getAttribute("src");
         this.uploadService.uploadData(uploadProduct).subscribe( output => {
-            location.href = "/#/";
+            if (output.hasOwnProperty('error')) {
+                this.errorInfo = output['error'];
+            } else {
+                location.href = "/#/";
+            }
         });
     }
 
